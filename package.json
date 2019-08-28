@@ -1,0 +1,24 @@
+{
+  "name": "event_organizer",
+  "version": "1.0.0",
+  "description": "A webapp for organizing a conference/event from beginning to end.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neerajp99/event_organizer.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neerajp99/event_organizer/issues"
+  },
+  "homepage": "https://github.com/neerajp99/event_organizer#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.6.11"
+  }
+}
