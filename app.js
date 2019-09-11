@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const users = require("/routes/api/users")
+const users = require("./routes/api/users");
 
 const app = express();
 
@@ -10,10 +10,9 @@ app.use(
     extended: false
   })
 );
-
 app.use(bodyParser.json());
 
-const db = require('./config/keys').mongoURI
+const db = require("./config/keys").mongoURI;
 mongoose
   .connect(
     db,
@@ -27,7 +26,7 @@ mongoose
   });
 
 // Use Route
-app.use("/api/users", users)
+app.use("/api/users", users);
 
 const port = process.env.PORT || 4002;
 app.listen(port, () => {
