@@ -6,6 +6,10 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 // Bring in User model
 const User = require("../../models/User");
+// bring in passport
+const passport = require("passport");
+// bring in connection keys
+const keys = require("../../config/keys");
 
 // @route POST /api/users/register
 // @description Reister New User
@@ -50,4 +54,48 @@ router.post("/register", (req, res) => {
   });
 });
 
+// @route POST /api/users/login
+// @description Login User /Returing JSON Web Token
+// @access Public
+
+router.post("/login", (req, res) => {
+  // take email and password
+  const email = req.body.email;
+  const password = req.body.password;
+
+  User.findOne({
+    email
+  }).then(user => {
+    if (!user) {
+      res.status(403).json("No user with this email address is regsistered.");
+    }
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        // if user password is matched,
+        // create json web token payload
+        const payload = {
+          id: user.id,
+          name: user.name
+        };
+
+        // sign in
+        jwt.sign(
+          payload,
+          keys.secretOrKey,
+          {
+            expiresIn: 4200
+          },
+          (error, token) => {
+            res.json({
+              success: true,
+              token: "Bearer" + token
+            });
+          }
+        );
+      } else {
+        res.status(400).json("Incorrect password.");
+      }
+    });
+  });
+});
 module.exports = router;
