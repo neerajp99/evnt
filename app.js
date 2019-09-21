@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const users = require("./routes/api/users");
+const passport = require('passport')
 
 // Initialze app
 const app = express();
@@ -30,6 +31,12 @@ mongoose
 
 // Use Route
 app.use("/api/users", users);
+
+//Adding passport middleware
+app.use(passport.initialize());
+
+//Passport Config strategy eg: Local strategy, google stragtegy, JWT strategy etc
+require("./config/passport")(passport);
 
 const port = process.env.PORT || 4002;
 app.listen(port, () => {
