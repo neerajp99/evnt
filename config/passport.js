@@ -10,7 +10,7 @@ const mongoose = require("mongoose");
 //bring in User model
 const User = require("../models/User");
 // bring in connection keys
-const keys = require("keys");
+const keys = require("./keys");
 
 // initializing opts an empty object
 const opts = {};
