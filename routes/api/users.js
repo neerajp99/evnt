@@ -88,7 +88,7 @@ router.post("/login", (req, res) => {
           (error, token) => {
             res.json({
               success: true,
-              token: "Bearer" + token
+              token: "Bearer " + token
             });
           }
         );
@@ -98,4 +98,5 @@ router.post("/login", (req, res) => {
     });
   });
 });
+
 module.exports = router;
