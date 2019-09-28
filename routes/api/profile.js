@@ -25,3 +25,25 @@ router.get("/", passport.authenticate("jwt", { sesion: false }), (req, res) => {
       res.status(404).json(error);
     });
 });
+
+// @route GET /api/profile/handle/:handle
+// @description Get user profile by handle
+// @access Public
+router.get("/handle/:handle", (req, res) => {
+  Profile.findOne({
+    handle: req.params.handle
+  })
+    .then(profile => {
+      if (!profile) {
+        res.status(404).json("No profile found with this handle");
+      }
+      
+      // if profile is found
+      res.json(profile);
+    })
+    .catch(error => {
+      res.status(404).json(error);
+    });
+});
+
+module.exports = router;
