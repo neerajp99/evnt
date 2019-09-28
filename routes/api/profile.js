@@ -37,7 +37,27 @@ router.get("/handle/:handle", (req, res) => {
       if (!profile) {
         res.status(404).json("No profile found with this handle");
       }
-      
+
+      // if profile is found
+      res.json(profile);
+    })
+    .catch(error => {
+      res.status(404).json(error);
+    });
+});
+
+// @route GET /api/profile/user/:user_id
+// @description Get user profile by user id
+// @access Public
+router.get("/user/:user_id", (req, res) => {
+  Profile.findOne({
+    user: req.params.user_id
+  })
+    .then(profile => {
+      if (!profile) {
+        res.status(404).json("No profile found with this user");
+      }
+
       // if profile is found
       res.json(profile);
     })
