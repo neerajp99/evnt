@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const express = require("express");
-const router = mongoose.Router();
+const router = express.Router();
 const User = require("../../models/User");
 const Profile = require("../../models/Profile");
 const jwt = require("jsonwebtoken");
@@ -14,7 +14,7 @@ router.get("/", passport.authenticate("jwt", { sesion: false }), (req, res) => {
   Profile.findOne({
     user: req.user.id
   })
-    .populate("user", ["name"])
+    .populate("user", ["name", "avatar"])
     .then(profile => {
       if (!profile) {
         return res.status(404).status("There is no profile for this user.");
@@ -33,6 +33,7 @@ router.get("/handle/:handle", (req, res) => {
   Profile.findOne({
     handle: req.params.handle
   })
+    .populate("user", ["name"])
     .then(profile => {
       if (!profile) {
         res.status(404).json("No profile found with this handle");
@@ -53,6 +54,7 @@ router.get("/user/:user_id", (req, res) => {
   Profile.findOne({
     user: req.params.user_id
   })
+    .populate("user", ["name"])
     .then(profile => {
       if (!profile) {
         res.status(404).json("No profile found with this user");

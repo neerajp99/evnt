@@ -67,7 +67,7 @@ router.post("/login", (req, res) => {
     email
   }).then(user => {
     if (!user) {
-      res.status(403).json("No user with this email address is regsistered.");
+      res.status(403).json("No user with this email address is registered.");
     }
     bcrypt.compare(password, user.password).then(isMatch => {
       if (isMatch) {
@@ -81,7 +81,7 @@ router.post("/login", (req, res) => {
         // sign in
         jwt.sign(
           payload,
-          keys.secretOrKey,
+          keys.secretOrkey,
           {
             expiresIn: 4200
           },

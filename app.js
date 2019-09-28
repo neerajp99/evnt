@@ -2,7 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const users = require("./routes/api/users");
-const passport = require('passport')
+const passport = require("passport");
+const profile = require("./routes/api/profile");
 
 // Initialze app
 const app = express();
@@ -31,6 +32,7 @@ mongoose
 
 // Use Route
 app.use("/api/users", users);
+app.use("/api/profile", profile);
 
 //Adding passport middleware
 app.use(passport.initialize());
