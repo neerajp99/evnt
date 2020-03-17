@@ -59,7 +59,7 @@ router.get("/user/:user_id", (req, res) => {
       if (!profile) {
         res.status(404).json("No profile found with this user");
       }
-
+      
       // if profile is found
       res.json(profile);
     })
