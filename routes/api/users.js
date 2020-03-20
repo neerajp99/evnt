@@ -22,7 +22,7 @@ router.post("/register", (req, res) => {
     if (user) {
       res.status(400).json("User with this email address already exists.");
     } else {
-      // if user does not exist, create an objet with new user credenials
+      // if user does not exist, create an object with new user credentials
       const newUser = new User({
         name: req.body.name,
         email: req.body.email,
@@ -43,6 +43,7 @@ router.post("/register", (req, res) => {
               .save()
               .then(user => {
                 res.json(user);
+                console.log("User Registered Successfully");
               })
               .catch(error => {
                 console.log(error);
@@ -77,7 +78,7 @@ router.post("/login", (req, res) => {
           id: user.id,
           name: user.name
         };
-
+        console.log("Logged In Successfully");
         // sign in
         jwt.sign(
           payload,
@@ -88,7 +89,8 @@ router.post("/login", (req, res) => {
           (error, token) => {
             res.json({
               success: true,
-              token: "Bearer " + token
+              token: "Bearer " + token,
+              payload
             });
           }
         );
@@ -106,12 +108,20 @@ router.post("/login", (req, res) => {
 router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    res.json({
-      id: req.user.id,
-      name: req.user.name,
-      email: req.user.email
-    });
+  (req, res,err) => {
+    if (err) {
+      res.json({
+        "error" : "Error authenticating"
+      })
+      console.log(err);
+    }
+    else {
+      res.json({
+        id: req.user.id,
+        name: req.user.name,
+        email: req.user.email
+      });
+    }
   }
 );
 
