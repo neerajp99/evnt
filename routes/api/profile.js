@@ -10,21 +10,28 @@ const passport = require("passport");
 // @description Get current user's profile
 // @access Private
 
-router.get("/", passport.authenticate("jwt", { sesion: false }), (req, res) => {
-  Profile.findOne({
-    user: req.user.id
-  })
-    .populate("user", ["name", "avatar"])
-    .then(profile => {
-      if (!profile) {
-        return res.status(404).status("There is no profile for this user.");
-      }
-      res.json(profile);
+router.get(
+  "/",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    const errors = {};
+    Profile.findOne({
+      user: req.user.id
     })
-    .catch(error => {
-      res.status(404).json(error);
-    });
-});
+      .populate("user", ["name", "avatar"])
+
+      .then(profile => {
+        if (!profile) {
+          errors.noprofile = "There is no profile for this user";
+          return res.status(404).json(errors);
+        }
+        res.json(profile);
+      })
+      .catch(error => {
+        res.status(404).json(error);
+      });
+  }
+);
 
 // @route GET /api/profile/handle/:handle
 // @description Get user profile by handle
@@ -59,7 +66,7 @@ router.get("/user/:user_id", (req, res) => {
       if (!profile) {
         res.status(404).json("No profile found with this user");
       }
-      
+
       // if profile is found
       res.json(profile);
     })
@@ -100,16 +107,16 @@ router.post(
     // social links goes here
     profileData.social = {};
     if (req.body.facebook) {
-      profileData.social.facebook = req.body.facebook;
+      profileData.social.facebook = `https://facebook.com/` + req.body.facebook;
     }
     if (req.body.twitter) {
-      profileData.social.twitter = req.body.twitter;
+      profileData.social.twitter = `twitter.com/` + req.body.twitter;
     }
     if (req.body.linkedin) {
       profileData.social.linkedin = req.body.linkedin;
     }
     if (req.body.github) {
-      profileData.social.github = req.body.github;
+      profileData.social.github = `https://github.com/` + req.body.github;
     }
 
     Profile.findOne({
