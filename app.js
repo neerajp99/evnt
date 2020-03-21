@@ -5,6 +5,7 @@ const users = require("./routes/api/users");
 const passport = require("passport");
 const profile = require("./routes/api/profile");
 const avatar = require("./routes/api/avatar");
+const talk = require("./routes/api/talk");
 
 // Initialze app
 const app = express();
@@ -35,6 +36,7 @@ mongoose
 app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/avatar", avatar);
+app.use("/api/talk",talk);
 
 //Adding passport middleware
 app.use(passport.initialize());
