@@ -54,7 +54,13 @@ router.post(
     if(req.body.description) {
       newTalk.description = req.body.description;
     }
-
+    if(req.body.additionalDetails) {
+        newTalk.additionalDetails = req.body.additionalDetails;
+    }
+    if(req.body.outcome) {
+        newTalk.outcome = req.body.outcome;
+    }
+    
     Talk.findOne({
         user : req.user.id
     })
@@ -80,7 +86,7 @@ router.post(
                 })
           }
           else {
-              //As profiles doesn't exists create it
+              //As talk doesn't exists create it
               new Talk(newTalk)
                 .save()
                 .then((talk) => {
