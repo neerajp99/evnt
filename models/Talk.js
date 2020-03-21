@@ -30,6 +30,10 @@ const talkSchema = new Schema({
     },
     outcome : {
         type : String
+    },
+    shortlisted : {
+        type : String,
+        default : "false"
     }
 
 });
