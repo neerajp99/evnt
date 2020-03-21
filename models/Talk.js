@@ -25,7 +25,7 @@ const talkSchema = new Schema({
     description : {
         type : String,
     },
-    additionalDescription : {
+    additionalDetails : {
         type : String
     },
     outcome : {
