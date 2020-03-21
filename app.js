@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const users = require("./routes/api/users");
 const passport = require("passport");
 const profile = require("./routes/api/profile");
+const avatar = require("./routes/api/avatar");
 
 // Initialze app
 const app = express();
@@ -21,8 +22,7 @@ const db = require("./config/keys").mongoURI;
 mongoose
   .connect(
     db,
-    { useNewUrlParser: true,
-      useUnifiedTopology: true }
+    { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => {
     console.log("Database connected successfully!");
@@ -34,6 +34,7 @@ mongoose
 // Use Route
 app.use("/api/users", users);
 app.use("/api/profile", profile);
+app.use("/api/avatar", avatar);
 
 //Adding passport middleware
 app.use(passport.initialize());
