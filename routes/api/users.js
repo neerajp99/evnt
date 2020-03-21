@@ -109,19 +109,20 @@ router.get(
   "/current",
   passport.authenticate("jwt", { session: false }),
   (req, res,err) => {
-    if (err) {
-      res.json({
-        "error" : "Error authenticating"
+    User.findById({
+      _id : req.user.id
+    })
+      .then((user) => {
+        if(!user) {
+          res.status(404).json("User not found");
+        }
+        else {
+          res.status(200).json(user);
+        }
       })
-      console.log(err);
-    }
-    else {
-      res.json({
-        id: req.user.id,
-        name: req.user.name,
-        email: req.user.email
-      });
-    }
+      .catch((err) => {
+          res.json(err);
+      })
   }
 );
 
