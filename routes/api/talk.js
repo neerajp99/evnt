@@ -28,9 +28,55 @@ router.get(
     }
 ) 
 
- // @route POST /api/profile/
+// @route GET /api/talk/shortlisted/id
+// @description Shortlist talks
+// @access PUBLIC
+
+router.get(
+  "/shortlisted/:id", (req,res) => {
+    Talk.findByIdAndUpdate(
+      {
+        _id : req.params.id
+      },
+      {
+        shortlisted : "true"
+      }
+    )
+      .then((talk) => {
+          if(!talk) {
+            return res.status(404).json("Sorry, Talk not found");
+          }
+          res.status(200).json(talk);
+      })
+      .catch((err) => {
+        res.status(404).json(err);
+      })
+  })
+
+// @route GET /api/talk/shortlisted
+// @description Shortlisted talks
+// @access PUBLIC
+
+router.get(
+  "/shortlisted",(req,res) => {
+    Talk.findOne({
+        shortlisted : "true"
+    })
+      .then((talk) => {
+          if(!talk) {
+            return res.status(404).json("No talks were shortlisted");
+          }
+          res.status(200).json(talk);
+      })
+      .catch((err) => {
+          res.status(404).json(err);
+      })
+  })
+
+// @route POST /api/talk/
 // @description Create talks for user
 // @access PRIVATE
+
 router.post(
   "/",
   passport.authenticate("jwt", {session : false}),
