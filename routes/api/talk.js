@@ -24,6 +24,8 @@ router.get(
           else {
             res.json({talk})
           }
+        }).catch((err) =>{
+          res.status(404).json(err)
         })
     }
 ) 
@@ -106,45 +108,47 @@ router.post(
     if(req.body.outcome) {
         newTalk.outcome = req.body.outcome;
     }
-    
-    Talk.findOne({
-        user : req.user.id
+   
+    new Talk(newTalk)
+    .save()
+    .then((talk) => {
+      res.status(200).json(talk);
     })
-        .then((talk) =>{
-          if(talk) {
-          //If talk exists update it
-            Talk.findOneAndUpdate(
-              {
-                user : req.user.id
-              },
-              {
-                $set : newTalk               
-              },
-              {
-                 new : true
-              }
-            )
-              .then((talk) => {
-                  res.json(talk);
-              })
-                .catch((err) => {
-                  res.json(err);
-                })
-          }
-          else {
-              //As talk doesn't exists create it
-              new Talk(newTalk)
-                .save()
-                .then((talk) => {
-                    res.status(200).json({talk})
-                })
-                .catch((err)=> {
-                    res.status(404).json(err)
-                })
-          }
-        })
+    .catch((err) => {
+      res.status(404).json(err);
+    })
   }
-
 )
 
+// @route POST /api/talk/
+// @description Update talk 
+// @access PRIVATE
+
+router.post(
+  "/update/:id",
+  passport.authenticate("jwt", {session : false}),
+  (req,res) => {
+    Talk.findByIdAndUpdate(
+      {
+        _id : req.params.id
+      },
+      {
+        "title" : req.body.title,
+         "elevatorPitch" : req.body.elevatorPitch,
+         "talkDuration" : req.body.talkDuration,
+         "audienceLevel" : req.body.audienceLevel,
+         "description" : req.body.description,
+         "additionalDetails" : req.body.additionalDetails,
+         "outcome" : req.body.outcome,
+         "shortlisted" : req.body.shortlisted,  
+      }
+    )
+    .then((talk) => {
+      res.status(200).json(talk);
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    })
+  }
+)
 module.exports = router;
