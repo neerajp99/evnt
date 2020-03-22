@@ -20,11 +20,11 @@ const EventSchema = new Schema({
   },
   endDate: {
     type: Date,
-    required: True
+    required: true
   },
   description: {
     type: String,
-    required: True
+    required: true
   },
   website: {
     type: String
