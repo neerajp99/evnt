@@ -14,6 +14,7 @@ const keys = require("../../config/keys");
 // @route GET /api/ownerUsers/register
 // @description Register Owners of events
 // @access Public
+
 router.post("/register", (req, res) => {
   OwnerUser.findOne({
     email: req.body.email
@@ -21,11 +22,11 @@ router.post("/register", (req, res) => {
     if (owner) {
       res.status(400).json("Owner already exists!");
     } else {
-      const newOwner = {
-        name: req.body.email,
+      const newOwner = new OwnerUser({
+        name: req.body.name,
         email: req.body.email,
         password: req.body.password
-      };
+      });
 
       // Hash the password before storing into the database
       bcrypt.genSalt(10, (error, salt) => {
@@ -59,50 +60,51 @@ router.post("/login", (req, res) => {
   const password = req.body.password;
 
   // Check if user exists or not,
-  OwnerUsers.findOne({
+  OwnerUser.findOne({
     email
   })
     .then(owner => {
       if (!owner) {
         res.status(403).json("No user is registered with this email address!");
-      } else {
-        // If user exists, decrypt the password from the database and compare
-        bcrypt
-          .compare(password, user.password)
-          .then(isMatch => {
-            if (isMatch) {
-              // Create jwt payload once password matched
-              const payload = {
-                id: user.id,
-                email: user.email,
-                name: user.name
-              };
-              console.log("Owner logged in successfully!");
-
-              jwt.sign(
-                payload,
-                keys.secretOrkey,
-                {
-                  expiresIn: 8000
-                },
-                (error, token) => {
-                  res.json({
-                    success: true,
-                    token: "Bearer" + token,
-                    payload: payload
-                  });
-                }
-              );
-            } else {
-              res.status(400).json("Incorrect password");
-            }
-          })
-          .catch(error => {
-            res.json(error);
-          });
       }
+      console.log(password, owner.password);
+      // If user exists, decrypt the password from the database and compare
+      bcrypt
+        .compare(password, owner.password)
+        .then(isMatch => {
+          if (isMatch) {
+            // Create jwt payload once password matched
+            const payload = {
+              id: owner.id,
+              email: owner.email,
+              name: owner.name
+            };
+            console.log("Owner logged in successfully!");
+            jwt.sign(
+              payload,
+              keys.secretOrkey,
+              {
+                expiresIn: 8000
+              },
+              (error, token) => {
+                res.json({
+                  success: true,
+                  token: "Bearer" + token,
+                  payload: payload
+                });
+              }
+            );
+          } else {
+            res.status(400).json("Incorrect password");
+          }
+        })
+        .catch(error => {
+          res.status(400).json("Password does not match!");
+        });
     })
     .catch(error => {
       res.status(404).json(error);
     });
 });
+
+module.exports = router;
