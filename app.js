@@ -6,7 +6,8 @@ const passport = require("passport");
 const profile = require("./routes/api/profile");
 const avatar = require("./routes/api/avatar");
 const talk = require("./routes/api/talk");
-const event = require("./routes/api/event");
+const events = require("./routes/api/events");
+const ownerUsers = require("./routes/api/ownerUsers");
 
 // Initialze app
 const app = express();
@@ -37,8 +38,9 @@ mongoose
 app.use("/api/users", users);
 app.use("/api/profile", profile);
 app.use("/api/avatar", avatar);
-app.use("/api/talk",talk);
-app.use("/api/event",event);
+app.use("/api/talk", talk);
+app.use("/api/events", events);
+app.use("/api/ownerUsers", ownerUsers);
 
 //Adding passport middleware
 app.use(passport.initialize());
