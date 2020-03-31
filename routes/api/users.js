@@ -41,8 +41,8 @@ router.post("/register", (req, res) => {
             // saving the user credentials to the database
             newUser
               .save()
-              .then(user => {
-                res.json(user);
+              .then(savedUser => {
+                res.json(savedUser);
                 console.log("User Registered Successfully");
               })
               .catch(error => {
