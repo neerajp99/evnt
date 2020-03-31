@@ -13,7 +13,7 @@ const keys = require("../../config/keys");
 
 // @route GET /api/ownerUsers/register
 // @description Register Owners of events
-// @access Private
+// @access Public
 router.post("/register", (req, res) => {
   OwnerUser.findOne({
     email: req.body.email
@@ -48,4 +48,61 @@ router.post("/register", (req, res) => {
       });
     }
   });
+});
+
+// @route POST /api/ownerUsers/login
+// @description Login Owner -> Returs JSON Web Token
+// @access Public
+router.post("/login", (req, res) => {
+  // Get email and password from request body header
+  const email = req.body.email;
+  const password = req.body.password;
+
+  // Check if user exists or not,
+  OwnerUsers.findOne({
+    email
+  })
+    .then(owner => {
+      if (!owner) {
+        res.status(403).json("No user is registered with this email address!");
+      } else {
+        // If user exists, decrypt the password from the database and compare
+        bcrypt
+          .compare(password, user.password)
+          .then(isMatch => {
+            if (isMatch) {
+              // Create jwt payload once password matched
+              const payload = {
+                id: user.id,
+                email: user.email,
+                name: user.name
+              };
+              console.log("Owner logged in successfully!");
+
+              jwt.sign(
+                payload,
+                keys.secretOrkey,
+                {
+                  expiresIn: 8000
+                },
+                (error, token) => {
+                  res.json({
+                    success: true,
+                    token: "Bearer" + token,
+                    payload: payload
+                  });
+                }
+              );
+            } else {
+              res.status(400).json("Incorrect password");
+            }
+          })
+          .catch(error => {
+            res.json(error);
+          });
+      }
+    })
+    .catch(error => {
+      res.status(404).json(error);
+    });
 });
