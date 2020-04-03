@@ -6,7 +6,12 @@ const createEventSchema = new Schema({
     type: String,
     required: true
   },
-  eventDate: {
+  eventBeginDate: {
+    type: Date,
+    // for testing purpose
+    default: Date.now()
+  },
+  eventEndDate: {
     type: Date,
     // for testing purpose
     default: Date.now()
