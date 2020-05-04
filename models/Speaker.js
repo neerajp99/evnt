@@ -21,5 +21,5 @@ const speakerAuthSchema = new Schema({
     }
 })
 
-module.exports = SpeakerAuth = mongoose.model('speakerAuth', speakerAuthSchema)
+module.exports = Speaker = mongoose.model('speakerAuth', speakerAuthSchema)
 
