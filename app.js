@@ -8,6 +8,7 @@ const avatar = require("./routes/api/avatar");
 const talk = require("./routes/api/talk");
 const events = require("./routes/api/events");
 const ownerUsers = require("./routes/api/ownerUsers");
+const speaker = require("./routes/api/speaker")
 
 // Initialze app
 const app = express();
@@ -41,6 +42,7 @@ app.use("/api/avatar", avatar);
 app.use("/api/talk", talk);
 app.use("/api/events", events);
 app.use("/api/ownerUsers", ownerUsers);
+app.use("/api/speaker", speaker)
 
 //Adding passport middleware
 app.use(passport.initialize());
