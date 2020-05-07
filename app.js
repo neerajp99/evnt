@@ -9,6 +9,7 @@ const talk = require("./routes/api/talk");
 const events = require("./routes/api/events");
 const ownerUsers = require("./routes/api/ownerUsers");
 const speaker = require("./routes/api/speaker")
+const speakerProfile = require("./routes/api/speakerProfile")
 
 // Initialze app
 const app = express();
@@ -43,6 +44,7 @@ app.use("/api/talk", talk);
 app.use("/api/events", events);
 app.use("/api/ownerUsers", ownerUsers);
 app.use("/api/speaker", speaker)
+app.use("/api/speakerProfile", speakerProfile)
 
 //Adding passport middleware
 app.use(passport.initialize());
