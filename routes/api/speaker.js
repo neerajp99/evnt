@@ -54,4 +54,78 @@ router.post("/register", (req, res) => {
   });
 });
 
+
+// @route POST /api/speaker/login
+// @description Login Speaker User /Returing JSON Web Token
+// @access Public
+
+router.post("/login", (req, res) => {
+  // take email and password
+  const email = req.body.email;
+  const password = req.body.password;
+
+  Speaker.findOne({
+    email
+  }).then(user => {
+    if (!user) {
+      res.status(403).json("No user with this email address is registered.");
+    }
+    bcrypt.compare(password, user.password).then(isMatch => {
+      if (isMatch) {
+        // if user password is matched,
+        // create json web token payload
+        const payload = {
+          id: user.id,
+          name: user.name
+        };
+        console.log("Logged In Successfully");
+        // sign in
+        jwt.sign(
+          payload,
+          keys.secretOrkey,
+          {
+            expiresIn: 4200
+          },
+          (error, token) => {
+            res.json({
+              success: true,
+              token: "Bearer " + token,
+              payload
+            });
+          }
+        );
+      } else {
+        res.status(400).json("Incorrect password.");
+      }
+    });
+  });
+});
+
+// @route GET /api/speaker/current
+// Return the current logged in speaker
+// Private
+
+router.get(
+  "/current",
+  passport.authenticate("jwt", { session: false }),
+  (req, res,err) => {
+    Speaker.findById({
+      _id : req.user.id
+    })
+      .then((user) => {
+        if(!user) {
+          res.status(404).json("User not found");
+        }
+        else {
+          res.status(200).json(user);
+        }
+      })
+      .catch((err) => {
+          res.json(err);
+      })
+  }
+);
+
+
+
 module.exports = router;
