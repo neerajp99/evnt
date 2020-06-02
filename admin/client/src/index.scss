@@ -12,6 +12,7 @@ code {
     monospace;
 }
 
+// Input Field css goes here
 .input_common {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -29,4 +30,100 @@ code {
   outline: none;
   margin: 0;
   box-sizing: border-box;
+}
+
+.error-css {
+}
+input[type="checkbox"] {
+  display: none !important;
+}
+
+input[type="checkbox"] + label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 20px;
+  font: 14px/20px "Open Sans", Arial, sans-serif;
+  color: #ddd;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+input[type="checkbox"] + label:last-child {
+  margin-bottom: 0;
+}
+
+input[type="checkbox"] + label:before {
+  content: "";
+  display: block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #6cc0e5;
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0.6;
+  -webkit-transition: all 0.12s, border-color 0.08s;
+  transition: all 0.12s, border-color 0.08s;
+}
+
+input[type="checkbox"]:checked + label:before {
+  width: 10px;
+  top: -5px;
+  left: 5px;
+  border-radius: 0;
+  opacity: 1;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.checkbox_label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem !important;
+  color: #fff;
+  margin-top: 1% !important;
+  margin-bottom: 1% !important;
+  color: #1d2537 !important;
+}
+.login_details_checkbox {
+  flex-grow: 1;
+  margin-top: 4%;
+}
+.login_details_forgot {
+  color: #056bd9;
+  font-family: "Montserrat", sans-serif;
+  flex-grow: 1;
+  position: relative;
+  right: -12%;
+  margin-top: 5%;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 20;
+  word-wrap: break-word;
+}
+.register_details_google {
+  margin-top: 7%;
+  width: 100%;
+  font-family: "Open Sans", sans-serif;
+  border-radius: 1rem !important;
+  line-height: calc(1.1vw + 1.1vh + 1vmin) !important;
+  background: transparent !important;
+  border: 2px solid #056bd9;
+  color: #056bd9 !important;
+  font-weight: 600 !important;
+  font-size: calc(0.55vw + 0.55vh + 0.6vmin) !important;
+}
+.register_details_google_icon {
+  height: calc(0.8vh + 0.8vw + 0.8vmin);
+  position: absolute;
+  left: 32%;
+  margin-top: 0.5%;
+}
+.register_details_google2 {
+  margin-top: 6% !important;
 }
