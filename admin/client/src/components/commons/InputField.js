@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Input, Label, Message } from "../../styles/Forms";
 import styled from "styled-components";
 
 const InputField = ({
@@ -7,7 +8,6 @@ const InputField = ({
   value,
   placeholder,
   onChange,
-  icon,
   type,
   id,
   label,
@@ -15,8 +15,8 @@ const InputField = ({
 }) => {
   return (
     <Container>
-      <small className="form-text text-left small form-label">{label}</small>
-      <input
+      <Label htmlFor="label">{label}</Label>
+      <Input
         className="input_common"
         placeholder={placeholder}
         name={name}
@@ -25,7 +25,7 @@ const InputField = ({
         type={type}
         id={error ? "error-css" : ""}
       />
-      {error && <small className="form-error-text text-left">{error}</small>}
+      {error && <Message>{error}</Message>}
     </Container>
   );
 };
@@ -48,4 +48,5 @@ export default InputField;
 
 const Container = styled.div`
   width: 100%;
+  margin-top: 0.8rem;
 `;
