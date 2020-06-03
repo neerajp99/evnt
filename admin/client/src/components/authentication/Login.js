@@ -14,7 +14,8 @@ import {
   ButtonFill,
   ButtonEmpty,
   GoogleImage,
-  GoogleText
+  GoogleText,
+  TwitterImage
 } from "../../styles/Forms";
 
 class Login extends Component {
@@ -38,7 +39,7 @@ class Login extends Component {
             <H1>Log in to Your Account</H1>
             <P>
               {" "}
-              Login to your accoutn so that you can edit and submit talks for
+              Login to your account so that you can edit and submit talks for
               the conference.
             </P>
             <FormGroup>
@@ -71,7 +72,12 @@ class Login extends Component {
               <P>or sign in using</P>
               <ButtonEmpty>
                 <GoogleImage />
-                <GoogleText> Login Using Google</GoogleText>
+              </ButtonEmpty>
+              <ButtonEmpty>
+                <TwitterImage />
+              </ButtonEmpty>
+              <ButtonEmpty>
+                <GoogleImage />
               </ButtonEmpty>
             </FormGroup>
           </InnerContainer>
