@@ -4,7 +4,11 @@
   "description": "Admin part of the web app for organizing a conference/event from beginning to end.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "start": "npm app.js",
+    "app": "nodemon app.js",
+    "client-install": "npm install --prefix client",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run app\" \"npm run client\""
   },
   "repository": {
     "type": "git",
@@ -30,5 +34,8 @@
     "passport-jwt": "^4.0.0",
     "react-router-dom": "^5.1.2",
     "uuid": "^7.0.2"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
   }
 }
