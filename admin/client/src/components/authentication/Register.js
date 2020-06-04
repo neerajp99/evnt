@@ -1,7 +1,11 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import styled from "styled-components";
 import InputField from "../commons/InputField";
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/authActions";
+import PropTypes from "prop-types";
+
 import {
   FormGroup,
   InnerContainer,
@@ -23,14 +27,47 @@ class Register extends Component {
   state = {
     email: "",
     password: "",
+    password2: "",
+    name: "",
     errors: {}
   };
 
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated) {
+      this.props.history.push("/");
+      // window.location.reload();
+    }
+  }
+
+  // Update errors state object
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.errors) {
+      return {
+        errors: nextProps.errors
+      };
+    }
+  }
+
+  // onChange method to change the state of the form fields
   onChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
   };
+
+  // onSubmit method for submitting the form details
+  onSubmit = event => {
+    event.preventDefault();
+    // Create an object
+    const newAdmin = {
+      name: this.state.name,
+      email: this.state.email,
+      password: this.state.password,
+      password2: this.state.password2
+    };
+    this.props.registerUser(newAdmin, this.props.history);
+  };
+
   render() {
     return (
       <Container>
@@ -43,62 +80,68 @@ class Register extends Component {
               talk for the conference.
             </P>
             <FormGroup>
-              <InputField
-                placeholder="Full Name"
-                name="name"
-                value={this.state.email}
-                onChange={this.onChange}
-                error={this.state.errors.email}
-                label="Email"
-              />
-              <InputField
-                placeholder="Email Address"
-                name="email"
-                value={this.state.email}
-                onChange={this.onChange}
-                error={this.state.errors.email}
-                label="Email"
-              />
-              <InputField
-                placeholder="Password"
-                name="password"
-                value={this.state.password}
-                onChange={this.onChange}
-                error={this.state.errors.password}
-                label="Password"
-              />
-              <InputField
-                placeholder="Confirm Password"
-                name="password2"
-                value={this.state.password2}
-                onChange={this.onChange}
-                error={this.state.errors.password2}
-                label="Confirm Password"
-              />
-              <LowerContainer>
-                <LowerContainerDiv>
-                  <Checkbox type="checkbox" id="box-3" />
-                  <Label for="box-3" className="checkbox_label">
-                    <Span>
-                      I agreed to all the statements included in{" "}
-                      <Link className="link" to="/terms">
-                        Terms of use
-                      </Link>{" "}
-                    </Span>
-                  </Label>
-                </LowerContainerDiv>
-              </LowerContainer>
-              <ButtonFill>Sign Up</ButtonFill>
-              <P>or sign up using</P>
-              <ButtonEmpty>
-                <GoogleImage />
-              </ButtonEmpty>
-              <ButtonEmpty>
-                <TwitterImage />
-              </ButtonEmpty>
-              <ButtonEmpty>
-                <GoogleImage />
-              </ButtonEmpty>
+              <form noValidate onSubmit={this.onSubmit}>
+                <InputField
+                  placeholder="Full Name"
+                  name="name"
+                  value={this.state.name}
+                  onChange={this.onChange}
+                  error={this.state.errors.name}
+                  label="Name"
+                  type="text"
+                />
+                <InputField
+                  placeholder="Email Address"
+                  name="email"
+                  value={this.state.email}
+                  onChange={this.onChange}
+                  error={this.state.errors.email}
+                  label="Email"
+                  type="text"
+                />
+                <InputField
+                  placeholder="Password"
+                  name="password"
+                  value={this.state.password}
+                  onChange={this.onChange}
+                  error={this.state.errors.password}
+                  label="Password"
+                  type="password"
+                />
+                <InputField
+                  placeholder="Confirm Password"
+                  name="password2"
+                  value={this.state.password2}
+                  onChange={this.onChange}
+                  error={this.state.errors.password2}
+                  label="Confirm Password"
+                  type="password"
+                />
+                <LowerContainer>
+                  <LowerContainerDiv>
+                    <Checkbox type="checkbox" id="box-3" />
+                    <Label htmlFor="box-3" className="checkbox_label">
+                      <Span>
+                        I agreed to all the statements included in{" "}
+                        <Link className="link" to="/terms">
+                          Terms of use
+                        </Link>{" "}
+                      </Span>
+                    </Label>
+                  </LowerContainerDiv>
+                </LowerContainer>
+                <ButtonFill type="submit">Sign Up</ButtonFill>
+                <P>or sign up using</P>
+                <ButtonEmpty>
+                  <GoogleImage />
+                </ButtonEmpty>
+                <ButtonEmpty>
+                  <TwitterImage />
+                </ButtonEmpty>
+                <ButtonEmpty>
+                  <GoogleImage />
+                </ButtonEmpty>
+              </form>
             </FormGroup>
           </InnerContainer>
         </Card>
@@ -109,7 +152,21 @@ class Register extends Component {
   }
 }
 
-export default Register;
+Register.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object
+};
+
+const mapStateToProps = state => ({
+  errors: state.errors,
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withRouter(Register));
 
 const Container = styled.div`
   width: 100vw;
