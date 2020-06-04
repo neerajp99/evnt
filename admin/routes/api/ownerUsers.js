@@ -84,12 +84,12 @@ router.post("/login", (req, res) => {
               payload,
               keys.secretOrkey,
               {
-                expiresIn: 8000
+                expiresIn: 10000
               },
               (error, token) => {
                 res.json({
                   success: true,
-                  token: "Bearer" + token,
+                  token: "Bearer " + token,
                   payload: payload
                 });
               }
@@ -103,7 +103,7 @@ router.post("/login", (req, res) => {
         });
     })
     .catch(error => {
-      res.status(404).json(error);
+      return res.status(404).json(error);
     });
 });
 
