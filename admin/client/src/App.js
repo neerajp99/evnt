@@ -25,7 +25,7 @@ if (localStorage.adminJWT) {
   const currentTime = new Date() / 1000;
   if (decodedToken.exp < currentTime) {
     // Logout Admin user
-    store.disapatch(logOutAdmin());
+    store.dispatch(logOutAdmin());
 
     // Create an alert for admin user to know
     Swal.fire({
