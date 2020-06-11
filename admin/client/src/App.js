@@ -12,6 +12,7 @@ import setAuthToken from "./utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import { setCurrentAdmin, logOutAdmin } from "./actions/authActions";
 import Swal from "sweetalert2";
+import Home from "./components/Home"
 
 // Check if a user is already logged in
 if (localStorage.adminJWT) {
@@ -43,6 +44,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
+          <Route exact path = "/" component = {Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
         </div>
