@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { fonts } from "./theme";
 import google from "../utils/img/google.png";
 import twitter from "../utils/img/twitter.png";
 
