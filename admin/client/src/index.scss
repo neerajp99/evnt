@@ -131,3 +131,9 @@ input[type="checkbox"]:checked + label:before {
     color: #056bd9;
     text-decoration: none;
 }
+.sidebar_link {
+    text-decoration: none;
+}
+.sidebar_active{
+  background-color: red !important;
+}
