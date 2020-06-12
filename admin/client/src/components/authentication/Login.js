@@ -32,14 +32,14 @@ class Login extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      this.props.history.push("/");
+      this.props.history.push("/dashboard");
     }
   }
 
   static getDerivedStateFromProps(nextProps) {
     const history = createBrowserHistory();
     if (nextProps.auth.isAuthenticated) {
-      history.push("/");
+      history.push("/dashboard");
       window.location.reload();
     }
     // For errors
