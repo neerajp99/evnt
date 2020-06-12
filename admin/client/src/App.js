@@ -12,7 +12,12 @@ import setAuthToken from "./utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import { setCurrentAdmin, logOutAdmin } from "./actions/authActions";
 import Swal from "sweetalert2";
-import Home from "./components/Home"
+import Dashboard from "./components/dashboard/Dashboard";
+import ProtectedRoute from "./components/commons/ProtectedRoute";
+import Attendees from "./components/attendees/Attendees";
+import Cfp from "./components/cfp/Cfp";
+import Event from "./components/event/CreateEvent";
+import Speakers from "./components/speakers/Speakers";
 
 // Check if a user is already logged in
 if (localStorage.adminJWT) {
@@ -44,9 +49,43 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="App">
-          <Route exact path = "/" component = {Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Switch>
+            <ProtectedRoute
+              exact
+              path="/dashboard"
+              // render={() => <Dashboard />}
+              component={Dashboard}
+            />
+          </Switch>
+          <Switch>
+            <ProtectedRoute
+              exact
+              path="/cfp"
+              // render={() => <Dashboard />}
+              component={Cfp}
+            />
+          </Switch>
+          <Switch>
+            <ProtectedRoute
+              exact
+              path="/event"
+              // render={() => <Dashboard />}
+              component={Event}
+            />
+          </Switch>
+          <Switch>
+            <ProtectedRoute
+              exact
+              path="/speakers"
+              // render={() => <Dashboard />}
+              component={Speakers}
+            />
+          </Switch>
+          <Switch>
+            <ProtectedRoute exact path="/attendees" component={Attendees} />
+          </Switch>
         </div>
       </Router>
     </Provider>
