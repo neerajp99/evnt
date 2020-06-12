@@ -128,12 +128,21 @@ input[type="checkbox"]:checked + label:before {
   margin-top: 6% !important;
 }
 .link {
-    color: #056bd9;
-    text-decoration: none;
+  color: #056bd9;
+  text-decoration: none;
 }
 .sidebar_link {
-    text-decoration: none;
+  text-decoration: none;
 }
-.sidebar_active{
-  background-color: red !important;
+.sidebar_active {
+  .sc-fznxsB {
+    color: #3d4fec;
+    border-right: 5px solid #3d4fec;
+    transition: 0.4s all ease-in-out;
+    -webkit-transition: 0.4s all ease-in-out;
+    -mozkit-transition: 0.4s all ease-in-out;
+    .sc-fzoiQi {
+      color: #3d4fec;
+    }
+  }
 }
