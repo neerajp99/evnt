@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Input, Label, Message } from "../../styles/Forms";
+import { Input, Label, Message } from "../authentication/styles/Forms";
 import styled from "styled-components";
 
 const InputField = ({
