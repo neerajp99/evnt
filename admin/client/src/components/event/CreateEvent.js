@@ -52,7 +52,7 @@ class Event extends Component {
   // componentDidMount() {
   //   window.initMap = this.initMap;
   //   const googleMapScriptElement = document.createElement(`script`);
-  //   googleMapScriptElement.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBZRYSdid84Oy-cLLcP4-YepHfSNx4q4Z8&libraries=places&callback=initMap`;
+  //   googleMapScriptElement.src = `https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap`;
   //   document
   //     .querySelector(`body`)
   //     .insertAdjacentElement(`beforeend`, googleMapScriptElement);
