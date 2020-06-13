@@ -136,13 +136,40 @@ input[type="checkbox"]:checked + label:before {
 }
 .sidebar_active {
   .sc-fznxsB {
-    color: #3d4fec;
-    border-right: 5px solid #3d4fec;
+    color: #4ca1ff;
+    border-right: 5px solid #4ca1ff;
     transition: 0.4s all ease-in-out;
     -webkit-transition: 0.4s all ease-in-out;
     -mozkit-transition: 0.4s all ease-in-out;
     .sc-fzoiQi {
-      color: #3d4fec;
+      color: #4ca1ff;
     }
   }
 }
+
+textarea:focus {
+  border: none;
+  overflow: auto;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  resize: none;
+}
+
+input {
+    border: none;
+    overflow: auto;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+}
+
+// .cursor {
+//     width: 20px;
+//     height: 20px;
+//     border: 1px solid #000;
+//     border-radius: 100%;
+//     position: absolute;
+// }
