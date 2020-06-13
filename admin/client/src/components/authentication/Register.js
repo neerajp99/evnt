@@ -21,7 +21,7 @@ import {
   GoogleImage,
   GoogleText,
   TwitterImage
-} from "../../styles/Forms";
+} from "./styles/Forms";
 
 class Register extends Component {
   state = {
