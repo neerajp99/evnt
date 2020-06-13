@@ -3,15 +3,23 @@ import React from "react";
 
 export const Sidebar = styled.div`
   background: rgb(255, 255, 255);
-  flex-grow: 0.4;
+  flex-grow: 0.5;
+  flex-basis: 100%
   order: 1;
   border-right: 1.5px solid rgb(228, 229, 233);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
+  min-width: 20%;
   box-sizing: border-box;
+  /* position: fixed; */
+  max-height: 100%;
+  overflow: hidden;
   @media (max-width: 768px) {
     visibility: hidden;
     display: none;
+  }
+  @media (max-width: 1028px) {
+    min-width: 25%;
   }
 `;
 
@@ -40,8 +48,8 @@ export const DashboardListItem = styled.li`
   -webkit-transition: 0.4s all ease-in-out;
   -mozkit-transition: 0.4s all ease-in-out;
   &:hover {
-    color: #3d4fec;
-    border-right: 5px solid #3d4fec;
+    color: #4ca1ff;
+    border-right: 5px solid #4ca1ff;
     transition: 0.4s all ease-in-out;
     -webkit-transition: 0.4s all ease-in-out;
     -mozkit-transition: 0.4s all ease-in-out;
@@ -51,7 +59,7 @@ export const DashboardListItem = styled.li`
 export const LogoContainer = styled.div`
   height: 15vh;
   width: 100%;
-  background: #3d4fec;
+  background: #4ca1ff;
 `;
 
 export const DashboardListIcon = styled.div`
@@ -63,11 +71,11 @@ export const DashboardListIcon = styled.div`
 export const DashboardListContent = styled.div`
   flex-grow: 4;
   text-align: left;
-  color: #3d3d3d;
+  /* color: #3d3d3d; */
 `;
 
 export const DashboardBottom = styled.ul`
   display: flex;
   flex-direction: column;
-  margin-top: 40%;
+  margin-top: 35%;
 `;
