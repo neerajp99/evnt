@@ -31,6 +31,9 @@ const createEventSchema = new Schema({
     type: Boolean,
     default: false
   },
+  eventCodeOfConduct: {
+      type: String,
+  },
   anonymousSubmission: {
     type: Boolean,
     default: true
