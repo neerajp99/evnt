@@ -10,8 +10,15 @@ import {
 import Side from "../sidebar/Sidebar";
 import EventInputField from "./EventInputField";
 import EventTextArea from "./EventTextArea";
-import { FormGroup } from "./styles/EventForm";
-import PlacesAutocomplete from "react-places-autocomplete";
+import {
+  FormGroup,
+  EventCollaboratorsHeading,
+  CollaboratorsTag,
+  CollaboratorTagBox,
+  AddMoreCollaboratorBox
+} from "./styles/EventForm";
+// import PlacesAutocomplete from "react-places-autocomplete";
+const colors = require("nice-color-palettes");
 
 class Event extends Component {
   state = {
@@ -21,6 +28,10 @@ class Event extends Component {
     website: "",
     location: "",
     gmapsLoaded: false,
+    date: "",
+    venue: "",
+    additional: "",
+    codeOfConduct: "",
     errors: {}
   };
 
@@ -29,6 +40,7 @@ class Event extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
+    console.log(colors[1]);
   };
 
   // select location from the suggestion
@@ -59,7 +71,17 @@ class Event extends Component {
   // }
 
   render() {
-    const { formHeading, title, description, website, location } = this.state;
+    const {
+      formHeading,
+      title,
+      description,
+      website,
+      location,
+      date,
+      venue,
+      additional,
+      codeOfConduct
+    } = this.state;
     return (
       <Container>
         <Side />
@@ -124,12 +146,55 @@ class Event extends Component {
                     </PlacesAutocomplete>
                   )}
               */}
+                  <EventInputField
+                    placeholder="Event Venue"
+                    name="venue"
+                    value={venue}
+                    onChange={this.onChange}
+                    label="Venue"
+                    type="text"
+                  />
+                  <EventInputField
+                    placeholder="Event Dates"
+                    name="date"
+                    value={date}
+                    onChange={this.onChange}
+                    label="Event Dates"
+                    type="text"
+                  />
+                  <EventTextArea
+                    placeholder="Other information regarding the event. "
+                    name="additional"
+                    value={additional}
+                    onChange={this.onChange}
+                    label="Additional Information"
+                    type="text"
+                  />
+                  <EventTextArea
+                    placeholder="While a code of conduct is not required for your event, we highly recommend you have one."
+                    name="codeOfConduct"
+                    value={codeOfConduct}
+                    onChange={this.onChange}
+                    label="Event Code of Conduct"
+                    type="text"
+                  />
                 </FormGroup>
               </form>
             </FormContainer>
           </EventForm>
           <EventCollaborators>
-            <CollaboratorsContainer>hahahaha</CollaboratorsContainer>
+            <CollaboratorsContainer>
+              <EventCollaboratorsHeading>
+                Add/Manage Team Members
+              </EventCollaboratorsHeading>
+              <CollaboratorsTag>
+                <CollaboratorTagBox>NP</CollaboratorTagBox>
+                <CollaboratorTagBox>DB</CollaboratorTagBox>
+                <CollaboratorTagBox>MZ</CollaboratorTagBox>
+
+                <AddMoreCollaboratorBox>+</AddMoreCollaboratorBox>
+              </CollaboratorsTag>
+            </CollaboratorsContainer>
           </EventCollaborators>
         </InnerContainer>
       </Container>
