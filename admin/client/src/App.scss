@@ -1,11 +1,6 @@
 .App {
-  text-align: center;
-  height: 100vh;
-  display: flex;
   margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  // overflow: hidden;
+  text-align: center;
 }
 
 .App-logo {
@@ -43,4 +38,11 @@
   }
 }
 
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+html {
+  overflow-y: scroll;
+}
+body {
+  overflow: hidden;
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
