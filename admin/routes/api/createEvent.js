@@ -44,9 +44,13 @@ router.post(
     if (req.body.recurringEvent) {
       eventData.recurringEvent = req.body.recurringEvent;
     }
+    // What's the event code of conduct*?
+    if (req.body.eventCodeOfConduct) {
+      eventData.eventCodeOfConduct = req.body.eventCodeOfConduct;
+    }
     // Is event submission anonymous
-    if (req.body.recurringEvent) {
-      eventData.recurringEvent = req.body.recurringEvent;
+    if (req.body.anonymousSubmission) {
+      eventData.anonymousSubmission = req.body.anonymousSubmission;
     }
     // Event Call for Propsal Details
     if (req.body.cfpDescription) {
