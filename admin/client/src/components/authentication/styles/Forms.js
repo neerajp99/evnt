@@ -36,14 +36,14 @@ export const Input = styled.input`
   margin-bottom: 0.5em;
   height: 50px;
   font-size: 1rem;
-  color: #a2a9b9;
+  color: #fff;
   padding-left: 13px;
   ::placeholder,
   ::-webkit-input-placeholder {
-    color: #fff;
+    color: #c1c3c7;
   }
   :-ms-input-placeholder {
-    color: #fff;
+    color: #c1c3c7;
   }
 `;
 
