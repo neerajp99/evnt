@@ -2,9 +2,7 @@ import styled from "styled-components";
 import React from "react";
 
 export const Container = styled.div`
-  width: 100%;
-  min-height: 100%;
-  height: auto;
+  height: 100vh;
   display: flex;
   @media (max-width: 768px) {
     flex-direction: column;
@@ -12,19 +10,19 @@ export const Container = styled.div`
 `;
 
 export const InnerContainer = styled.div`
-  display: flex;
-  min-height: 100%;
-  height: auto;
   width: 80%;
-  /* flex-basis: 100% */
+  flex-basis: 100%;
   background: rgb(244, 248, 249);
-  flex-grow: 7;
-  order: 2;
-  overflow-y: auto;
+  padding-bottom: 5%;
+  flex: 1 1 auto;
+  overflow: auto;
+  padding: 0 1em;
+  display: flex;
+  postition: relative;
   @media (max-width: 1028px) {
     flex-direction: column;
   }
   @media (max-width: 768px) {
-    width: 100%;
+    width: 95%;
   }
 `;
