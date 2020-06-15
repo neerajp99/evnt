@@ -158,12 +158,36 @@ textarea:focus {
 }
 
 input {
-    border: none;
-    overflow: auto;
-    outline: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+  border: none;
+  overflow: auto;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
+.trash_icon {
+  color: red;
+  position: relative;
+  justify-content: stretch;
+  top: -4.7vh;
+  right: -50%;
+  font-size: 1.5rem;
+}
+.trash_icon_hidden {
+  cursor: not-allowed;
+  pointer-events: none;
+  color: #9e9c9c !important;
+}
+@media only screen and (max-width: 1400px) {
+  .trash_icon {
+    right: -52%;
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .trash_icon {
+    right: -50%;
+  }
 }
 
 // .cursor {
