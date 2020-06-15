@@ -15,8 +15,13 @@ import {
   EventCollaboratorsHeading,
   CollaboratorsTag,
   CollaboratorTagBox,
-  AddMoreCollaboratorBox
+  AddMoreCollaboratorBox,
+  CollaboratorLabel,
+  AddCollaborators,
+  AddCollaboratorButton
 } from "./styles/EventForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBan } from "@fortawesome/free-solid-svg-icons";
 // import PlacesAutocomplete from "react-places-autocomplete";
 const colors = require("nice-color-palettes");
 
@@ -32,6 +37,8 @@ class Event extends Component {
     venue: "",
     additional: "",
     codeOfConduct: "",
+    collaborators: ["NP", "DB", "MP", "JP", "KG"],
+    collaborator: [{ value: null }],
     errors: {}
   };
 
@@ -40,7 +47,6 @@ class Event extends Component {
     this.setState({
       [event.target.name]: event.target.value
     });
-    console.log(colors[1]);
   };
 
   // select location from the suggestion
@@ -70,6 +76,34 @@ class Event extends Component {
   //     .insertAdjacentElement(`beforeend`, googleMapScriptElement);
   // }
 
+  // Method to add more input fields
+  onClickAdd = event => {
+    const values = [...this.state.collaborator];
+    values.push({ value: null });
+    this.setState({
+      collaborator: values
+    });
+  };
+
+  // Set state on change of event
+  onHandleChange = (index, event) => {
+    const values = [...this.state.collaborator];
+    values[index].value = event.target.value;
+    this.setState({
+      collaborator: values
+    });
+  };
+
+  // Delete the spcific key value pair from the colaborator state
+  onDeleteContent = key => {
+    console.log(key);
+    const values = [...this.state.collaborator];
+    values.splice(key, 1);
+    this.setState({
+      collaborator: values
+    });
+  };
+
   render() {
     const {
       formHeading,
@@ -80,8 +114,54 @@ class Event extends Component {
       date,
       venue,
       additional,
-      codeOfConduct
+      codeOfConduct,
+      collaborators,
+      collaborator
     } = this.state;
+
+    // Create component for Collaborators tag box
+    const tags = collaborators.map((item, index) => {
+      let x = `${colors[Math.floor(Math.random() * Math.floor(10))][index]}`;
+      return (
+        <CollaboratorTagBox key={index} style={{ backgroundColor: x }}>
+          <div style={{ color: "black" }}> {item}</div>
+        </CollaboratorTagBox>
+      );
+    });
+
+    const items = collaborator.map((collab, index) => {
+      return (
+        <React.Fragment key={index}>
+          <EventInputField
+            placeholder="Collaborator's Email ID"
+            name="collaborator"
+            value={collab.value || ""}
+            onChange={e => this.onHandleChange(index, e)}
+            type="text"
+            classname="collab_input"
+          />
+          {Object.keys(collaborator).length > 1 ? (
+            <FontAwesomeIcon
+              onClick={() => {
+                this.onDeleteContent(index);
+              }}
+              className="trash_icon"
+              icon={faBan}
+              aria-hidden="true"
+            />
+          ) : (
+            <FontAwesomeIcon
+              onClick={() => {
+                this.onDeleteContent(index);
+              }}
+              className="trash_icon trash_icon_hidden"
+              icon={faBan}
+              aria-hidden="true"
+            />
+          )}
+        </React.Fragment>
+      );
+    });
     return (
       <Container>
         <Side />
@@ -187,13 +267,20 @@ class Event extends Component {
               <EventCollaboratorsHeading>
                 Add/Manage Team Members
               </EventCollaboratorsHeading>
+              <CollaboratorLabel>Current Members</CollaboratorLabel>
               <CollaboratorsTag>
-                <CollaboratorTagBox>NP</CollaboratorTagBox>
-                <CollaboratorTagBox>DB</CollaboratorTagBox>
-                <CollaboratorTagBox>MZ</CollaboratorTagBox>
-
-                <AddMoreCollaboratorBox>+</AddMoreCollaboratorBox>
+                {tags}
+                {/*<AddMoreCollaboratorBox>+</AddMoreCollaboratorBox>*/}
               </CollaboratorsTag>
+
+              <CollaboratorLabel style={{ marginTop: "6vh" }}>
+                Add Members
+              </CollaboratorLabel>
+
+              <AddCollaborators>{items}</AddCollaborators>
+              <AddCollaboratorButton onClick={this.onClickAdd}>
+                Add MORE
+              </AddCollaboratorButton>
             </CollaboratorsContainer>
           </EventCollaborators>
         </InnerContainer>
