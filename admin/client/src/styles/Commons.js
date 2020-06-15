@@ -19,6 +19,7 @@ export const InnerContainer = styled.div`
   padding: 0 1em;
   display: flex;
   postition: relative;
+  overflow-x: hidden;
   @media (max-width: 1028px) {
     flex-direction: column;
   }
