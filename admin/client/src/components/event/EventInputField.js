@@ -9,7 +9,8 @@ const EventInputField = ({
   onChange,
   type,
   label,
-  error
+  error,
+  classname
 }) => {
   return (
     <Container>
@@ -20,6 +21,7 @@ const EventInputField = ({
         value={value}
         onChange={onChange}
         type={type}
+        className={classname ? classname : ""}
       />
     </Container>
   );
