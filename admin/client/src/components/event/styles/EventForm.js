@@ -92,7 +92,7 @@ export const EventCollaboratorsHeading = styled.h2`
 
 export const CollaboratorsTag = styled.div`
   width: 90%;
-  height: 7vh;
+  height: 6vh;
   /* background: red; */
   margin: 0 auto;
   position: relative;
@@ -105,35 +105,45 @@ export const CollaboratorsTag = styled.div`
 `;
 
 export const CollaboratorTagBox = styled.div`
+  position: relative;
   display: inline-block;
   height: inherit;
-  width: 15%;
+  width: 6vh;
   background: tomato;
   position: relative;
   margin-left: 4%;
   text-align: center;
   justify-content: center;
   vertical-align: middle;
-  line-height: 7vh;
+  line-height: 6vh;
   overflow-x: scroll;
   font-family: Lato;
-  font-size: calc(0.4rem + 0.9vw);
+  font-size: calc(0.3rem + 0.7vw);
   font-weight: 700;
   color: #fff;
+  overflow-y: hidden;
+  filter: alpha(opacity=50);
+  /* IE */
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+  div {
+      opacity: 1;
+  }
 `;
 
 export const AddMoreCollaboratorBox = styled.div`
+  position: relative;
   display: inline-block;
   height: inherit;
-  width: 15%;
-  height: 95%;
-  border: 1.5px solid #4ca1ff;
+  width: 6vh;
+  height: 90%;
+  border: 2px solid #4ca1ff;
   position: relative;
   margin-left: 4%;
   text-align: center;
   justify-content: center;
   vertical-align: middle;
-  line-height: 7vh;
+  line-height: 6vh;
   /* overflow-x: scroll; */
   overflow-y: hidden;
   font-family: Lato;
@@ -141,3 +151,40 @@ export const AddMoreCollaboratorBox = styled.div`
   font-weight: 900;
   color: #4ca1ff;
 `;
+
+export const CollaboratorLabel = styled.h4`
+    font-family: Lato;
+    color: #384e5e;
+    text-transform: uppercase;
+    position: relative;
+    top: -3vh;
+    left: 8%;
+    text-align: left;
+    margin-top: 3vh;
+`
+export const AddCollaborators = styled.div`
+    width: 87%;
+    margin: 0 auto;
+    margin-top: -2vh;
+    position: relative;
+    left: -2.5%;
+    display: inline-block;
+
+`
+
+export const AddCollaboratorButton = styled.button`
+    height: 50px;
+    width: 83%;
+    background: #4ca1ff;
+    margin: 0 auto;
+    border-radius: 6px;
+    margin-top: 5%;
+    text-align: center;
+    line-height: 50px;
+    text-transform: uppercase;
+    font-family: Lato;
+    color: #fff;
+    font-weight: 700;
+    border: none;
+    font-size: 1rem;
+`

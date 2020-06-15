@@ -30,6 +30,7 @@ export const EventCollaborators = styled.div`
   flex-basis: | auto;
   flex-wrap: nowrap | wrap | wrap-reverse;
   postition: relative;
+}
   @media (max-width: 1028px) {
     flex-direction: column;
     width: 100%;
@@ -51,13 +52,15 @@ export const FormContainer = styled.div`
 `;
 
 export const CollaboratorsContainer = styled.div`
-  min-height: 80%;
+  min-height: 60%;
   height: auto;
   margin: 0 auto;
   margin-top: 22.2%;
   width: 93%;
   background: #fff;
   border-radius: 7px;
+  padding-bottom: 10%;
+  margin-bottom: 10%;
   @media (max-width: 1028px) {
     margin-bottom: 20%;
   }
@@ -72,7 +75,7 @@ export const FormHeading = styled.h2`
   font-family: Lato;
   font-weight: 400;
   color: #22343b;
-  @media(max-width: 768px){
-      top: -5vh
+  @media (max-width: 768px) {
+    top: -5vh;
   }
 `;
