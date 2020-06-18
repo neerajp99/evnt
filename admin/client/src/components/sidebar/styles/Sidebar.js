@@ -77,5 +77,5 @@ export const DashboardListContent = styled.div`
 export const DashboardBottom = styled.ul`
   display: flex;
   flex-direction: column;
-  margin-top: 30%;
+  margin-top: 25%;
 `;
