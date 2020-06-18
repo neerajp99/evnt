@@ -170,7 +170,7 @@ input {
   color: red;
   position: relative;
   justify-content: stretch;
-  top: -4.7vh;
+  top: -40px;
   right: -50%;
   font-size: 1.5rem;
 }
@@ -186,10 +186,84 @@ input {
 }
 @media only screen and (max-width: 1200px) {
   .trash_icon {
-    right: -50%;
+    right: -51%;
   }
 }
 
+// Update css for material ui
+.MuiTableRow-root {
+  // height: 100px !important
+}
+
+.makeStyles-paper-2 {
+  position: relative;
+  margin: 0 auto;
+  min-height: 90% !important;
+  top: 5%;
+  border-radius: 14px !important;
+  margin-bottom: 16px;
+}
+.MuiPaper-elevation1 {
+  height: 50vh !important;
+}
+.MuiTableContainer-root {
+  height: 85% !important;
+}
+.MuiTableCell-root {
+  cursor: pointer;
+}
+.MuiTableCell-body {
+  /* border: 0.008em solid #fff !important; */
+  // color: #fff !important;
+  border-width: thin;
+  /* display: none !important; */
+  color: rgb(60, 57, 57) !important;
+}
+
+.MuiTableCell-roo {
+  display: none !important;
+}
+
+.MuiTableCell-alignRight {
+  text-align: left !important;
+}
+
+.PrivateSwitchBase-input-131 {
+  display: none !important;
+}
+.MuiTableCell-paddingCheckbox {
+  display: none !important;
+}
+.MuiTableCell-paddingNone {
+  display: none !important;
+}
+.makeStyles-root-5 {
+  background: #4f9ff7;
+  color: #fff;
+  border-top-left-radius: 14px;
+  border-top-right-radius: 14px;
+}
+.MuiTableCell-alignLeft {
+  text-align: left !important;
+}
+.MuiTableSortLabel-root {
+  flex-direction: initial !important;
+  color: black;
+  font-weight: 700;
+  font-family: Lato;
+  font-size: 15px;
+}
+.MuiTypography-h6 {
+  font-size: 1.25rem;
+  font-family: Lato !important;
+  font-weight: 700 !important;
+  line-height: 1.6;
+  letter-spacing: 0.05em !important;
+}
+
+// .MuiSvgIcon-root {
+//   color: #fff !important;
+// }
 // .cursor {
 //     width: 20px;
 //     height: 20px;
