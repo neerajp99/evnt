@@ -195,20 +195,20 @@ input {
   // height: 100px !important
 }
 
-.makeStyles-paper-2 {
-  position: relative;
-  margin: 0 auto;
-  min-height: 90% !important;
-  top: 5%;
-  border-radius: 14px !important;
-  margin-bottom: 16px;
-}
-.MuiPaper-elevation1 {
-  height: 50vh !important;
-}
-.MuiTableContainer-root {
-  height: 85% !important;
-}
+// .makeStyles-paper-2 {
+//   position: relative;
+//   margin: 0 auto;
+//   min-height: 90% !important;
+//   top: 5%;
+//   border-radius: 14px !important;
+//   margin-bottom: 16px;
+// }
+// .MuiPaper-elevation1 {
+//   height: 50vh !important;
+// }
+// .MuiTableContainer-root {
+//   height: 85% !important;
+// }
 .MuiTableCell-root {
   cursor: pointer;
 }
@@ -237,7 +237,7 @@ input {
 .MuiTableCell-paddingNone {
   display: none !important;
 }
-.makeStyles-root-5 {
+#toolbar_back {
   background: #4f9ff7;
   color: #fff;
   border-top-left-radius: 14px;
@@ -258,12 +258,66 @@ input {
   font-family: Lato !important;
   font-weight: 700 !important;
   line-height: 1.6;
-  letter-spacing: 0.05em !important;
+  letter-spacing: 0.2em !important;
 }
 
-// .MuiSvgIcon-root {
-//   color: #fff !important;
-// }
+#outer_table {
+  position: relative;
+  top: 5%;
+  // background: red;
+  height: 90%;
+}
+
+#table_row {
+  background: #fafafa !important;
+}
+
+.table_container {
+  height: 85%;
+}
+
+#outer_table2 {
+  position: relative;
+  top: 5%;
+  height: 90%;
+  border-radius: 14px;
+  font-family: Lato !important;
+  background: #4f9ff7;
+}
+.MuiTableBody-root {
+  height: 90%;
+}
+
+.makeStyles-container-13 {
+  max-height: 85% !important;
+}
+.makeStyles-container-2 {
+  min-height: 85% !important;
+  background: #fafafa;
+}
+
+.MuiTableCell-sticky,
+.MuiTableCell-head {
+  font-weight: 700 !important;
+  font-family: Lato !important;
+  color: black;
+  font-size: 15px;
+}
+.MuiTablePagination-root:last-child {
+  background: #fff;
+}
+.MuiTablePagination-root {
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px !important;
+}
+
+.MuiTablePagination-toolbar {
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px !important;
+}
+
+
+
 // .cursor {
 //     width: 20px;
 //     height: 20px;
