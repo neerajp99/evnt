@@ -316,8 +316,28 @@ input {
   border-bottom-right-radius: 14px !important;
 }
 
-
-
+// CFP Modal CSS goes here
+#cfpModal {
+  height: 90vh !important;
+  width: 70vw !important;
+  border: 3px solid #056bd9;
+  overflow: auto;
+}
+.close_icon {
+  position: absolute;
+  color: #056bd9;
+  right: 14%;
+  transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+  -mozkit-transition: 0.3s all ease-in-out;
+  &:hover {
+    opacity: 0.9;
+    transform: scale(0.9);
+    transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -mozkit-transition: 0.3s all ease-in-out;
+  }
+}
 // .cursor {
 //     width: 20px;
 //     height: 20px;
