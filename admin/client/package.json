@@ -22,7 +22,9 @@
     "nice-color-palettes": "^3.0.0",
     "node-sass": "^4.14.1",
     "react": "^16.13.1",
+    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^16.13.1",
+    "react-jss": "^10.3.0",
     "react-places-autocomplete": "^7.2.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
@@ -56,5 +58,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.7",
+    "babel-preset-react-app": "^9.1.2"
   }
 }
