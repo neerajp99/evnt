@@ -12,9 +12,9 @@ function CfpContainerElement(props) {
         {/* This is done so that this package does not create DOM nodes, and we can manipulate it accoringly*/}
         {(provided, snapshot) => (
           <CfpList
+            isDraggingOver={snapshot.isDraggingOver}
             ref={provided.innerRef}
             {...provided.droppableProps}
-            isDraggingOver={snapshot.isDraggingOver}
           >
             {props.talks.map((talk, index) => (
               <ListContainer key={talk.id} talk={talk} index={index} />
