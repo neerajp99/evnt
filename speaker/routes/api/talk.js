@@ -42,6 +42,10 @@ router.get(
       },
       {
         shortlisted : "true"
+      },
+      {
+        new : true,
+        runValidators : true
       }
     )
       .then((talk) => {
@@ -141,6 +145,9 @@ router.post(
          "additionalDetails" : req.body.additionalDetails,
          "outcome" : req.body.outcome,
          "shortlisted" : req.body.shortlisted,  
+      }, {
+        new : true,
+        runValidators : true
       }
     )
     .then((talk) => {
