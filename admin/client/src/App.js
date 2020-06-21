@@ -18,6 +18,10 @@ import Attendees from "./components/attendees/Attendees";
 import Cfp from "./components/cfp/Cfp";
 import Event from "./components/event/CreateEvent";
 import Speakers from "./components/speakers/Speakers";
+import Profile from "./components/profile/Profile";
+import { createBrowserHistory } from "history";
+
+export const appHistory = createBrowserHistory();
 
 // Check if a user is already logged in
 if (localStorage.adminJWT) {
@@ -47,7 +51,7 @@ if (localStorage.adminJWT) {
 function App() {
   return (
     <Provider store={store}>
-      <Router>
+      <Router history={appHistory}>
         <div className="App">
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
@@ -79,12 +83,21 @@ function App() {
             <ProtectedRoute
               exact
               path="/speakers"
-              // render={() => <Dashboard />}
+              // render={() => <Speakers />}
               component={Speakers}
+              forceRefresh={true}
             />
           </Switch>
           <Switch>
-            <ProtectedRoute exact path="/attendees" component={Attendees} />
+            <ProtectedRoute
+              exact
+              path="/attendees"
+              component={Attendees}
+              forceRefresh={true}
+            />
+          </Switch>
+          <Switch>
+            <ProtectedRoute exact path="/profile" component={Profile} />
           </Switch>
         </div>
       </Router>
