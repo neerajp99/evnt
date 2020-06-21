@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import { lighten, makeStyles } from "@material-ui/core/styles";
@@ -23,37 +23,161 @@ import FilterListIcon from "@material-ui/icons/FilterList";
 import { Container, InnerContainer } from "../../styles/Commons";
 import Side from "../sidebar/Sidebar";
 
-function createData (name, email, contact, date) {
+function createData(name, email, contact, date) {
   return { name, email, contact, date };
 }
 
 const rows = [
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "nivgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "aivgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+910587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "zivgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "zivgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-  createData("Divyam Bhagchandani", "divgambhagchandani@gmail.com", "+918587887480", "2020-05-19"),
-
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "nivgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "aivgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+910587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "zivgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "zivgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  ),
+  createData(
+    "Divyam Bhagchandani",
+    "divgambhagchandani@gmail.com",
+    "+918587887480",
+    "2020-05-19"
+  )
 ];
 
 function descendingComparator(a, b, orderBy) {
@@ -84,8 +208,18 @@ function stableSort(array, comparator) {
 
 const headCells = [
   { id: "name", numeric: false, disablePadding: false, label: "Name" },
-  { id: "email", numeric: false, disablePadding: false, label: "Email Address" },
-  { id: "contact", numeric: true, disablePadding: false, label: "Contact Number" },
+  {
+    id: "email",
+    numeric: false,
+    disablePadding: false,
+    label: "Email Address"
+  },
+  {
+    id: "contact",
+    numeric: true,
+    disablePadding: false,
+    label: "Contact Number"
+  },
   { id: "date", numeric: false, disablePadding: false, label: "Join Date" }
 ];
 
@@ -179,6 +313,7 @@ const EnhancedTableToolbar = props => {
       className={clsx(classes.root, {
         [classes.highlight]: numSelected > 0
       })}
+      id="toolbar_back"
     >
       {numSelected > 0 ? (
         <Typography
@@ -268,6 +403,14 @@ export default function Attendees() {
     setSelected([]);
   };
 
+  const useForceUpdate = () => useState()[1];
+  const forceUpdate = useForceUpdate();
+
+  useEffect(() => {
+    forceUpdate();
+    console.log("rendering");
+  });
+
   // const handleClick = (event, name) => {
   //   const selectedIndex = selected.indexOf(name);
   //   let newSelected = [];
@@ -307,9 +450,9 @@ export default function Attendees() {
       <Container>
         <Side />
         <InnerContainer>
-          <Paper className={classes.paper}>
+          <Paper className={classes.paper} id="outer_table">
             <EnhancedTableToolbar numSelected={selected.length} />
-            <TableContainer>
+            <TableContainer className="table_container">
               <Table
                 className={classes.table}
                 aria-labelledby="tableTitle"
@@ -323,6 +466,7 @@ export default function Attendees() {
                   onSelectAllClick={handleSelectAllClick}
                   onRequestSort={handleRequestSort}
                   rowCount={rows.length}
+                  id="table_head"
                 />
                 <TableBody>
                   {stableSort(rows, getComparator(order, orderBy))
@@ -330,9 +474,12 @@ export default function Attendees() {
                     .map((row, index) => {
                       const isItemSelected = isSelected(row.name);
                       const labelId = `enhanced-table-checkbox-${index}`;
-                      {/*onClick={event => handleClick(event, row.name)}*/}
+                      {
+                        /*onClick={event => handleClick(event, row.name)}*/
+                      }
                       return (
                         <TableRow
+                          key={index}
                           hover
                           role="checkbox"
                           aria-checked={isItemSelected}
