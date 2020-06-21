@@ -3,7 +3,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const avatar = require("./routes/api/avatar");
-const createEvents = require("./routes/api/createEvent");
 const events = require("./routes/api/events");
 const ownerUsers = require("./routes/api/ownerUsers");
 const ownerProfile = require("./routes/api/ownerProfile");
@@ -35,7 +34,6 @@ mongoose
 
 // Use Route
 app.use("/api/avatar", avatar);
-app.use("/api/createEvents",createEvents);
 app.use("/api/events", events);
 app.use("/api/ownerUsers", ownerUsers);
 app.use("/api/ownerProfile", ownerProfile);
