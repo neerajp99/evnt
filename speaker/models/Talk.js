@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const talkSchema = new Schema({
     user : {
         type : Schema.Types.ObjectId,
-        ref : "users"
+        ref : "speakerAuth"
     },
     title : {
         type : String,

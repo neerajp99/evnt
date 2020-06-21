@@ -57,7 +57,7 @@ router.get("/handle/:handle", (req, res) => {
 // @access Public
 router.get("/speaker/:speaker_id", (req, res) => {
   SpeakerProfile.findOne({
-    user: req.params.user_id
+    user: req.params.speaker_id
   })
     .populate("user", ["name"])
     .then(profile => {
@@ -125,7 +125,7 @@ router.post(
       .then(profile => {
         if (profile) {
           // If profile exists, update it
-          Profile.findOneAndUpdate(
+          SpeakerProfile.findOneAndUpdate(
             {
               user: req.user.id
             },
@@ -152,7 +152,7 @@ router.post(
                 res.status(400).json("Speaker with this handle already exists");
               }
               // Otherwise save the new speaker profile
-              new Profile(speakerProfileData)
+              new SpeakerProfile(speakerProfileData)
                 .save()
                 .then(profile => {
                   res.json(profile);

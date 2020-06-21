@@ -4,65 +4,85 @@ const Schema = mongoose.Schema;
 const EventSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "users"
+    ref: "ownerUsers"
   },
-  name: {
+  eventName: {
     type: String,
     required: true
   },
-  venue: {
-    type: String,
-    required: true
-  },
-  startDate: {
+  eventBeginDate: {
     type: Date,
-    required: true
+    // for testing purpose
+    default: Date.now()
   },
-  endDate: {
+  eventEndDate: {
     type: Date,
-    required: true
+    // for testing purpose
+    default: Date.now()
   },
-  description: {
+  eventVenue: {
     type: String,
     required: true
   },
-  website: {
+  eventDescription: {
+    type: String,
+    required: true
+  },
+  eventWebsite: {
+    type: String
+  },
+  recurringEvent: {
+    type: Boolean,
+    default: false
+  },
+  eventCodeOfConduct: {
+      type: String,
+  },
+  anonymousSubmission: {
+    type: Boolean,
+    default: true
+  },
+  cfpDescription: {
+    type: String,
+    required: true
+  },
+  cfpNotes: {
+    type: String
+  },
+  additionalDetails: {
+    type: String
+  },
+  talkDuration: [
+    {
+      talkFormat: {
+        type: String,
+        required: true
+      }
+    }
+  ],
+  talkTags: {
+    type: [String]
+  },
+  travelAssitance: {
+    type: Boolean,
+    default: false
+  },
+  travelAssitancePolicy: {
     type: String
   },
   social: {
-    facebook: {
-      type: String
-    },
     twitter: {
       type: String
     },
-    youtube: {
+    facebook: {
       type: String
     },
-    instagram: {
+    github: {
+      type: String
+    },
+    linkedin: {
       type: String
     }
-  },
-  organisers: [
-    {
-      name: {
-        type: String
-      },
-      description: {
-        type: String
-      },
-      social: {
-        facebook: {
-          type: String
-        },
-        linkedin: {
-          type: String
-        },
-        twitter: {
-          type: String
-        }
-      }
-    }
-  ]
+  }
 });
 module.exports = Event = mongoose.model("event", EventSchema);

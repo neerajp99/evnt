@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const avatarSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: "users"
+    ref: "speakerAuth"
   },
   profileImage: {
     type: String

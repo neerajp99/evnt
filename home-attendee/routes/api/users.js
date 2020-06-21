@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 //bring in bcrypt to encrypt the password
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 //bring in json web tokens
 const jwt = require("jsonwebtoken");
 // Bring in User model

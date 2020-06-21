@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const router = express.Router();
-const Profile = require("../../models/OwnerProfile");
+const OwnerProfile = require("../../models/OwnerProfile");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 
-// @route GET /api/profile
+// @route GET /api/ownerProfile
 // @description Get current user's profile
 // @access Private
 
@@ -13,11 +13,12 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
+
     const errors = {};
-    Profile.findOne({
+    OwnerProfile.findOne({
       user: req.user.id
     })
-      .populate("ownerUsers", ["name", "avatar"])
+      .populate("user", ["name", "avatar"])
 
       .then(profile => {
         if (!profile) {
@@ -32,11 +33,11 @@ router.get(
   }
 );
 
-// @route GET /api/profile/handle/:handle
+// @route GET /api/ownerProfile/handle/:handle
 // @description Get user profile by handle
 // @access Public
 router.get("/handle/:handle", (req, res) => {
-  Profile.findOne({
+  OwnerProfile.findOne({
     handle: req.params.handle
   })
     .populate("user", ["name"])
@@ -53,11 +54,11 @@ router.get("/handle/:handle", (req, res) => {
     });
 });
 
-// @route GET /api/profile/user/:user_id
+// @route GET /api/ownerProfile/user/:user_id
 // @description Get user profile by user id
 // @access Public
 router.get("/user/:user_id", (req, res) => {
-  Profile.findOne({
+  OwnerProfile.findOne({
     user: req.params.user_id
   })
     .populate("user", ["name"])
@@ -74,7 +75,7 @@ router.get("/user/:user_id", (req, res) => {
     });
 });
 
-// @route POST /api/profile/
+// @route POST /api/ownerProfile/
 // @description Create user profile
 // @access PRIVATE
 router.post(
@@ -118,7 +119,7 @@ router.post(
       profileData.social.github = `https://github.com/` + req.body.github;
     }
 
-    Profile.findOne({
+    OwnerProfile.findOne({
       user: req.user.id
     })
       .then(profile => {
@@ -143,7 +144,7 @@ router.post(
             });
         } else {
           // if profile is not found, create new profile fields
-          Profile.findOne({
+          OwnerProfile.findOne({
             handle: profileData.handle
           })
             .then(profile => {
@@ -151,7 +152,7 @@ router.post(
                 res.status(400).json("User with this handle already exists");
               }
               // Otherwise save the new profile
-              new Profile(profileData)
+              new OwnerProfile(profileData)
                 .save()
                 .then(profile => {
                   res.json(profile);
