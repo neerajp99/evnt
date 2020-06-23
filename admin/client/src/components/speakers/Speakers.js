@@ -109,7 +109,7 @@ export default function Speakers() {
         <SpeakerHeading>
         SPEAKERS
         </SpeakerHeading>
-          <TableContainer className={classes.container}>
+          <TableContainer className={classes.container} id="speaker_table_body">
             <Table stickyHeader aria-label="sticky table">
               <TableHead>
                 <TableRow>
