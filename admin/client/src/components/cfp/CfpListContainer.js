@@ -19,16 +19,35 @@ import {
   TalkActivityHeading,
   TalkActivityFlex,
   TalkComments,
-  TalkOtherDetails
+  TalkOtherDetails,
+  CommentAuthorIcon,
+  CommentButtons,
+  CommentButton,
+  CommentHeader,
+  CommentContent,
+  OtherComments,
+  CommentAuthorName,
+  CommentAgo,
+  CommentApprove,
+  TopHr,
+  CommentParagraph,
+  CommentTool,
+  ReplyButton,
+  CommentReply
 } from "./styles/Cfp";
-// For Modal
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import { useSpring, animated } from "react-spring/web.cjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle, faStream } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTimesCircle,
+  faStream,
+  faHeart
+} from "@fortawesome/free-solid-svg-icons";
+import CommentInput from "./CommentInput";
+import { CSSTransition } from "react-transition-group";
 
 // Trim the talk title to a specific length
 const getString = string => {
@@ -87,6 +106,8 @@ Fade.propTypes = {
 function ListContainer(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [visible, setVisible] = React.useState(false);
+  const [currentComment, setCurrentComment] = React.useState([{ value: null }]);
 
   const handleOpen = () => {
     setOpen(true);
@@ -94,6 +115,10 @@ function ListContainer(props) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleClick = () => {
+    setVisible(!visible);
   };
 
   return (
@@ -161,10 +186,87 @@ function ListContainer(props) {
                       <TalkActivityIcon>
                         <FontAwesomeIcon icon={faStream} aria-hidden="true" />
                       </TalkActivityIcon>
-                      <TalkActivityHeading>ACTIVITY</TalkActivityHeading>
+                      <TalkActivityHeading>Activity</TalkActivityHeading>
                     </TalkActivityTopContainer>
                     <TalkActivityFlex>
-                      <TalkComments />
+                      <TalkComments>
+                        <CommentAuthorIcon>NP</CommentAuthorIcon>
+                        <CommentInput placeholder="Type your comment..." />
+                        <CommentButtons>
+                          <CommentButton>Cancel</CommentButton>
+                          <CommentButton>Submit Comment</CommentButton>
+                        </CommentButtons>
+                        <div>
+                          <OtherComments>
+                            <CommentHeader>
+                              <TopHr />
+                              <CommentAuthorIcon>NP</CommentAuthorIcon>
+                              <CommentAuthorName>
+                                Neeraj Pandey{" "}
+                              </CommentAuthorName>
+                              <CommentAgo>28 mins ago</CommentAgo>
+                              <CommentApprove>
+                                <FontAwesomeIcon
+                                  icon={faHeart}
+                                  aria-hidden="true"
+                                />{" "}
+                                56
+                              </CommentApprove>
+                            </CommentHeader>
+                            <CommentContent>
+                              <CommentParagraph>
+                                Lorem ipsum dolor sit amet consectetur
+                                adipiscing elit, urna consequat felis vehicula
+                                class ultricies mollis dictumst, aenean non a in
+                                donec nulla. Phasellus ante pellentesque erat
+                                cum risus consequat imperdiet aliquam, integer
+                                placerat et turpis mi eros nec lobortis taciti,
+                                vehicula nisl litora tellus ligula porttitor
+                                metus.
+                              </CommentParagraph>
+                              <CommentTool>
+                                <ReplyButton
+                                  onClick={handleClick}
+                                  visible={visible}
+                                >
+                                  {" "}
+                                  {visible ? "Remove" : "Reply"}{" "}
+                                </ReplyButton>
+                              </CommentTool>
+
+                              {/*<CSSTransition
+                              in={visible}
+                              timeout={500}
+                              classNames="reply"
+                              id="slide_down"
+                            >
+                              <React.Fragment>
+                                {visible && (
+                                  <div className="panel">
+                                    {visible ? "Hello world" : null}
+                                  </div>
+                              )}
+                              </React.Fragment>
+                            </CSSTransition>*/}
+                            </CommentContent>
+                            <CommentReply
+                              className={
+                                visible ? "toggle_open" : "toggle_close"
+                              }
+                            >
+                              <CommentAuthorIcon>NP</CommentAuthorIcon>
+                              <CommentInput
+                                id="reply_comment_input"
+                                placeholder="Type your comment..."
+                              />
+                              <CommentButtons id="reply_comment_buttons">
+                                <CommentButton>Cancel</CommentButton>
+                                <CommentButton>Reply</CommentButton>
+                              </CommentButtons>
+                            </CommentReply>
+                          </OtherComments>
+                        </div>
+                      </TalkComments>
                       <TalkOtherDetails />
                     </TalkActivityFlex>
                   </TalkActivity>
