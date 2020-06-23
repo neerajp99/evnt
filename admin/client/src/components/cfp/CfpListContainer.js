@@ -108,6 +108,7 @@ function ListContainer(props) {
   const [open, setOpen] = React.useState(false);
   const [visible, setVisible] = React.useState(false);
   const [currentComment, setCurrentComment] = React.useState([{ value: null }]);
+  const [comment, setComment] = React.useState("");
 
   const handleOpen = () => {
     setOpen(true);
@@ -121,6 +122,9 @@ function ListContainer(props) {
     setVisible(!visible);
   };
 
+  const onChange = event => {
+    setComment(event.target.value);
+  };
   return (
     <Draggable draggableId={props.talk.id} index={props.index}>
       {/* These props are applied to the component that is to be moved around and to control the entire component */}
@@ -191,7 +195,13 @@ function ListContainer(props) {
                     <TalkActivityFlex>
                       <TalkComments>
                         <CommentAuthorIcon>NP</CommentAuthorIcon>
-                        <CommentInput placeholder="Type your comment..." />
+                        <CommentInput
+                          placeholder="Type your comment..."
+                          type="text"
+                          value={comment}
+                          name="add_comment"
+                          onChange={onChange}
+                        />
                         <CommentButtons>
                           <CommentButton>Cancel</CommentButton>
                           <CommentButton>Submit Comment</CommentButton>
@@ -258,6 +268,10 @@ function ListContainer(props) {
                               <CommentInput
                                 id="reply_comment_input"
                                 placeholder="Type your comment..."
+                                type="text"
+                                value={comment}
+                                name="add_comment"
+                                onChange={onChange}
                               />
                               <CommentButtons id="reply_comment_buttons">
                                 <CommentButton>Cancel</CommentButton>
