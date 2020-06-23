@@ -71,7 +71,7 @@ export const CfpListContainer = styled.div`
   /* z-index: 5; */
   /* background-color: ${props => (props.isDragging ? "red" : "white")}; */
   transition: background-color 0.3s ease;
-  cursor: grabbing !important;
+  cursor: grab !important;
   cursor: -moz-grabbing;
   cursor: -webkit-grabbing;
 `;
@@ -186,6 +186,7 @@ export const TalkDetails = styled.div`
   top: 10%;
   left: 4%;
 `;
+
 export const TalkHeading = styled.div`
   color: #56585f;
   font-family: Lato;
@@ -226,7 +227,7 @@ export const TalkActivity = styled.div`
   position: relative;
   top: 15%;
   left: 4%;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 `;
 
 export const TalkActivityTopContainer = styled.div`
@@ -245,10 +246,11 @@ export const TalkActivityHeading = styled.div`
   display: inline-block;
   position: relative;
   left: 3%;
-  font-size: 17px;
+  font-size: 18px;
   font-weight: 600;
   color: #66686f;
   top: 3%;
+  font-family: Lato;
 `;
 
 export const TalkActivityFlex = styled.div`
@@ -258,8 +260,8 @@ export const TalkActivityFlex = styled.div`
   height: auto;
   width: 100%;
   flex-direction: row;
-  @media(max-width: 1100px) {
-      flex-direction: column;
+  @media (max-width: 1100px) {
+    flex-direction: column;
   }
 `;
 
@@ -267,10 +269,205 @@ export const TalkComments = styled.div`
   /* background: blue; */
   flex: 0 1 auto;
   width: 60%;
+  @media (max-width: 1100px) {
+    width: 100%;
+  }
 `;
 
 export const TalkOtherDetails = styled.div`
   background: #e6e9ed;
   flex: 1 1 auto;
   width: 40%;
+  height: 70vh;
+  @media (max-width: 1100px) {
+    width: 100%;
+  }
+`;
+
+export const CommentInputField = styled.textarea`
+  border: 1px solid rgba(9, 30, 66, 0.04);
+  overflow: auto;
+  outline: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  resize: none;
+  height: 12vh;
+  width: 80%;
+  position: relative;
+  left: 8%;
+  font-family: Lato;
+  padding: 15px;
+  font-size: 15px;
+  -webkit-letter-spacing: 0.03rem;
+  -moz-letter-spacing: 0.03rem;
+  -ms-letter-spacing: 0.03rem;
+  letter-spacing: 0.03rem;
+  color: #55575f;
+  border-radius: 16px;
+  background: rgba(9, 30, 66, 0.04);
+  &:focus {
+    border: 1.4px solid #4595ece3;
+  }
+  ::placeholder,
+  ::-webkit-input-placeholder {
+    color: #c1c3c7;
+  }
+  :-ms-input-placeholder {
+    color: #c1c3c7;
+  }
+`;
+
+export const CommentAuthorIcon = styled.div`
+  background: #e6f1f4;
+  position: absolute;
+  padding: 10px;
+  border-radius: 100%;
+  color: #33b8c3;
+  font-weight: 700;
+  font-family: Lato;
+`;
+
+export const CommentButtons = styled.div`
+  position: relative;
+  left: 8%;
+  display: inline-block;
+  width: 81%;
+  padding: 10px;
+`;
+
+export const CommentButton = styled.button`
+  background: #4abec9;
+  display: inline-block;
+  float: right;
+  margin-left: 4%;
+  padding: 12px;
+  border-radius: 8px;
+  color: #fff;
+  font-family: Lato;
+  font-weight: 600;
+  letter-spacing: 0.02rem;
+  border: none;
+  text-decoration: none;
+  min-width: 75px;
+  &:nth-child(1) {
+    background: #d0696f !important;
+  }
+  &:focus {
+      border-radius: border-radius: 8px;
+      border: none;
+      outline: none;
+  }
+`;
+
+export const OtherComments = styled.div`
+  width: 90%;
+  position: relative;
+  min-height: 25vh;
+  top: 5%;
+  height: auto;
+`;
+
+export const CommentHeader = styled.div`
+  height: 6vh;
+  width: 100%;
+  /* background: red; */
+  display: inline-block;
+`;
+
+export const CommentContent = styled.div`
+  position: relative;
+  &:after {
+  }
+`;
+
+export const CommentAuthorName = styled.div`
+  display: inline-block;
+  position: relative;
+  left: 10%;
+  line-height: 2.5;
+  font-size: 17px;
+  font-weight: 500;
+  color: #5a5d63;
+`;
+
+export const CommentAgo = styled.div`
+  display: inline-block;
+  position: relative;
+  left: 15%;
+  font-family: Lato;
+  line-height: 2.5;
+  font-weight: 400;
+  font-size: 14px;
+  color: #97a2ad;
+`;
+
+export const CommentApprove = styled.div`
+  display: inline-block;
+  position: absolute;
+  right: 4%;
+  line-height: 2.7;
+  /* color: #97a2ac; */
+  color: #d0696f;
+`;
+
+export const TopHr = styled.hr`
+  width: 100%;
+  position: relative;
+  margin-bottom: 5%;
+  top: 5%;
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ced0d7c9;
+  /* margin: 1em 0; */
+  padding: 0;
+  left: -1%;
+`;
+
+export const CommentParagraph = styled.p`
+  width: 90%;
+  position: relative;
+  top: 3%;
+  left: 10%;
+  text-align: left;
+  font-size: 15px;
+  color: #555967;
+  font-family: Lato;
+`;
+
+export const CommentTool = styled.div`
+  width: 100%;
+  position: relative;
+`;
+
+export const ReplyButton = styled.button`
+  position: absolute;
+  right: 1%;
+  width: 100px;
+  height: 35px;
+  font-size: 14px;
+  font-family: Lato;
+  letter-spacing: 0.02rem;
+  color: ${props => (!props.visible ? "#a2acb6" : "#fff")};
+  background: ${props => (!props.visible ? "transparent" : "#d0696f")};
+  border: ${props =>
+    !props.visible ? "1px solid #a2acb6" : "1px solid #d0696f"};
+  border-radius: 7px;
+  &:focus {
+    /* border: none; */
+    outline: none;
+    border-radius: 7px;
+  }
+`;
+export const CommentReply = styled.div`
+  position: relative;
+  left: 10%;
+  width: 90%;
+  /* background: #ccc; */
+  margin-top: 8vh;
+  opacity: 0;
+  max-height: 0;
+  overflow-y: hidden;
+  transition: 0.4s all ease;
 `;
