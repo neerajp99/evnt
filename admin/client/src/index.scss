@@ -315,6 +315,10 @@ input {
   border-bottom-left-radius: 14px;
   border-bottom-right-radius: 14px !important;
 }
+#speaker_table_body {
+  min-height: 85% !important;
+  background: #fafafa;
+}
 
 // CFP Modal CSS goes here
 #cfpModal {
@@ -327,6 +331,7 @@ input {
   position: absolute;
   color: #056bd9;
   right: 14%;
+  z-index: 4;
   transition: 0.3s all ease-in-out;
   -webkit-transition: 0.3s all ease-in-out;
   -mozkit-transition: 0.3s all ease-in-out;
@@ -338,10 +343,41 @@ input {
     -mozkit-transition: 0.3s all ease-in-out;
   }
 }
-// .cursor {
-//     width: 20px;
-//     height: 20px;
-//     border: 1px solid #000;
-//     border-radius: 100%;
-//     position: absolute;
-// }
+
+.panel {
+  height: 100px;
+  background: green;
+  margin-top: 10px;
+  position: relative;
+  margin-top: 10%;
+  left: 10%;
+  width: 90%;
+}
+
+.reply-enter {
+  height: 0px;
+}
+
+.reply-enter-active {
+  height: 100px;
+  -webkit-transition: height 0.3s ease-in-out;
+}
+
+.reply-done.reply-exit-active {
+  -webkit-transition: height 0.9s ease-in-out;
+  height: 0px;
+}
+
+#reply_comment_input {
+  left: 10% !important;
+  width: 83% !important;
+}
+#reply_comment_buttons {
+  width: 89% !important;
+}
+
+.toggle_open {
+  max-height: 25vh !important;
+  opacity: 1 !important;
+  overflow-x: hidden !important;
+}
