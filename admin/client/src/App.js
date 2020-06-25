@@ -19,6 +19,7 @@ import Cfp from "./components/cfp/Cfp";
 import Event from "./components/event/CreateEvent";
 import Speakers from "./components/speakers/Speakers";
 import Profile from "./components/profile/Profile";
+import Chat from "./components/chat/Chat";
 import { createBrowserHistory } from "history";
 
 export const appHistory = createBrowserHistory();
@@ -98,6 +99,9 @@ function App() {
           </Switch>
           <Switch>
             <ProtectedRoute exact path="/profile" component={Profile} />
+          </Switch>
+          <Switch>
+            <ProtectedRoute exact path="/chat" component={Chat} />
           </Switch>
         </div>
       </Router>
