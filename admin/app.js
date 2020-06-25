@@ -45,6 +45,18 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 const port = process.env.PORT || 4004;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Listening at port ${port}`);
+});
+
+// Initialise socket instance
+const io = require("socket.io")(server);
+
+// Listen whenever client connects
+io.on("connection", socket => {
+  console.log("User connected!");
+
+  socket.on("disconnect", () => {
+    console.log("User left!");
+  });
 });
