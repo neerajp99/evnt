@@ -64,7 +64,10 @@
     ]
   },
   "devDependencies": {
+    "autoprefixer": "^9.8.4",
     "babel-plugin-styled-components": "^1.10.7",
-    "babel-preset-react-app": "^9.1.2"
+    "babel-preset-react-app": "^9.1.2",
+    "postcss-cli": "^7.1.1",
+    "tailwindcss": "^1.4.6"
   }
 }
