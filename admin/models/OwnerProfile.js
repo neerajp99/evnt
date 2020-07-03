@@ -17,6 +17,9 @@ const ownerProfileSchema = new Schema({
   website: {
     type: String
   },
+  contact: {
+      type: String
+  },
   bio: {
     type: String,
     isRequired: true
