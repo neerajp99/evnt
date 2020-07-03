@@ -22,6 +22,11 @@ const ownerUserSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  permission: {
+    type: Number,
+    required: true,
+    default: 0
+  },
   events: [
     {
       eventId: {
