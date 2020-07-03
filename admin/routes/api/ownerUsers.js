@@ -48,7 +48,7 @@ router.post("/register", (req, res) => {
         });
       });
     }
-  });
+})
 });
 
 // @route POST /api/ownerUsers/login
@@ -65,7 +65,7 @@ router.post("/login", (req, res) => {
   })
     .then(owner => {
       if (!owner) {
-        res.status(403).json("No user is registered with this email address!");
+        return res.status(403).json("No user is registered with this email address!");
       }
       console.log(password, owner.password);
       // If user exists, decrypt the password from the database and compare
@@ -84,7 +84,7 @@ router.post("/login", (req, res) => {
               payload,
               keys.secretOrkey,
               {
-                expiresIn: 10000
+                expiresIn: 100000
               },
               (error, token) => {
                 res.json({
@@ -95,11 +95,11 @@ router.post("/login", (req, res) => {
               }
             );
           } else {
-            res.status(400).json("Incorrect password");
+            return res.status(400).json("Incorrect password");
           }
         })
         .catch(error => {
-          res.status(400).json("Password does not match!");
+          return res.status(400).json("Password does not match!");
         });
     })
     .catch(error => {
