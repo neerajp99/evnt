@@ -29,6 +29,7 @@ class Side extends Component {
     content: ["Dashboard", "Attendees", "Event", "Speakers", "CFP", "Chat"],
     links: ["dashboard", "attendees", "event", "speakers", "cfp", "chat"],
     bottom_content: ["Profile", "Sign Out"],
+    bottom_links: ["profile", "signout"],
     icons: [
       faHome,
       faUsers,
@@ -41,9 +42,10 @@ class Side extends Component {
   };
 
   render() {
-    const { icons, bottom_icons, links } = this.state;
+    const { icons, bottom_icons, links, bottom_links } = this.state;
     const items = this.state.content.map((item, index) => (
-      <NavLink key = {index}
+      <NavLink
+        key={index}
         to={`/${links[index]}`}
         className="sidebar_link"
         activeClassName="sidebar_active"
@@ -57,7 +59,12 @@ class Side extends Component {
       </NavLink>
     ));
     const bottom_items = this.state.bottom_content.map((item, index) => (
-      <NavLink to="/" className="sidebar_link" key={index}>
+      <NavLink
+        to={`/${bottom_links[index]}`}
+        className="sidebar_link"
+        activeClassName="sidebar_active"
+        key={index}
+      >
         <DashboardListItem>
           <DashboardListIcon>
             <FontAwesomeIcon icon={bottom_icons[index]} aria-hidden="true" />

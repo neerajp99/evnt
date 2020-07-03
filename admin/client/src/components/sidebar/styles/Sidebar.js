@@ -6,7 +6,7 @@ export const Sidebar = styled.div`
   flex-grow: 0.5;
   flex-basis: 100%
   order: 1;
-  border-right: 1.5px solid rgb(228, 229, 233);
+  border-right: 0.5px solid rgb(228, 229, 233);
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   min-width: 20%;
@@ -41,7 +41,7 @@ export const DashboardListItem = styled.li`
   padding: 10px;
   margin-top: 10%;
   letter-spacing: 0.07rem;
-  border-right: 5px solid #fff;
+  border-right:  5px solid #fff;
   display: flex;
   flex-direction: row;
   transition: 0.4s all ease-in-out;
