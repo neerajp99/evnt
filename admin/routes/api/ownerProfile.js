@@ -13,7 +13,6 @@ router.get(
   "/",
   passport.authenticate("jwt", { session: false }),
   (req, res) => {
-
     const errors = {};
     OwnerProfile.findOne({
       user: req.user.id
@@ -98,6 +97,9 @@ router.post(
     if (req.body.bio) {
       profileData.bio = req.body.bio;
     }
+    if (req.body.contact) {
+      profileData.contact = req.body.contact;
+    }
 
     //Skills has an array of string, so split into array
     // if (typeof req.body.skills !== "undefined") {
@@ -107,25 +109,26 @@ router.post(
     // social links goes here
     profileData.social = {};
     if (req.body.facebook) {
-      profileData.social.facebook = `https://facebook.com/` + req.body.facebook;
+      profileData.social.facebook = req.body.facebook;
     }
     if (req.body.twitter) {
-      profileData.social.twitter = `twitter.com/` + req.body.twitter;
+      profileData.social.twitter = req.body.twitter;
     }
     if (req.body.linkedin) {
       profileData.social.linkedin = req.body.linkedin;
     }
     if (req.body.github) {
-      profileData.social.github = `https://github.com/` + req.body.github;
+      profileData.social.github = req.body.github;
     }
 
     OwnerProfile.findOne({
       user: req.user.id
     })
       .then(profile => {
+        console.log(profile);
         if (profile) {
           // If profile exists, update it
-          Profile.findOneAndUpdate(
+          OwnerProfile.findOneAndUpdate(
             {
               user: req.user.id
             },
