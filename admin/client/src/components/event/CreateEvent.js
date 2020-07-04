@@ -18,10 +18,24 @@ import {
   AddMoreCollaboratorBox,
   CollaboratorLabel,
   AddCollaborators,
-  AddCollaboratorButton
+  AddCollaboratorButton,
+  CfpHeading,
+  Label,
+  TalkDurationDiv,
+  TalkDurationAddButton,
+  EventDateDiv,
+  SocialHeading,
+  EventSubmitButton
 } from "./styles/EventForm";
+import "date-fns";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker
+} from "@material-ui/pickers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
+
 // import PlacesAutocomplete from "react-places-autocomplete";
 const colors = require("nice-color-palettes");
 
@@ -39,6 +53,16 @@ class Event extends Component {
     codeOfConduct: "",
     collaborators: ["NP", "DB", "MP", "JP", "KG"],
     collaborator: [{ value: null }],
+    cfpDescription: "",
+    cfpNotes: "",
+    talkDurations: [{ value: null }],
+    talktags: "",
+    startDate: new Date("2020-07-20T08:00:54"),
+    endDate: new Date("2020-07-20T08:00:54"),
+    facebook: "",
+    twitter: "",
+    linkedin: "",
+    gihtub: "",
     errors: {}
   };
 
@@ -77,7 +101,7 @@ class Event extends Component {
   // }
 
   // Method to add more input fields
-  onClickAdd = event => {
+  onClickCollaboratorAdd = event => {
     const values = [...this.state.collaborator];
     values.push({ value: null });
     this.setState({
@@ -86,7 +110,7 @@ class Event extends Component {
   };
 
   // Set state on change of event
-  onHandleChange = (index, event) => {
+  onHandleCollaboratorChange = (index, event) => {
     const values = [...this.state.collaborator];
     values[index].value = event.target.value;
     this.setState({
@@ -95,12 +119,50 @@ class Event extends Component {
   };
 
   // Delete the spcific key value pair from the colaborator state
-  onDeleteContent = key => {
-    console.log(key);
+  onDeleteCollaboratorContent = key => {
     const values = [...this.state.collaborator];
     values.splice(key, 1);
     this.setState({
       collaborator: values
+    });
+  };
+
+  // Method to trigger whenever the user clicks to add another field for talk duration
+  onClickDurationAdd = event => {
+    const values = [...this.state.talkDurations];
+    values.push({ value: null });
+    this.setState({
+      talkDurations: values
+    });
+  };
+
+  // Method to delete a talk duration field
+  onDeleteDurationContent = key => {
+    const values = [...this.state.talkDurations];
+    values.splice(key, 1);
+    this.setState({
+      talkDurations: values
+    });
+  };
+
+  // Method to update state of the input field for talk duration
+  onHandleDurationChange = (index, event) => {
+    const values = [...this.state.talkDurations];
+    values[index].value = event.target.value;
+    this.setState({
+      talkDurations: values
+    });
+  };
+
+  handleStartDateChange = (date, event) => {
+    this.setState({
+      startDate: date
+    });
+  };
+
+  handleEndDateChange = (date, event) => {
+    this.setState({
+      endDate: date
     });
   };
 
@@ -116,15 +178,24 @@ class Event extends Component {
       additional,
       codeOfConduct,
       collaborators,
-      collaborator
+      collaborator,
+      cfpDescription,
+      cfpNotes,
+      talkDurations,
+      talkTags,
+      facebook,
+      twitter,
+      linkedin,
+      github
     } = this.state;
 
     // Create component for Collaborators tag box
     const tags = collaborators.map((item, index) => {
       let x = `${colors[Math.floor(Math.random() * Math.floor(10))][index]}`;
+      // <CollaboratorTagBox color={index} key={index} style={{ backgroundColor: x }}>
       return (
-        <CollaboratorTagBox key={index} style={{ backgroundColor: x }}>
-          <div style={{ color: "black" }}> {item}</div>
+        <CollaboratorTagBox color={index} key={index}>
+          <div> {item}</div>
         </CollaboratorTagBox>
       );
     });
@@ -136,14 +207,14 @@ class Event extends Component {
             placeholder="Collaborator's Email ID"
             name="collaborator"
             value={collab.value || ""}
-            onChange={e => this.onHandleChange(index, e)}
+            onChange={e => this.onHandleCollaboratorChange(index, e)}
             type="text"
             classname="collab_input"
           />
           {Object.keys(collaborator).length > 1 ? (
             <FontAwesomeIcon
               onClick={() => {
-                this.onDeleteContent(index);
+                this.onDeleteCollaboratorContent(index);
               }}
               className="trash_icon"
               icon={faBan}
@@ -152,7 +223,7 @@ class Event extends Component {
           ) : (
             <FontAwesomeIcon
               onClick={() => {
-                this.onDeleteContent(index);
+                this.onDeleteCollaboratorContent(index);
               }}
               className="trash_icon trash_icon_hidden"
               icon={faBan}
@@ -162,6 +233,41 @@ class Event extends Component {
         </React.Fragment>
       );
     });
+
+    // Talk Duration content
+    const talkTimes = talkDurations.map((time, index) => {
+      return (
+        <React.Fragment key={index}>
+          <EventInputField
+            placeholder="eg: 45 minutes"
+            name="talkDurations"
+            value={time.value || ""}
+            onChange={event => this.onHandleDurationChange(index, event)}
+            type="text"
+          />
+          {Object.keys(talkDurations).length > 1 ? (
+            <FontAwesomeIcon
+              onClick={() => {
+                this.onDeleteDurationContent(index);
+              }}
+              className="trash_icon"
+              icon={faBan}
+              aria-hidden="true"
+            />
+          ) : (
+            <FontAwesomeIcon
+              onClick={() => {
+                this.onDeleteDurationContent(index);
+              }}
+              className="trash_icon trash_icon_hidden"
+              icon={faBan}
+              aria-hidden="true"
+            />
+          )}
+        </React.Fragment>
+      );
+    });
+
     return (
       <Container>
         <Side />
@@ -234,14 +340,36 @@ class Event extends Component {
                     label="Venue"
                     type="text"
                   />
-                  <EventInputField
-                    placeholder="Event Dates"
-                    name="date"
-                    value={date}
-                    onChange={this.onChange}
-                    label="Event Dates"
-                    type="text"
-                  />
+                  <Label htmlFor="label">Event Start Date</Label>
+                  <EventDateDiv>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <KeyboardDatePicker
+                        margin="normal"
+                        id="date-picker-dialog"
+                        format="MM/dd/yyyy"
+                        value={this.state.startDate}
+                        onChange={this.handleStartDateChange}
+                        KeyboardButtonProps={{
+                          "aria-label": "change date"
+                        }}
+                      />
+                    </MuiPickersUtilsProvider>
+                  </EventDateDiv>
+                  <Label htmlFor="label">Event End Date</Label>
+                  <EventDateDiv>
+                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                      <KeyboardDatePicker
+                        margin="normal"
+                        id="date-picker-dialog"
+                        format="MM/dd/yyyy"
+                        value={this.state.endDate}
+                        onChange={this.handleEndDateChange}
+                        KeyboardButtonProps={{
+                          "aria-label": "change date"
+                        }}
+                      />
+                    </MuiPickersUtilsProvider>
+                  </EventDateDiv>
                   <EventTextArea
                     placeholder="Other information regarding the event. "
                     name="additional"
@@ -258,6 +386,70 @@ class Event extends Component {
                     label="Event Code of Conduct"
                     type="text"
                   />
+                  <CfpHeading>CFP Details</CfpHeading>
+                  <EventTextArea
+                    placeholder="Call for proposal description."
+                    name="cfpDescription"
+                    value={cfpDescription}
+                    onChange={this.onChange}
+                    label="CFP Description"
+                    type="text"
+                  />
+                  <EventTextArea
+                    placeholder="While a call for proposal note is not required for your event, we highly recommend you have one."
+                    name="cfpNotes"
+                    value={cfpNotes}
+                    onChange={this.onChange}
+                    label="CFP Notes"
+                    type="text"
+                  />
+                  <EventInputField
+                    placeholder="Add tags seperated by a comma"
+                    name="talkTags"
+                    value={talkTags}
+                    onChange={this.onChange}
+                    label="Talk Tags"
+                    type="text"
+                  />
+                  <Label htmlFor="label">Talk Duration</Label>
+                  <TalkDurationDiv>{talkTimes}</TalkDurationDiv>
+                  <TalkDurationAddButton onClick={this.onClickDurationAdd}>
+                    {" "}
+                    Add More{" "}
+                  </TalkDurationAddButton>
+                  <SocialHeading>Social Media Accounts</SocialHeading>
+                  <EventInputField
+                    placeholder="eg: https://facebook.com/name"
+                    name="facebook"
+                    value={facebook}
+                    onChange={this.onChange}
+                    label="Facebook"
+                    type="text"
+                  />
+                  <EventInputField
+                    placeholder="eg: https://twitter.com.name"
+                    name="linkedin"
+                    value={twitter}
+                    onChange={this.onChange}
+                    label="Twitter"
+                    type="text"
+                  />
+                  <EventInputField
+                    placeholder="eg: https://linkedin.com/name"
+                    name="linkedin"
+                    value={linkedin}
+                    onChange={this.onChange}
+                    label="Linkedin"
+                    type="text"
+                  />
+                  <EventInputField
+                    placeholder="eg: https://github.com/name"
+                    name="github"
+                    value={github}
+                    onChange={this.onChange}
+                    label="Github"
+                    type="text"
+                  />
                 </FormGroup>
               </form>
             </FormContainer>
@@ -272,16 +464,15 @@ class Event extends Component {
                 {tags}
                 {/*<AddMoreCollaboratorBox>+</AddMoreCollaboratorBox>*/}
               </CollaboratorsTag>
-
               <CollaboratorLabel style={{ marginTop: "6vh" }}>
                 Add Members
               </CollaboratorLabel>
-
               <AddCollaborators>{items}</AddCollaborators>
-              <AddCollaboratorButton onClick={this.onClickAdd}>
+              <AddCollaboratorButton onClick={this.onClickCollaboratorAdd}>
                 Add MORE
               </AddCollaboratorButton>
             </CollaboratorsContainer>
+            <EventSubmitButton>CREATE EVENT</EventSubmitButton>
           </EventCollaborators>
         </InnerContainer>
       </Container>
