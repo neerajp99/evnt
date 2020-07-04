@@ -248,7 +248,11 @@ class Profile extends Component {
                         label="Linkedin"
                       />
                     </InputDiv>
-                    <ProfileButton type="submit">Save Profile</ProfileButton>
+                    <ProfileButton type="submit">
+                      {this.state.handle !== ""
+                        ? "Update Profile"
+                        : "Save Profile"}
+                    </ProfileButton>
                   </FormGroup>
                 </form>
               </ProfileDetails>
