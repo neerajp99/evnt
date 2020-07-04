@@ -381,3 +381,25 @@ input {
   opacity: 1 !important;
   overflow-x: hidden !important;
 }
+
+.MuiInput-underline::before,
+.MuiInput-underline::after {
+  border-bottom: none !important;
+}
+.MuiFormControl-marginNormal {
+  margin-top: 10px !important;
+  margin-bottom: 8px !important;
+  width: 100% !important;
+}
+.MuiPickersToolbar-toolbar {
+  background-color: #4ca1ff !important;
+}
+.MuiPickersDay-daySelected {
+  background-color: #4ca1ff !important;
+}
+.MuiButton-textPrimary {
+  color: #4ca1ff !important;
+}
+.MuiInputBase-input {
+    color: #565c65 !important;
+}
