@@ -31,17 +31,17 @@ const EventSchema = new Schema({
   eventWebsite: {
     type: String
   },
-  recurringEvent: {
-    type: Boolean,
-    default: false
-  },
+  // recurringEvent: {
+  //   type: Boolean,
+  //   default: false
+  // },
   eventCodeOfConduct: {
       type: String,
   },
-  anonymousSubmission: {
-    type: Boolean,
-    default: true
-  },
+  // anonymousSubmission: {
+  //   type: Boolean,
+  //   default: true
+  // },
   cfpDescription: {
     type: String,
     required: true
