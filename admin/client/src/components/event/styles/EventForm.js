@@ -129,9 +129,8 @@ export const CollaboratorTagBox = styled.div`
   opacity: 0.5; */
   div {
     opacity: 1;
-    @media(max-width: 1100px) {
-        font-size: 15px;
-
+    @media (max-width: 1100px) {
+      font-size: 15px;
     }
   }
 `;
@@ -243,8 +242,8 @@ export const TalkDurationDiv = styled.div`
 
 export const TalkDurationAddButton = styled.div`
   height: 50px;
-  color: #5b6a83;
-  background: #d5d9e0;
+  color: #3182d0;
+  background: #bee3f8;
   width: 88%;
   text-align: center;
   margin: 0 auto;
@@ -312,6 +311,20 @@ export const EventSubmitButton = styled.div`
   }
 `;
 
-export const TagContent = styled.h6`
-
-`
+export const TravelAssistanceDiv = styled.div`
+  position: relative;
+  width: 88%;
+  margin: 0 auto;
+  display: inline-block;
+  text-align: left;
+  p {
+    position: absolute;
+    display: inline-block;
+    color: #435767;
+    width: 85%;
+    margin-top: 11px;
+  }
+  @media (max-width: 768px) {
+    margin-bottom: 4%;
+  }
+`;
