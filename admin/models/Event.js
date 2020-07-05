@@ -36,7 +36,7 @@ const EventSchema = new Schema({
   //   default: false
   // },
   eventCodeOfConduct: {
-      type: String,
+    type: String
   },
   // anonymousSubmission: {
   //   type: Boolean,
@@ -54,7 +54,7 @@ const EventSchema = new Schema({
   },
   talkDuration: [
     {
-      talkFormat: {
+      value: {
         type: String,
         required: true
       }
@@ -67,7 +67,7 @@ const EventSchema = new Schema({
     type: Boolean,
     default: false
   },
-  travelAssitancePolicy: {
+  travelAssistancePolicy: {
     type: String
   },
   social: {
