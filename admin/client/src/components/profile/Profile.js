@@ -265,7 +265,10 @@ class Profile extends Component {
 }
 
 Profile.propTypes = {
-  auth: PropTypes.func.isRequired
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+  createProfile: PropTypes.func.isRequired,
+  getCurrentProfile: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
