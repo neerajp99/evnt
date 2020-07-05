@@ -25,7 +25,8 @@ import {
   TalkDurationAddButton,
   EventDateDiv,
   SocialHeading,
-  EventSubmitButton
+  EventSubmitButton,
+  TravelAssistanceDiv
 } from "./styles/EventForm";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
@@ -35,7 +36,12 @@ import {
 } from "@material-ui/pickers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBan } from "@fortawesome/free-solid-svg-icons";
-
+import Checkbox from "@material-ui/core/Checkbox";
+import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { createEvent, getEvent } from "../../actions/eventActions";
+import PropTypes from "prop-types";
+import isEmpty from "../../validation/isEmpty";
 // import PlacesAutocomplete from "react-places-autocomplete";
 const colors = require("nice-color-palettes");
 
@@ -47,7 +53,6 @@ class Event extends Component {
     website: "",
     location: "",
     gmapsLoaded: false,
-    date: "",
     venue: "",
     additional: "",
     codeOfConduct: "",
@@ -56,16 +61,155 @@ class Event extends Component {
     cfpDescription: "",
     cfpNotes: "",
     talkDurations: [{ value: null }],
-    talktags: "",
+    talkTags: "",
     startDate: new Date("2020-07-20T08:00:54"),
     endDate: new Date("2020-07-20T08:00:54"),
     facebook: "",
     twitter: "",
     linkedin: "",
-    gihtub: "",
+    github: "",
+    checked: false,
+    travelAssistance: "",
     errors: {}
   };
 
+  // componentDidMount lifecycle method to fetch event data
+  componentDidMount() {
+    this.props.getEvent();
+  }
+
+  // If there is a new prop and this is invoked right before calling the render method.
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    if (nextProps.event.event !== null) {
+      if (nextProps.event.event) {
+        console.log(nextProps.event.event);
+        const current_event = nextProps.event.event;
+        current_event.eventName = !isEmpty(current_event.eventName)
+          ? current_event.eventName
+          : "";
+        current_event.eventVenue = !isEmpty(current_event.eventVenue)
+          ? current_event.eventVenue
+          : "";
+        current_event.eventDescription = !isEmpty(
+          current_event.eventDescription
+        )
+          ? current_event.eventDescription
+          : "";
+        current_event.eventWebsite = !isEmpty(current_event.eventWebsite)
+          ? current_event.eventWebsite
+          : "";
+        current_event.eventBeginDate = !isEmpty(current_event.eventBeginDate)
+          ? current_event.eventBeginDate
+          : new Date("2020-07-20T08:00:54");
+        current_event.eventEndDate = !isEmpty(current_event.eventEndDate)
+          ? current_event.eventEndDate
+          : new Date("2020-07-20T08:00:54");
+        current_event.additionalDetails = !isEmpty(
+          current_event.additionalDetails
+        )
+          ? current_event.additionalDetails
+          : "";
+        current_event.eventCodeOfConduct = !isEmpty(
+          current_event.eventCodeOfConduct
+        )
+          ? current_event.eventCodeOfConduct
+          : "";
+        current_event.social = !isEmpty(current_event.social)
+          ? current_event.social
+          : {};
+        current_event.facebook = !isEmpty(current_event.social.facebook)
+          ? current_event.social.facebook
+          : "";
+        current_event.twitter = !isEmpty(current_event.social.twitter)
+          ? current_event.social.twitter
+          : "";
+        current_event.linkedin = !isEmpty(current_event.social.linkedin)
+          ? current_event.social.linkedin
+          : "";
+        current_event.github = !isEmpty(current_event.social.github)
+          ? current_event.social.github
+          : "";
+        current_event.cfpDescription = !isEmpty(current_event.cfpDescription)
+          ? current_event.cfpDescription
+          : "";
+        current_event.cfpNotes = !isEmpty(current_event.cfpNotes)
+          ? current_event.cfpNotes
+          : "";
+        current_event.travelAssistance = !isEmpty(
+          current_event.travelAssistance
+        )
+          ? current_event.travelAssistance
+          : false;
+        current_event.travelAssistancePolicy = !isEmpty(
+          current_event.travelAssistancePolicy
+        )
+          ? current_event.travelAssistancePolicy
+          : "";
+        current_event.talkTags = !isEmpty(current_event.talkTags)
+          ? current_event.talkTags.join()
+          : "";
+        let tempDurations = [];
+        if (!isEmpty(current_event.talkDuration)) {
+          current_event.talkDuration.forEach(item => {
+            tempDurations.push({ value: item.value });
+          });
+        }
+        current_event.talkDuration = !isEmpty(current_event.talkDuration)
+          ? tempDurations
+          : [{ value: null }];
+
+        // Set state according the values received from props
+        this.setState({
+          title: current_event.eventName,
+          description: current_event.eventDescription,
+          website: current_event.eventWebsite,
+          venue: current_event.eventVenue,
+          additional: current_event.additionalDetails,
+          codeOfConduct: current_event.eventCodeOfConduct,
+          cfpDescription: current_event.cfpDescription,
+          cfpNotes: current_event.cfpNotes,
+          talkDurations: current_event.talkDuration,
+          talkTags: current_event.talkTags,
+          startDate: current_event.eventBeginDate,
+          endDate: current_event.eventEndDate,
+          facebook: current_event.facebook,
+          twitter: current_event.twitter,
+          linkedin: current_event.linkedin,
+          github: current_event.github,
+          checked: current_event.travelAssistance,
+          travelAssistance: current_event.travelAssistancePolicy
+        });
+      }
+    }
+  }
+
+  // Method to call action and submit the form
+  onSubmitForm = event => {
+    console.log("ajajaja");
+    event.preventDefault();
+    const newEvent = {
+      eventName: this.state.title,
+      eventBeginDate: this.state.startDate,
+      eventEndDate: this.state.endDate,
+      eventVenue: this.state.venue,
+      eventDescription: this.state.description,
+      eventWebsite: this.state.website,
+      eventCodeOfConduct: this.state.codeOfConduct,
+      cfpDescription: this.state.cfpDescription,
+      cfpNotes: this.state.cfpNotes,
+      additionalDetails: this.state.additional,
+      talkDuration: this.state.talkDurations,
+      talkTags: this.state.talkTags,
+      facebook: this.state.facebook,
+      twitter: this.state.twitter,
+      linkedin: this.state.linkedin,
+      github: this.state.github,
+      travelAssistance: this.state.checked,
+      travelAssistancePolicy: this.state.travelAssistance
+    };
+    this.props.createEvent(newEvent, this.props.history);
+  };
   // onchange function to change input state
   onChange = event => {
     this.setState({
@@ -166,6 +310,12 @@ class Event extends Component {
     });
   };
 
+  handleCheckBoxChange = event => {
+    this.setState({
+      checked: !this.state.checked
+    });
+  };
+
   render() {
     const {
       formHeading,
@@ -186,7 +336,8 @@ class Event extends Component {
       facebook,
       twitter,
       linkedin,
-      github
+      github,
+      travelAssistance
     } = this.state;
 
     // Create component for Collaborators tag box
@@ -355,6 +506,7 @@ class Event extends Component {
                       />
                     </MuiPickersUtilsProvider>
                   </EventDateDiv>
+
                   <Label htmlFor="label">Event End Date</Label>
                   <EventDateDiv>
                     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -386,37 +538,6 @@ class Event extends Component {
                     label="Event Code of Conduct"
                     type="text"
                   />
-                  <CfpHeading>CFP Details</CfpHeading>
-                  <EventTextArea
-                    placeholder="Call for proposal description."
-                    name="cfpDescription"
-                    value={cfpDescription}
-                    onChange={this.onChange}
-                    label="CFP Description"
-                    type="text"
-                  />
-                  <EventTextArea
-                    placeholder="While a call for proposal note is not required for your event, we highly recommend you have one."
-                    name="cfpNotes"
-                    value={cfpNotes}
-                    onChange={this.onChange}
-                    label="CFP Notes"
-                    type="text"
-                  />
-                  <EventInputField
-                    placeholder="Add tags seperated by a comma"
-                    name="talkTags"
-                    value={talkTags}
-                    onChange={this.onChange}
-                    label="Talk Tags"
-                    type="text"
-                  />
-                  <Label htmlFor="label">Talk Duration</Label>
-                  <TalkDurationDiv>{talkTimes}</TalkDurationDiv>
-                  <TalkDurationAddButton onClick={this.onClickDurationAdd}>
-                    {" "}
-                    Add More{" "}
-                  </TalkDurationAddButton>
                   <SocialHeading>Social Media Accounts</SocialHeading>
                   <EventInputField
                     placeholder="eg: https://facebook.com/name"
@@ -428,7 +549,7 @@ class Event extends Component {
                   />
                   <EventInputField
                     placeholder="eg: https://twitter.com.name"
-                    name="linkedin"
+                    name="twitter"
                     value={twitter}
                     onChange={this.onChange}
                     label="Twitter"
@@ -450,6 +571,58 @@ class Event extends Component {
                     label="Github"
                     type="text"
                   />
+
+                  <CfpHeading>CFP Details</CfpHeading>
+                  <EventTextArea
+                    placeholder="Call for proposal description."
+                    name="cfpDescription"
+                    value={cfpDescription}
+                    onChange={this.onChange}
+                    label="CFP Description"
+                    type="text"
+                  />
+                  <EventTextArea
+                    placeholder="While a call for proposal note is not required for your event, we highly recommend you have one."
+                    name="cfpNotes"
+                    value={cfpNotes}
+                    onChange={this.onChange}
+                    label="CFP Notes"
+                    type="text"
+                  />
+                  <Label htmlFor="label">Travel Assistance</Label>
+                  <TravelAssistanceDiv>
+                    <Checkbox
+                      checked={this.state.checked}
+                      onClick={this.handleCheckBoxChange}
+                      inputProps={{ "aria-label": "primary checkbox" }}
+                    />
+                    <p>
+                      {" "}
+                      Does your event provide travel assistance to speakers?
+                    </p>
+                  </TravelAssistanceDiv>
+                  <EventInputField
+                    placeholder="Enter the travel assistance policy, if any."
+                    name="travelAssistance"
+                    value={travelAssistance}
+                    onChange={this.onChange}
+                    label="Travel Assistance Policy"
+                    type="text"
+                  />
+                  <EventInputField
+                    placeholder="Add tags seperated by a comma"
+                    name="talkTags"
+                    value={talkTags}
+                    onChange={this.onChange}
+                    label="Talk Tags"
+                    type="text"
+                  />
+                  <Label htmlFor="label">Talk Duration</Label>
+                  <TalkDurationDiv>{talkTimes}</TalkDurationDiv>
+                  <TalkDurationAddButton onClick={this.onClickDurationAdd}>
+                    {" "}
+                    Add More{" "}
+                  </TalkDurationAddButton>
                 </FormGroup>
               </form>
             </FormContainer>
@@ -472,7 +645,9 @@ class Event extends Component {
                 Add MORE
               </AddCollaboratorButton>
             </CollaboratorsContainer>
-            <EventSubmitButton>CREATE EVENT</EventSubmitButton>
+            <EventSubmitButton onClick={this.onSubmitForm}>
+              CREATE EVENT
+            </EventSubmitButton>
           </EventCollaborators>
         </InnerContainer>
       </Container>
@@ -480,4 +655,20 @@ class Event extends Component {
   }
 }
 
-export default Event;
+Event.propTypes = {
+  auth: PropTypes.object.isRequired,
+  profile: PropTypes.object.isRequired,
+  createEvent: PropTypes.func.isRequired,
+  getEvent: PropTypes.func.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  profile: state.profile,
+  event: state.event
+});
+
+export default connect(
+  mapStateToProps,
+  { createEvent, getEvent }
+)(withRouter(Event));
