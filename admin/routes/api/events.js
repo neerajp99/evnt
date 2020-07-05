@@ -63,17 +63,17 @@ router.post(
       eventData.eventWebsite = req.body.eventWebsite;
     }
     // Is event recurring?
-    if (req.body.recurringEvent) {
-      eventData.recurringEvent = req.body.recurringEvent;
-    }
+    // if (req.body.recurringEvent) {
+    //   eventData.recurringEvent = req.body.recurringEvent;
+    // }
     // What's the event code of conduct*?
     if (req.body.eventCodeOfConduct) {
       eventData.eventCodeOfConduct = req.body.eventCodeOfConduct;
     }
     // Is event submission anonymous
-    if (req.body.anonymousSubmission) {
-      eventData.anonymousSubmission = req.body.anonymousSubmission;
-    }
+    // if (req.body.anonymousSubmission) {
+    //   eventData.anonymousSubmission = req.body.anonymousSubmission;
+    // }
     // Event Call for Propsal Details
     if (req.body.cfpDescription) {
       eventData.cfpDescription = req.body.cfpDescription;
@@ -88,11 +88,11 @@ router.post(
     }
     // Talk durations
     if (req.body.talkDuration) {
-      eventData.talkDuration = req.body.talkDuration;      
+      eventData.talkDuration = req.body.talkDuration;
     }
     // Talk Tags
     if (typeof req.body.talkTags !== "undefined") {
-      profileData.talkTags = req.body.talkTags.split(",");
+      eventData.talkTags = req.body.talkTags.split(",");
     }
     // Is there travel assistance
     if (req.body.travelAssistance) {
@@ -117,7 +117,6 @@ router.post(
     if (req.body.github) {
       eventData.social.github = `https://github.com/` + req.body.github;
     }
-
     new Event(eventData)
       .save()
       .then(event => {
@@ -148,17 +147,18 @@ router.post(
         eventEndDate: req.body.eventEndDate,
         eventDescription: req.body.eventDescription,
         eventWebsite: req.body.eventWebsite,
-        recurringEvent : req.body.recurringEvent,
-        eventCodeOfConduct : req.body.eventCodeOfConduct,
-        anonymousSubmission : req.body.anonymousSubmission,
-        cfpDescription : req.body.cfpDescription,
-        cfpNotes : req.body.cfpNotes,
-        additionalDetails : req.body.additionalDetails,
-        talkDuration : req.body.talkDuration,
-        talkTags : req.body.talkTags,
-        travelAssistance : req.body.travelAssistance,
-        travelAssistancePolicy : requestAnimationFrame.body.travelAssistancePolicy,
-        social : req.body.social
+        // recurringEvent: req.body.recurringEvent,
+        eventCodeOfConduct: req.body.eventCodeOfConduct,
+        // anonymousSubmission: req.body.anonymousSubmission,
+        cfpDescription: req.body.cfpDescription,
+        cfpNotes: req.body.cfpNotes,
+        additionalDetails: req.body.additionalDetails,
+        talkDuration: req.body.talkDuration,
+        talkTags: req.body.talkTags,
+        travelAssistance: req.body.travelAssistance,
+        travelAssistancePolicy:
+          requestAnimationFrame.body.travelAssistancePolicy,
+        social: req.body.social
 
         //    "social.facebook" : req.body.social.facebook,
         //    "social.twitter" : req.body.social.twitter,
