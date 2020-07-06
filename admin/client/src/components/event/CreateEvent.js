@@ -42,6 +42,7 @@ import { connect } from "react-redux";
 import { createEvent, getEvent } from "../../actions/eventActions";
 import PropTypes from "prop-types";
 import isEmpty from "../../validation/isEmpty";
+import Spin from "../../utils/Spinner";
 // import PlacesAutocomplete from "react-places-autocomplete";
 const colors = require("nice-color-palettes");
 
@@ -68,7 +69,7 @@ class Event extends Component {
     twitter: "",
     linkedin: "",
     github: "",
-    checked: false,
+    checked: true,
     travelAssistance: "",
     errors: {}
   };
@@ -146,9 +147,11 @@ class Event extends Component {
         )
           ? current_event.travelAssistancePolicy
           : "";
-        current_event.talkTags = !isEmpty(current_event.talkTags)
-          ? current_event.talkTags.join()
-          : "";
+        current_event.talkTags =
+          !isEmpty(current_event.talkTags) &&
+          Array.isArray(current_event.talktags)
+            ? current_event.talkTags.join()
+            : "";
         let tempDurations = [];
         if (!isEmpty(current_event.talkDuration)) {
           current_event.talkDuration.forEach(item => {
@@ -418,41 +421,46 @@ class Event extends Component {
         </React.Fragment>
       );
     });
+    const { event, loading } = this.props.event;
 
     return (
       <Container>
         <Side />
         <InnerContainer>
-          <EventForm>
-            <FormContainer>
-              <FormHeading>{formHeading} Event</FormHeading>
-              <form noValidate>
-                <FormGroup>
-                  <EventInputField
-                    placeholder="Event Title"
-                    name="title"
-                    value={title}
-                    onChange={this.onChange}
-                    label="Title"
-                    type="text"
-                  />
-                  <EventTextArea
-                    placeholder="Event Description"
-                    name="description"
-                    value={description}
-                    onChange={this.onChange}
-                    label="Description"
-                    type="text"
-                  />
-                  <EventInputField
-                    placeholder="Event Website"
-                    name="website"
-                    value={website}
-                    onChange={this.onChange}
-                    label="Website"
-                    type="text"
-                  />
-                  {/*  {this.state.gmapsLoaded && (
+          {event === null || loading ? (
+            <Spin />
+          ) : (
+            <React.Fragment>
+              <EventForm>
+                <FormContainer>
+                  <FormHeading>{formHeading} Event</FormHeading>
+                  <form noValidate>
+                    <FormGroup>
+                      <EventInputField
+                        placeholder="Event Title"
+                        name="title"
+                        value={title}
+                        onChange={this.onChange}
+                        label="Title"
+                        type="text"
+                      />
+                      <EventTextArea
+                        placeholder="Event Description"
+                        name="description"
+                        value={description}
+                        onChange={this.onChange}
+                        label="Description"
+                        type="text"
+                      />
+                      <EventInputField
+                        placeholder="Event Website"
+                        name="website"
+                        value={website}
+                        onChange={this.onChange}
+                        label="Website"
+                        type="text"
+                      />
+                      {/*  {this.state.gmapsLoaded && (
                     <PlacesAutocomplete
                       name="location"
                       value={location}
@@ -483,172 +491,174 @@ class Event extends Component {
                     </PlacesAutocomplete>
                   )}
               */}
-                  <EventInputField
-                    placeholder="Event Venue"
-                    name="venue"
-                    value={venue}
-                    onChange={this.onChange}
-                    label="Venue"
-                    type="text"
-                  />
-                  <Label htmlFor="label">Event Start Date</Label>
-                  <EventDateDiv>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <KeyboardDatePicker
-                        margin="normal"
-                        id="date-picker-dialog"
-                        format="MM/dd/yyyy"
-                        value={this.state.startDate}
-                        onChange={this.handleStartDateChange}
-                        KeyboardButtonProps={{
-                          "aria-label": "change date"
-                        }}
+                      <EventInputField
+                        placeholder="Event Venue"
+                        name="venue"
+                        value={venue}
+                        onChange={this.onChange}
+                        label="Venue"
+                        type="text"
                       />
-                    </MuiPickersUtilsProvider>
-                  </EventDateDiv>
+                      <Label htmlFor="label">Event Start Date</Label>
+                      <EventDateDiv>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                          <KeyboardDatePicker
+                            margin="normal"
+                            id="date-picker-dialog"
+                            format="MM/dd/yyyy"
+                            value={this.state.startDate}
+                            onChange={this.handleStartDateChange}
+                            KeyboardButtonProps={{
+                              "aria-label": "change date"
+                            }}
+                          />
+                        </MuiPickersUtilsProvider>
+                      </EventDateDiv>
 
-                  <Label htmlFor="label">Event End Date</Label>
-                  <EventDateDiv>
-                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                      <KeyboardDatePicker
-                        margin="normal"
-                        id="date-picker-dialog"
-                        format="MM/dd/yyyy"
-                        value={this.state.endDate}
-                        onChange={this.handleEndDateChange}
-                        KeyboardButtonProps={{
-                          "aria-label": "change date"
-                        }}
+                      <Label htmlFor="label">Event End Date</Label>
+                      <EventDateDiv>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                          <KeyboardDatePicker
+                            margin="normal"
+                            id="date-picker-dialog"
+                            format="MM/dd/yyyy"
+                            value={this.state.endDate}
+                            onChange={this.handleEndDateChange}
+                            KeyboardButtonProps={{
+                              "aria-label": "change date"
+                            }}
+                          />
+                        </MuiPickersUtilsProvider>
+                      </EventDateDiv>
+                      <EventTextArea
+                        placeholder="Other information regarding the event. "
+                        name="additional"
+                        value={additional}
+                        onChange={this.onChange}
+                        label="Additional Information"
+                        type="text"
                       />
-                    </MuiPickersUtilsProvider>
-                  </EventDateDiv>
-                  <EventTextArea
-                    placeholder="Other information regarding the event. "
-                    name="additional"
-                    value={additional}
-                    onChange={this.onChange}
-                    label="Additional Information"
-                    type="text"
-                  />
-                  <EventTextArea
-                    placeholder="While a code of conduct is not required for your event, we highly recommend you have one."
-                    name="codeOfConduct"
-                    value={codeOfConduct}
-                    onChange={this.onChange}
-                    label="Event Code of Conduct"
-                    type="text"
-                  />
-                  <SocialHeading>Social Media Accounts</SocialHeading>
-                  <EventInputField
-                    placeholder="eg: https://facebook.com/name"
-                    name="facebook"
-                    value={facebook}
-                    onChange={this.onChange}
-                    label="Facebook"
-                    type="text"
-                  />
-                  <EventInputField
-                    placeholder="eg: https://twitter.com.name"
-                    name="twitter"
-                    value={twitter}
-                    onChange={this.onChange}
-                    label="Twitter"
-                    type="text"
-                  />
-                  <EventInputField
-                    placeholder="eg: https://linkedin.com/name"
-                    name="linkedin"
-                    value={linkedin}
-                    onChange={this.onChange}
-                    label="Linkedin"
-                    type="text"
-                  />
-                  <EventInputField
-                    placeholder="eg: https://github.com/name"
-                    name="github"
-                    value={github}
-                    onChange={this.onChange}
-                    label="Github"
-                    type="text"
-                  />
+                      <EventTextArea
+                        placeholder="While a code of conduct is not required for your event, we highly recommend you have one."
+                        name="codeOfConduct"
+                        value={codeOfConduct}
+                        onChange={this.onChange}
+                        label="Event Code of Conduct"
+                        type="text"
+                      />
+                      <SocialHeading>Social Media Accounts</SocialHeading>
+                      <EventInputField
+                        placeholder="eg: https://facebook.com/name"
+                        name="facebook"
+                        value={facebook}
+                        onChange={this.onChange}
+                        label="Facebook"
+                        type="text"
+                      />
+                      <EventInputField
+                        placeholder="eg: https://twitter.com.name"
+                        name="twitter"
+                        value={twitter}
+                        onChange={this.onChange}
+                        label="Twitter"
+                        type="text"
+                      />
+                      <EventInputField
+                        placeholder="eg: https://linkedin.com/name"
+                        name="linkedin"
+                        value={linkedin}
+                        onChange={this.onChange}
+                        label="Linkedin"
+                        type="text"
+                      />
+                      <EventInputField
+                        placeholder="eg: https://github.com/name"
+                        name="github"
+                        value={github}
+                        onChange={this.onChange}
+                        label="Github"
+                        type="text"
+                      />
 
-                  <CfpHeading>CFP Details</CfpHeading>
-                  <EventTextArea
-                    placeholder="Call for proposal description."
-                    name="cfpDescription"
-                    value={cfpDescription}
-                    onChange={this.onChange}
-                    label="CFP Description"
-                    type="text"
-                  />
-                  <EventTextArea
-                    placeholder="While a call for proposal note is not required for your event, we highly recommend you have one."
-                    name="cfpNotes"
-                    value={cfpNotes}
-                    onChange={this.onChange}
-                    label="CFP Notes"
-                    type="text"
-                  />
-                  <Label htmlFor="label">Travel Assistance</Label>
-                  <TravelAssistanceDiv>
-                    <Checkbox
-                      checked={this.state.checked}
-                      onClick={this.handleCheckBoxChange}
-                      inputProps={{ "aria-label": "primary checkbox" }}
-                    />
-                    <p>
-                      {" "}
-                      Does your event provide travel assistance to speakers?
-                    </p>
-                  </TravelAssistanceDiv>
-                  <EventInputField
-                    placeholder="Enter the travel assistance policy, if any."
-                    name="travelAssistance"
-                    value={travelAssistance}
-                    onChange={this.onChange}
-                    label="Travel Assistance Policy"
-                    type="text"
-                  />
-                  <EventInputField
-                    placeholder="Add tags seperated by a comma"
-                    name="talkTags"
-                    value={talkTags}
-                    onChange={this.onChange}
-                    label="Talk Tags"
-                    type="text"
-                  />
-                  <Label htmlFor="label">Talk Duration</Label>
-                  <TalkDurationDiv>{talkTimes}</TalkDurationDiv>
-                  <TalkDurationAddButton onClick={this.onClickDurationAdd}>
-                    {" "}
-                    Add More{" "}
-                  </TalkDurationAddButton>
-                </FormGroup>
-              </form>
-            </FormContainer>
-          </EventForm>
-          <EventCollaborators>
-            <CollaboratorsContainer>
-              <EventCollaboratorsHeading>
-                Add/Manage Team Members
-              </EventCollaboratorsHeading>
-              <CollaboratorLabel>Current Members</CollaboratorLabel>
-              <CollaboratorsTag>
-                {tags}
-                {/*<AddMoreCollaboratorBox>+</AddMoreCollaboratorBox>*/}
-              </CollaboratorsTag>
-              <CollaboratorLabel style={{ marginTop: "6vh" }}>
-                Add Members
-              </CollaboratorLabel>
-              <AddCollaborators>{items}</AddCollaborators>
-              <AddCollaboratorButton onClick={this.onClickCollaboratorAdd}>
-                Add MORE
-              </AddCollaboratorButton>
-            </CollaboratorsContainer>
-            <EventSubmitButton onClick={this.onSubmitForm}>
-              CREATE EVENT
-            </EventSubmitButton>
-          </EventCollaborators>
+                      <CfpHeading>CFP Details</CfpHeading>
+                      <EventTextArea
+                        placeholder="Call for proposal description."
+                        name="cfpDescription"
+                        value={cfpDescription}
+                        onChange={this.onChange}
+                        label="CFP Description"
+                        type="text"
+                      />
+                      <EventTextArea
+                        placeholder="While a call for proposal note is not required for your event, we highly recommend you have one."
+                        name="cfpNotes"
+                        value={cfpNotes}
+                        onChange={this.onChange}
+                        label="CFP Notes"
+                        type="text"
+                      />
+                      <Label htmlFor="label">Travel Assistance</Label>
+                      <TravelAssistanceDiv>
+                        <Checkbox
+                          checked={this.state.checked}
+                          onClick={this.handleCheckBoxChange}
+                          inputProps={{ "aria-label": "primary checkbox" }}
+                        />
+                        <p>
+                          {" "}
+                          Does your event provide travel assistance to speakers?
+                        </p>
+                      </TravelAssistanceDiv>
+                      <EventInputField
+                        placeholder="Enter the travel assistance policy, if any."
+                        name="travelAssistance"
+                        value={travelAssistance}
+                        onChange={this.onChange}
+                        label="Travel Assistance Policy"
+                        type="text"
+                      />
+                      <EventInputField
+                        placeholder="Add tags seperated by a comma"
+                        name="talkTags"
+                        value={talkTags}
+                        onChange={this.onChange}
+                        label="Talk Tags"
+                        type="text"
+                      />
+                      <Label htmlFor="label">Talk Duration</Label>
+                      <TalkDurationDiv>{talkTimes}</TalkDurationDiv>
+                      <TalkDurationAddButton onClick={this.onClickDurationAdd}>
+                        {" "}
+                        Add More{" "}
+                      </TalkDurationAddButton>
+                    </FormGroup>
+                  </form>
+                </FormContainer>
+              </EventForm>
+              <EventCollaborators>
+                <CollaboratorsContainer>
+                  <EventCollaboratorsHeading>
+                    Add/Manage Team Members
+                  </EventCollaboratorsHeading>
+                  <CollaboratorLabel>Current Members</CollaboratorLabel>
+                  <CollaboratorsTag>
+                    {tags}
+                    {/*<AddMoreCollaboratorBox>+</AddMoreCollaboratorBox>*/}
+                  </CollaboratorsTag>
+                  <CollaboratorLabel style={{ marginTop: "6vh" }}>
+                    Add Members
+                  </CollaboratorLabel>
+                  <AddCollaborators>{items}</AddCollaborators>
+                  <AddCollaboratorButton onClick={this.onClickCollaboratorAdd}>
+                    Add MORE
+                  </AddCollaboratorButton>
+                </CollaboratorsContainer>
+                <EventSubmitButton onClick={this.onSubmitForm}>
+                  {this.state.title !== "" ? "UPDATE EVENT" : "CREATE EVENT"}
+                </EventSubmitButton>
+              </EventCollaborators>
+            </React.Fragment>
+          )}
         </InnerContainer>
       </Container>
     );
