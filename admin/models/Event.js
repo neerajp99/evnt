@@ -63,9 +63,10 @@ const EventSchema = new Schema({
   talkTags: {
     type: [String]
   },
-  travelAssitance: {
+  travelAssistance: {
     type: Boolean,
-    default: false
+    default: false,
+    required: true
   },
   travelAssistancePolicy: {
     type: String

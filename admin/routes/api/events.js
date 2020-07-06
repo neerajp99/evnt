@@ -117,13 +117,43 @@ router.post(
     if (req.body.github) {
       eventData.social.github = `https://github.com/` + req.body.github;
     }
-    new Event(eventData)
-      .save()
+
+    Event.findOne({
+      user: req.user.id
+    })
       .then(event => {
-        res.status(200).json(event);
+        if (event) {
+          // If the event alreasy exists, update it
+          Event.findOneAndUpdate(
+            {
+              user: req.user.id
+            },
+            {
+              $set: eventData
+            },
+            {
+              new: true
+            }
+          )
+            .then(newEvent => {
+              res.json(newEvent);
+            })
+            .catch(error => {
+              res.json(error);
+            });
+        } else {
+          new Event(eventData)
+            .save()
+            .then(event => {
+              res.status(200).json(event);
+            })
+            .catch(err => {
+              res.status(404).json(err);
+            });
+        }
       })
-      .catch(err => {
-        res.status(404).json(err);
+      .catch(error => {
+        res.json(error);
       });
   }
 );
