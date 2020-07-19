@@ -4,8 +4,7 @@ import styled from "styled-components";
 import {BrowserRouter as Router,Route,Switch} from "react-router-dom";
 import Login from "./components/authentication/Login";
 import Register from "./components/authentication/Register";
-import Dashboard from "./components/dashboard/dashboard";
-
+import Dashboard from "./components/dashboard/Dashboard";
 //Making the global store available to all the components
 import {Provider} from "react-redux";
 import store from "./store";
