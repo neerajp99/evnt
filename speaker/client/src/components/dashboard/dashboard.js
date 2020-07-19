@@ -1,9 +1,20 @@
-import React from "react";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import Side from "../sidebar/Sidebar"
+import {
+  Container,
+  InnerContainer,
+} from "../../styles/Commons";
 
-const Dashboard = () => {
+class Dashboard extends Component {
+  render() {
     return (
-        <h1> Hello </h1>
-    )
+      <Container>
+        <Side />
+        <InnerContainer>Wowowow</InnerContainer>
+      </Container>
+    );
+  }
 }
 
-export default Dashboard
+export default Dashboard;
