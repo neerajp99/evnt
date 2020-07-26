@@ -109,7 +109,7 @@ export const CfpHeader = styled.div`
 `;
 
 export const TalkStatus = styled.div`
-  background: ${props => (props.isOpen ? "#bdccf3" : "#fae4e3")};
+  background: ${props => (props.isOpen ? "#e6f0fb" : "#fae4e3")};
   position: absolute;
   left: 4%;
   top: 7%;
@@ -117,7 +117,7 @@ export const TalkStatus = styled.div`
   text-transform: uppercase;
   font-size: 12.5px;
   padding: 3px 6px 2px;
-  color: ${props => (props.isOpen ? "#7690d9" : "#d0696f")};
+  color: ${props => (props.isOpen ? "#4ca1ff" : "#d0696f")};
   font-weight: 700;
   letter-spacing: 0.1rem;
 `;
