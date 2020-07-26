@@ -25,7 +25,7 @@ import {
 class Side extends Component {
   state = {
     content: ["Dashboard", "Talk", "CFP Guidelines", "My Talks"],
-    links: ["dashboard", "speakers", "cfp", "myTalks"],
+    links: ["dashboard", "talk", "cfp", "myTalks"],
     bottom_content: ["Profile", "Sign Out"],
     bottom_links: ["profile", "signout"],
     icons: [faHome, faMicrophone, faBullhorn, faComment],
