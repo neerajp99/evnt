@@ -43,11 +43,13 @@ app.use("/api/speakerProfile", speakerProfile);
 
 //Adding passport middleware
 app.use(passport.initialize());
-
+app.get("/", (req, res) => {
+    res.json({"hello": "hlo"})
+})
 //Passport Config strategy eg: Local strategy, google stragtegy, JWT strategy etc
 require("./config/passport")(passport);
 
-const port = process.env.PORT || 4003;
+const port = process.env.PORT || 4004;
 app.listen(port, () => {
   console.log(`Listening at port ${port}`);
 });
