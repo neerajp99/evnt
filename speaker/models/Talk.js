@@ -34,6 +34,9 @@ const talkSchema = new Schema({
   shortlisted: {
     type: String,
     default: "false"
+  },
+  talkTags: {
+    type: String
   }
 });
 
