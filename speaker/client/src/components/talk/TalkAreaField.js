@@ -10,7 +10,8 @@ const TalkAreaField = ({
   type,
   label,
   error,
-  limit
+  limit,
+  length
 }) => {
   return (
     <Container>
@@ -23,8 +24,8 @@ const TalkAreaField = ({
         type={type}
       />
       {limit && (
-        <LabelBottom limit={limit} length={value.length} htmlFor="label">
-          {value.length} / {limit}
+        <LabelBottom limit={limit} length={length} htmlFor="label">
+          {length} / {100}
         </LabelBottom>
       )}
     </Container>

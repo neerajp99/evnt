@@ -82,9 +82,10 @@ export const FormGroup = styled.div`
   /* width: 95%; */
   margin-top: -10%;
   padding-top: 1%;
-  padding-bottom: 5%;
+  padding-bottom: 3%;
   background: #fff;
   border-radius: 12px;
+  margin-bottom: 7%;
 `;
 
 export const TextArea = styled.textarea`
@@ -128,5 +129,36 @@ export const LabelBottom = styled.h5`
   }
   @media (max-width: 768px) {
     left: 83%;
+  }
+`;
+export const TalkSubmitButton = styled.div`
+  height: 60px;
+  background: #4ca1ff;
+  color: #fff;
+  /* margin-bottom: 10%; */
+  width: 88%;
+  margin: 0 auto;
+  border-radius: 6px;
+  line-height: 60px;
+  font-weight: 600;
+  font-family: Lato;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  margin: 0 auto;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  // margin-left: 4%;
+  transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+  -moz-transition: 0.3s all ease-in-out;
+  cursor: pointer;
+  &:hover {
+    transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    transform: translateY(-4px);
+  }
+  @media (max-width: 768px) {
+    width: 92%;
   }
 `;
