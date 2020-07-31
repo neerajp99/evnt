@@ -28,7 +28,7 @@ router.get(
           res.status(404).json(err)
         })
     }
-) 
+)
 
 // @route GET /api/talk/shortlisted/id
 // @description Shortlist talks
@@ -87,7 +87,8 @@ router.post(
   "/",
   passport.authenticate("jwt", {session : false}),
   (req,res) => {
-    
+    console.log('yaha bhi')
+
     const newTalk = {}; //Object to store talk of the users
     newTalk.user = req.user.id;
 
@@ -112,7 +113,10 @@ router.post(
     if(req.body.outcome) {
         newTalk.outcome = req.body.outcome;
     }
-   
+    if(req.body.talkTags) {
+        newTalk.talkTags = req.body.talkTags
+    }
+
     new Talk(newTalk)
     .save()
     .then((talk) => {
@@ -125,7 +129,7 @@ router.post(
 )
 
 // @route POST /api/talk/
-// @description Update talk 
+// @description Update talk
 // @access PRIVATE
 
 router.post(
@@ -144,7 +148,7 @@ router.post(
          "description" : req.body.description,
          "additionalDetails" : req.body.additionalDetails,
          "outcome" : req.body.outcome,
-         "shortlisted" : req.body.shortlisted,  
+         "shortlisted" : req.body.shortlisted,
       }, {
         new : true,
         runValidators : true
