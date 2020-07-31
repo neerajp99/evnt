@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 //Registering user
 export const registerUser = (userData, history) => dispatch => {
   axios
-    .post("http://localhost:4003/api/speaker/register", userData)
+    .post("/api/speaker/register", userData)
     .then(response => {
       history.push("/login");
     })
@@ -21,8 +21,9 @@ export const registerUser = (userData, history) => dispatch => {
 
 //Login user
 export const loginUser = (userData, history) => dispatch => {
+  console.log("here")
   axios
-    .post("http://localhost:4003/api/speaker/login", userData)
+    .post("/api/speaker/login", userData)
     .then(response => {
       //Saving the token to local storage
       const { token } = response.data;
