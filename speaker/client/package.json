@@ -25,15 +25,15 @@
     "sweetalert2": "^9.15.2"
   },
   "scripts": {
-    "start": "PORT=3001 react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "proxy": "http://localhost:4003",
-  "eslintConfig": {
-    "extends": "react-app"
-  },
+   "start": "react-scripts start",
+   "build": "react-scripts build",
+   "test": "react-scripts test",
+   "eject": "react-scripts eject"
+ },
+ "proxy": "http://localhost:4004",
+ "eslintConfig": {
+   "extends": "react-app"
+ },
   "browserslist": {
     "production": [
       ">0.2%",
