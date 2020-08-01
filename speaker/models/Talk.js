@@ -35,9 +35,7 @@ const talkSchema = new Schema({
     type: String,
     default: "false"
   },
-  talkTags: {
-    type: String
-  }
+  talkTags: []
 });
 
 module.exports = Talk = mongoose.model("talks", talkSchema);
