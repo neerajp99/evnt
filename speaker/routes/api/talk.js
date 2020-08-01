@@ -12,7 +12,7 @@ router.get(
   passport.authenticate("jwt", {session : false}),
   (req,res) => {
      const errors = {};
-     Talk.findOne({
+     Talk.find({
       user : req.user.id
      })
        .populate("user", ["name"])
@@ -87,7 +87,6 @@ router.post(
   "/",
   passport.authenticate("jwt", {session : false}),
   (req,res) => {
-    console.log('yaha bhi')
 
     const newTalk = {}; //Object to store talk of the users
     newTalk.user = req.user.id;
@@ -115,7 +114,8 @@ router.post(
     }
     if(req.body.talkTags) {
         newTalk.talkTags = req.body.talkTags
-    }
+}
+console.log(newTalk)
 
     new Talk(newTalk)
     .save()
