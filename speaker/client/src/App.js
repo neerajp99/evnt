@@ -4,8 +4,10 @@ import styled from "styled-components";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/authentication/Login";
 import Register from "./components/authentication/Register";
-import Dashboard from "./components/dashboard/Dashboard";
+import Dashboard from "./components/dashboard/dashboard";
 import Talk from "./components/talk/Talk";
+import Profile from "./components/profile/Profile"
+import MyTalk from "./components/myTalks/MyTalk.js"
 //Making the global store available to all the components
 import { Provider } from "react-redux";
 import store from "./store";
@@ -59,7 +61,14 @@ const App = () => {
         <Switch>
           <ProtectedRoute exact path="/talk" component={Talk} />
         </Switch>
+        <Switch>
+          <ProtectedRoute exact path="/profile" component={Profile} />
+        </Switch>
+          <Switch>
+          <ProtectedRoute exact path="/mytalks" component={MyTalk} />
+        </Switch>
       </Router>
+
     </Provider>
   );
 };
