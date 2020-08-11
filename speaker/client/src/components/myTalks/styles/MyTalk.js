@@ -27,7 +27,7 @@ export const TalkContainer = styled.div`
     width: 90%;
     background: #fff;
     border-radius: 14px;
-    border-top: 5px solid #4ca1ff;
+    /* border-top: 5px solid #4ca1ff; */
     margin-top: 3%;
     padding: 10px;
     transition: 0.3s all ease-in-out;
