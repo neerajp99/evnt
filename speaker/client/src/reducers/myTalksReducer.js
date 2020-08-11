@@ -9,7 +9,7 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_MY_TALKS:
-      return {
+      return { 
         ...state,
         myTalks: action.payload,
         myTalksloading: false
