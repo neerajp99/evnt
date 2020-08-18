@@ -6,8 +6,9 @@ import Login from "./components/authentication/Login";
 import Register from "./components/authentication/Register";
 import Dashboard from "./components/dashboard/dashboard";
 import Talk from "./components/talk/Talk";
-import Profile from "./components/profile/Profile"
-import MyTalk from "./components/myTalks/MyTalk.js"
+import Profile from "./components/profile/Profile";
+import MyTalk from "./components/myTalks/MyTalk.js";
+import Cfp from "./components/cfp/Cfp.js";
 //Making the global store available to all the components
 import { Provider } from "react-redux";
 import store from "./store";
@@ -64,11 +65,13 @@ const App = () => {
         <Switch>
           <ProtectedRoute exact path="/profile" component={Profile} />
         </Switch>
-          <Switch>
+        <Switch>
           <ProtectedRoute exact path="/mytalks" component={MyTalk} />
         </Switch>
+        <Switch>
+          <ProtectedRoute exact path="/cfp" component={Cfp} />
+        </Switch>
       </Router>
-
     </Provider>
   );
 };
