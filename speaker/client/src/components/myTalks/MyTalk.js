@@ -9,16 +9,19 @@ import {
   TalkHeading,
   TalkDescription,
   TalkTags,
-  TalkTag
+  TalkTag,
+  NullInfo
 } from "./styles/MyTalk.js";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getMyTalks } from "../../actions/myTalkActions";
 import isEmpty from "../../validation/isEmpty";
+import Spin from "../../util/Spinner";
 
 class MyTalk extends Component {
   state = {
-    talks: {}
+    talks: [],
+    loading: true
   };
   componentDidMount() {
     this.props.getMyTalks();
@@ -27,41 +30,48 @@ class MyTalk extends Component {
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.myTalks.myTalks !== prevState.talks) {
       if (nextProps.myTalks.myTalks !== null) {
-        console.log("NEXT", nextProps.myTalks.myTalks);
+        console.log("NEXT", nextProps);
         return {
-          talks: nextProps.myTalks.myTalks
+          talks: nextProps.myTalks.myTalks,
+          loading: false
         };
       }
     }
     return null;
   }
   render() {
-    const { talks } = this.state;
+    const { talks, loading } = this.state;
+    console.log(talks.length);
 
-    const content = Object.keys(talks).map((key, index) =>
-    (
+    const content = Object.keys(talks).map((key, index) => (
       <React.Fragment key={key}>
         <TalkContainer>
           <TalkHeading>{talks[key].description}</TalkHeading>
           <TalkDescription>{talks[key].elevatorPitch}</TalkDescription>
           <TalkTags>
             {talks[key].talkTags.map((tagKey, iindex) => (
-              <TalkTag key={iindex} index={iindex}>{tagKey.value}</TalkTag>
+              <TalkTag key={iindex} index={iindex}>
+                {tagKey.value}
+              </TalkTag>
             ))}
           </TalkTags>
         </TalkContainer>
       </React.Fragment>
-    )
-);
+    ));
 
     return (
       <Container>
         <Side />
         <InnerContainer>
-          <MyTalkContainer>
-            <MyTalkHeading>Your Presentations</MyTalkHeading>
-            {content}
-          </MyTalkContainer>
+          {talks === null || loading ? (
+            <Spin />
+          ) : (
+            <MyTalkContainer>
+              <MyTalkHeading>Your Presentations</MyTalkHeading>
+              {talks.length === 0 && <NullInfo>You haven't submitted any talk yet!</NullInfo>}
+              {content}
+            </MyTalkContainer>
+          )}
         </InnerContainer>
       </Container>
     );
