@@ -28,7 +28,7 @@ const SpinnerDiv = styled.div`
   bottom: 0;
   height: 100vh;
   width: inherit;
-  background: #f4f8f9;
+  background: #f9fafc;
   /* opacity: 0.9; */
   z-index: 99999;
   display: flex;
