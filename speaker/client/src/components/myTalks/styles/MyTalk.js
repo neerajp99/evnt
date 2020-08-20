@@ -4,6 +4,7 @@ export const MyTalkContainer = styled.div`
   width: 90%;
   margin: 0 auto;
   /* background: tomato; */
+  margin-bottom: 10%;
 `;
 
 export const MyTalkHeading = styled.h1`
@@ -30,6 +31,8 @@ export const TalkContainer = styled.div`
   /* border-top: 5px solid #4ca1ff; */
   margin-top: 3%;
   padding: 10px;
+  margin-bottom: 3%;
+
   transition: 0.3s all ease-in-out;
   -moz-transition: 0.3s all ease-in-out;
   -webkit-transition: 0.3s all ease-in-out;
@@ -85,7 +88,7 @@ export const TalkTags = styled.div`
 export const TalkTag = styled.div`
   display: inline-block;
   margin-left: 3%;
-  background-color: ${props => (props.index % 2 == 0 ? "#e9f2fe" : "#fff6ec")};
+  background-color: ${props => (props.index % 2 === 0 ? "#e9f2fe" : "#fff6ec")};
   color: ${props => (props.index % 2 === 0 ? "#749ad4" : "#c9977c")};
   padding: 6px 17px 6px;
   margin-top: 1.5%;

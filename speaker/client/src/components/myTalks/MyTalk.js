@@ -41,12 +41,12 @@ class MyTalk extends Component {
   }
   render() {
     const { talks, loading } = this.state;
-    console.log(talks.length);
+    console.log(loading)
 
     const content = Object.keys(talks).map((key, index) => (
       <React.Fragment key={key}>
         <TalkContainer>
-          <TalkHeading>{talks[key].description}</TalkHeading>
+          <TalkHeading>{talks[key].title}</TalkHeading>
           <TalkDescription>{talks[key].elevatorPitch}</TalkDescription>
           <TalkTags>
             {talks[key].talkTags.map((tagKey, iindex) => (
