@@ -66,7 +66,6 @@ class Profile extends Component {
   // If there is a new prop and this is invoked right before calling the render method.
   // static getDerivedStateFromProps(nextProps, prevState) {
   UNSAFE_componentWillReceiveProps(nextProps) {
-      console.log("NEXT", nextProps)
     if (nextProps.profile.profile !== null) {
       if (nextProps.profile.profile) {
         const profile = nextProps.profile.profile;
@@ -122,7 +121,7 @@ class Profile extends Component {
     const { profile, loading } = this.props.profile;
     // console.log('PROFILE', profile)
     if (profile !== null) {
-      console.log(!isEmpty(profile.handle))
+      // console.log(!isEmpty(profile.handle))
     }
 
     return (
