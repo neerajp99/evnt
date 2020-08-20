@@ -411,11 +411,55 @@ input {
 }
 
 #dropdownSelect {
-    width: 87.5% !important;
-    margin: 0 auto !important;
-    text-align: left !important;
-    color: #000 !important;
+  width: 87.5% !important;
+  margin: 0 auto !important;
+  text-align: left !important;
+  color: #000 !important;
 }
-.css-yk16xz-control:focus{
+.css-yk16xz-control:focus {
   border: 1px solid red !important;
+}
+
+// Modify Accordion
+.MuiAccordion-root {
+  // height: 10vh;
+  margin: 16px 0;
+  border: none !important;
+  font-family: "Avenir";
+  width: 90%;
+  background: #fff !important;
+  color: #4b5363 !important;
+}
+.MuiButtonBase-root {
+  min-height: 9vh !important;
+  height: auto;
+  font-family: "Avenir";
+}
+.MuiPaper-elevation1 {
+  box-shadow: 0 6px 18px -10px rgba(5, 26, 21, 0.15) !important;
+  font-family: "Avenir";
+  padding: 10px;
+  border-radius: 10px !important;
+  &:before {
+    background-color: transparent !important;
+  }
+}
+
+.makeStyles-heading-2 {
+  font-family: Avenir !important;
+  font-size: 1.1rem !important;
+  font-weight: 500 !important;
+}
+.jss2 {
+  font-weight: 600 !important;
+}
+.MuiTypography-body1 {
+  // font-size: 1.2rem;
+  font-family: Avenir;
+}
+.MuiAccordion-root.Mui-expanded:first-child {
+    margin-top: 1rem !important;
+}
+.MuiTypography-body1{
+    font-family: 'Lato' !important;
 }
