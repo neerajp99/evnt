@@ -7,7 +7,8 @@ import {
   TalkContainer,
   TalkHeading,
   FormGroup,
-  TalkSubmitButton
+  TalkSubmitButton,
+  NullInfo
 } from "./styles/talk";
 import CreatableSelect from "react-select/creatable";
 import TalkInputField from "./TalkInputField";
@@ -17,6 +18,8 @@ import { connect } from "react-redux";
 import { createTalk } from "../../actions/talkActions.js";
 import PropTypes from "prop-types";
 import Select from "react-select";
+import { getMyTalks } from "../../actions/myTalkActions";
+import Spin from "../../util/Spinner";
 
 const audienceOptions = [
   { value: "Beginner", label: "Beginner" },
@@ -42,8 +45,27 @@ class Talk extends Component {
     additionalDetails: "",
     outcome: "",
     wordCount: 0,
-    tags: null
+    tags: null,
+    loading: true,
+    talksLength: null
   };
+
+  componentDidMount() {
+    this.props.getMyTalks();
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.myTalks.myTalks !== prevState.talks) {
+      if (nextProps.myTalks.myTalks !== null) {
+        let talksLength = nextProps.myTalks.myTalks.length;
+        return {
+          talksLength,
+          loading: false
+        };
+      }
+    }
+    return null;
+  }
 
   handleChange = (newValue: any, actionMeta: any) => {
     // console.group("Value Changed");
@@ -108,7 +130,6 @@ class Talk extends Component {
       outcome: this.state.outcome,
       talkTags: this.state.tags
     };
-    console.log(newTalk);
     this.props.createTalk(newTalk, this.props.history);
   };
   render() {
@@ -120,96 +141,107 @@ class Talk extends Component {
       description,
       additionalDetails,
       outcome,
-      wordCount
+      wordCount,
+      talksLength,
+      loading
     } = this.state;
+
     return (
       <Container>
         <Side />
         <InnerContainer>
-          <TalkContainer>
-            <TalkHeading>Create Talk</TalkHeading>
-            <br />
-            <form noValidate>
-              <FormGroup>
-                <TalkInputField
-                  placeholder="Talk Title"
-                  name="title"
-                  value={title}
-                  onChange={this.onChange}
-                  label="Title"
-                  type="text"
-                />
-                <TalkAreaField
-                  placeholder="Elevator Pitch in less than 100 words"
-                  name="elevatorPitch"
-                  value={elevatorPitch}
-                  length={wordCount}
-                  onChange={event =>
-                    this.setFormattedContent(event.target.value, 100)
-                  }
-                  label="Elevator Pitch "
-                  type="text"
-                  limit={100}
-                />
-                <TalkAreaField
-                  placeholder="Detailed Description of the talk"
-                  name="description"
-                  value={description}
-                  onChange={this.onChange}
-                  label="Talk description "
-                  type="text"
-                />
-                <Label htmlFor="label">Audience Level</Label>
-                <CreatableSelect
-                  isClearable
-                  onChange={this.handleChange}
-                  onInputChange={this.handleInputChange}
-                  options={audienceOptions}
-                  id="dropdownSelect"
-                  name="audienceLevel"
-                />
-                <Label htmlFor="label">Talk Duration</Label>
-                <CreatableSelect
-                  isClearable
-                  onChange={this.handleChange}
-                  onInputChange={this.handleInputChange}
-                  options={durationOptions}
-                  id="dropdownSelect"
-                  name="talkDuration"
-                />
-                <Label htmlFor="label">Talk Tags</Label>
-                <Select
-                  isMulti
-                  name="tags"
-                  options={durationOptions}
-                  className="basic-multi-select"
-                  classNamePrefix="select"
-                  id="dropdownSelect"
-                  onChange={this.handleChange}
-                  onInputChange={this.handleInputChange}
-                />
-                <TalkAreaField
-                  placeholder="Enter any additional detail here"
-                  name="additionalDetails"
-                  value={additionalDetails}
-                  onChange={this.onChange}
-                  label="Additional Details "
-                  type="text"
-                />
-                <TalkAreaField
-                  placeholder="Enter the outcome of the talk."
-                  name="outcome"
-                  value={outcome}
-                  onChange={this.onChange}
-                  label="Talk Outcome "
-                  type="text"
-                />
-                <TalkSubmitButton onClick={this.onSubmitForm}>
-                  Submit Talk
-                </TalkSubmitButton>
-              </FormGroup>
-            </form>
-          </TalkContainer>
+          {talksLength === null || loading ? (
+            <Spin />
+          ) : (
+            <TalkContainer>
+             <TalkHeading>Create Talk</TalkHeading>
+              {talksLength > 2 ? (
+                <NullInfo>You have already submitted 3 talks!</NullInfo>
+              ) : (
+                <form noValidate>
+                <br />
+                  <FormGroup>
+                    <TalkInputField
+                      placeholder="Talk Title"
+                      name="title"
+                      value={title}
+                      onChange={this.onChange}
+                      label="Title"
+                      type="text"
+                    />
+                    <TalkAreaField
+                      placeholder="Elevator Pitch in less than 100 words"
+                      name="elevatorPitch"
+                      value={elevatorPitch}
+                      length={wordCount}
+                      onChange={event =>
+                        this.setFormattedContent(event.target.value, 100)
+                      }
+                      label="Elevator Pitch "
+                      type="text"
+                      limit={100}
+                    />
+                    <TalkAreaField
+                      placeholder="Detailed Description of the talk"
+                      name="description"
+                      value={description}
+                      onChange={this.onChange}
+                      label="Talk description "
+                      type="text"
+                    />
+                    <Label htmlFor="label">Audience Level</Label>
+                    <CreatableSelect
+                      isClearable
+                      onChange={this.handleChange}
+                      onInputChange={this.handleInputChange}
+                      options={audienceOptions}
+                      id="dropdownSelect"
+                      name="audienceLevel"
+                    />
+                    <Label htmlFor="label">Talk Duration</Label>
+                    <CreatableSelect
+                      isClearable
+                      onChange={this.handleChange}
+                      onInputChange={this.handleInputChange}
+                      options={durationOptions}
+                      id="dropdownSelect"
+                      name="talkDuration"
+                    />
+                    <Label htmlFor="label">Talk Tags</Label>
+                    <Select
+                      isMulti
+                      name="tags"
+                      options={durationOptions}
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      id="dropdownSelect"
+                      onChange={this.handleChange}
+                      onInputChange={this.handleInputChange}
+                    />
+                    <TalkAreaField
+                      placeholder="Enter any additional detail here"
+                      name="additionalDetails"
+                      value={additionalDetails}
+                      onChange={this.onChange}
+                      label="Additional Details "
+                      type="text"
+                    />
+                    <TalkAreaField
+                      placeholder="Enter the outcome of the talk."
+                      name="outcome"
+                      value={outcome}
+                      onChange={this.onChange}
+                      label="Talk Outcome "
+                      type="text"
+                    />
+                    <TalkSubmitButton onClick={this.onSubmitForm}>
+                      Submit Talk
+                    </TalkSubmitButton>
+                  </FormGroup>
+                </form>
+              )}
+            </TalkContainer>
+          )}
         </InnerContainer>
       </Container>
     );
@@ -217,15 +249,18 @@ class Talk extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth
+  auth: state.auth,
+  myTalks: state.mytalks
 });
 
 Talk.propTypes = {
   auth: PropTypes.object.isRequired,
-  createTalk: PropTypes.func.isRequired
+  createTalk: PropTypes.func.isRequired,
+  myTalks: PropTypes.object.isRequired,
+  getMyTalks: PropTypes.func.isRequired
 };
 
 export default connect(
   mapStateToProps,
-  { createTalk }
+  { createTalk, getMyTalks }
 )(withRouter(Talk));

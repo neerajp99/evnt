@@ -162,3 +162,9 @@ export const TalkSubmitButton = styled.div`
     width: 92%;
   }
 `;
+export const NullInfo = styled.h3`
+  font-family: "Lato";
+  font-size: 20px;
+  font-weight: 400;
+  color: #4e4e5a;
+`;
