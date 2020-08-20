@@ -92,7 +92,7 @@ router.post(
     newTalk.user = req.user.id;
 
     if(req.body.talk) {
-      newTalk.talk = req.body.talk;
+      newTalk.title = req.body.talk;
     }
     if(req.body.elevatorPitch) {
       newTalk.elevatorPitch = req.body.elevatorPitch;
