@@ -12,7 +12,7 @@ display: flex;
 export const InnerContainer = styled.div`
 width: 80%;
 flex-basis: 100%;
-background: rgb(244, 248, 249);
+background: #f9fafc;
 padding-bottom: 5%;
 flex: 1 1 auto;
 overflow: auto;
