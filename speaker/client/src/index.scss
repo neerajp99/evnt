@@ -423,15 +423,16 @@ input {
 // Modify Accordion
 .MuiAccordion-root {
   // height: 10vh;
-  margin: 16px 0;
+  margin: 26px 0;
   border: none !important;
   font-family: "Avenir";
   width: 90%;
   background: #fff !important;
   color: #4b5363 !important;
+  border-left: 12px solid #4ca1ff !important;
 }
 .MuiButtonBase-root {
-  min-height: 9vh !important;
+  min-height: 5vh !important;
   height: auto;
   font-family: "Avenir";
 }
@@ -447,7 +448,7 @@ input {
 
 .makeStyles-heading-2 {
   font-family: Avenir !important;
-  font-size: 1.1rem !important;
+  font-size: 0.5rem !important;
   font-weight: 500 !important;
 }
 .jss2 {
@@ -458,8 +459,20 @@ input {
   font-family: Avenir;
 }
 .MuiAccordion-root.Mui-expanded:first-child {
-    margin-top: 1rem !important;
+    margin-top: 1.7rem !important;
 }
 .MuiTypography-body1{
     font-family: 'Lato' !important;
+    font-size: 14px !important;
 }
+.makeStyles-heading-2 {
+    position: relative;
+    left: 1%;
+    font-size: 15px !important;
+    color:#2e3748 !important;
+    width: 98% !important;
+}
+.MuiAccordionDetails-root{
+    color: #747d92 !important;
+}
+
