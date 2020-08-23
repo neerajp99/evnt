@@ -5,6 +5,7 @@ const passport = require("passport");
 const avatar = require("./routes/api/avatar");
 const talk = require("./routes/api/talk");
 const speaker = require("./routes/api/speaker");
+const events = require("./routes/api/events");
 const speakerProfile = require("./routes/api/speakerProfile");
 const cors = require("cors");
 
@@ -39,6 +40,7 @@ app.use(cors());
 app.use("/api/avatar", avatar);
 app.use("/api/talk", talk);
 app.use("/api/speaker", speaker);
+app.use("/api/events", events);
 app.use("/api/speakerProfile", speakerProfile);
 
 //Adding passport middleware
