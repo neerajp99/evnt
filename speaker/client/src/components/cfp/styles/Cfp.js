@@ -38,6 +38,10 @@ export const CfpDetailsRight = styled.div`
   min-height: 100%;
   height: auto;
   /* background: green; */
+  @media(max-width: 768px){
+      width: 95%;
+      margin: 0 auto;
+  }
 `;
 
 export const CfpDescription = styled.div`
@@ -94,6 +98,11 @@ export const CfpOtherDetails = styled.div`
 export const CfpList = styled.ul`
   list-style: none;
   display: block;
+  @media(max-width:768px){
+      text-align: center;
+      left: 0;
+      padding: 0;
+  }
 `;
 
 export const CfpListItem = styled.li`
