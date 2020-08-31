@@ -8,21 +8,43 @@ import {
   DashboardBottomBox,
   BottomFlex,
   Icon,
-  IconText
+  IconText,
+  DashboardCount,
+  DashboardText,
+  DashboardAvatar,
+  DashboardGreetings,
+  DashboardButtons,
+  DashboardButton,
 } from "./styles/Dashboard";
 import { Container, InnerContainer } from "../../styles/Commons";
 import icon1 from "../../util/img/icon1.svg";
 import icon2 from "../../util/img/icon2.svg";
 import icon3 from "../../util/img/icon3.svg";
 
-class Dashboard extends Component {
+class Dashboard extends Component { 
   render() {
     return (
       <Container>
         <Side />
         <InnerContainer>
           <DashboardContainer>
-            <DashboardTop />
+            <DashboardTop>
+
+            <DashboardAvatar></DashboardAvatar>
+            <DashboardGreetings>
+            <span style={{"fontWeight": "600"}}>Welcome</span> <span>Neeraj!</span>
+            <br />
+            <span style={{"fontSize": "1.3rem"}}>Your Personalised Speaker Dashboard.</span>
+            </DashboardGreetings>
+            <DashboardButtons>
+            <DashboardButton>
+            Event Website
+            </DashboardButton>
+
+
+            </DashboardButtons>
+
+            </DashboardTop>
 
             <DashboardBottom>
               <BottomFlex>
@@ -59,10 +81,19 @@ class Dashboard extends Component {
                   <IconText><span style={{'color': '#fff'}}>Sit back and relax!</span> You will see the update on the talk if it's selected or not on the dashboard itself. </IconText>
                 </DashboardBottomBox>
 
-                <DashboardBottomBox />
+                <DashboardBottomBox>
+                    <DashboardCount color={"orange"}>2</DashboardCount>
+                    <DashboardText color={"orange"}>Talks Selected</DashboardText>
+                </DashboardBottomBox>
 
-                <DashboardBottomBox />
-                <DashboardBottomBox />
+                <DashboardBottomBox>
+                    <DashboardCount color="weird">NO</DashboardCount>
+                    <DashboardText color={"weird"}>Profile Created</DashboardText>
+                </DashboardBottomBox>
+                <DashboardBottomBox>
+                    <DashboardCount color="orange">2</DashboardCount>
+                    <DashboardText color="orange">Talks Submitted</DashboardText>
+                </DashboardBottomBox>
               </BottomFlex>
             </DashboardBottom>
           </DashboardContainer>
