@@ -13,6 +13,8 @@ export const DashboardTop = styled.div`
   margin: 0 auto;
   margin-top: 3%;
   border-radius: 10px;
+  display: flex;
+  flex-direction: row;
 `;
 
 export const DashboardBottom = styled.div`
@@ -24,6 +26,7 @@ export const DashboardBottom = styled.div`
   height: 65%;
   padding: 0;
   //justify-content: space-between;
+  margin-bottom: 10%;
 `;
 
 export const DashboardBottomBox = styled.div`
@@ -103,3 +106,72 @@ export const IconText = styled.p`
   letter-spacing: 0;
   color: #7f7f84;
 `;
+
+export const DashboardCount = styled.div`
+    height: 14vh;
+    width: 14vh;
+    background: #fff;
+    border-radius: 100%;
+    margin: 0 auto;
+    margin-top: 8%;
+    color: ${props => props.color === "orange" ? "#ff9500" : "#4ca1ff"} ;
+    text-align: center;
+    line-height: 14vh;
+    font-size: 2.8rem;
+    font-family: Lato;
+    font-weight: 600;
+`
+
+export const DashboardText = styled.div`
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 10%;
+    text-align: center;
+    letter-spacing: 0.05rem;
+    color: ${props => props.color === "orange" ? "#ff9500" : "#4ca1ff"} !important;
+    font-family: Lato;
+    font-size: 1.4rem;
+    font-weight: 600;
+`
+
+export const DashboardAvatar = styled.div`
+    height: 20vh;
+    width: 20vh;
+    // position: absolute;
+    margin-top: 2%;
+    background: #fff;
+    border-radius: 9999px;
+    margin-left: 5%;
+`
+
+export const DashboardGreetings = styled.div`
+    width: 40%;
+    margin-left: 3%;
+    font-family: Lato;
+    align-items: center;
+    line-height: 40px;
+    font-size: 2.7rem;
+    color: #fff;
+    font-weight: 200 !important;
+    margin-top: 6%;
+
+`
+
+export const DashboardButtons = styled.div`
+  // background: #fff !important;
+  width: 40%;
+  height: 100%;
+  // margin-top: 4%;
+`
+
+export const DashboardButton = styled.button`
+  height: 7vh;
+  width: 15vw;
+  margin-top: 17%;
+  margin-left: 20%;
+  background: #fff;
+  border: none;
+  color: #4ca1ff;
+  font-size: 1.2rem;
+
+`
