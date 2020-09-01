@@ -15,11 +15,18 @@ export const DashboardTop = styled.div`
   border-radius: 10px;
   display: flex;
   flex-direction: row;
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    height: 25% !important;
+  }
+  @media (max-width: 1300px) {
+    height: 30%;
+  }
 `;
 
 export const DashboardBottom = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   width: 92%;
   margin: 0 auto;
   //background: tomato;
@@ -27,10 +34,10 @@ export const DashboardBottom = styled.div`
   padding: 0;
   //justify-content: space-between;
   margin-bottom: 10%;
+  flex-wrap: wrap;
 `;
 
 export const DashboardBottomBox = styled.div`
-  width: 90%;
   margin: 0 auto;
   width: 30%;
   background: #1f212a;
@@ -42,11 +49,27 @@ export const DashboardBottomBox = styled.div`
   &:nth-child(4) {
     background: #faf6ac;
   }
+
   &:nth-child(5) {
     background: #eef1ff;
   }
+
   &:nth-child(6) {
     background: #faf6ac;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    flex-wrap: wrap;
+    height: 25% !important;
+    max-height: 30% !important;
+  }
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    flex-wrap: wrap;
+    height: 25%;
+    max-height: 55%;
   }
 `;
 
@@ -55,6 +78,9 @@ export const BottomFlex = styled.div`
   flex-direction: row;
   height: 100%;
   flex-wrap: wrap;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const Icon = styled.div`
@@ -105,64 +131,108 @@ export const IconText = styled.p`
   line-height: 28px;
   letter-spacing: 0;
   color: #7f7f84;
+  @media (max-width: 1300px) {
+    font-size: 14px;
+  }
+  @media (max-width: 1000px) {
+    font-size: 18px !important;
+  }
 `;
 
 export const DashboardCount = styled.div`
-    height: 14vh;
-    width: 14vh;
-    background: #fff;
-    border-radius: 100%;
-    margin: 0 auto;
-    margin-top: 8%;
-    color: ${props => props.color === "orange" ? "#ff9500" : "#4ca1ff"} ;
-    text-align: center;
-    line-height: 14vh;
-    font-size: 2.8rem;
-    font-family: Lato;
-    font-weight: 600;
-`
+  height: 14vh;
+  width: 14vh;
+  background: #fff;
+  border-radius: 100%;
+  margin: 0 auto;
+  margin-top: 8%;
+  color: ${props => (props.color === "orange" ? "#ff9500" : "#4ca1ff")};
+  text-align: center;
+  line-height: 14vh;
+  font-size: 2.8rem;
+  font-family: Lato;
+  font-weight: 600;
+`;
 
 export const DashboardText = styled.div`
-    width: 90%;
-    margin: 0 auto;
-    margin-top: 10%;
-    text-align: center;
-    letter-spacing: 0.05rem;
-    color: ${props => props.color === "orange" ? "#ff9500" : "#4ca1ff"} !important;
-    font-family: Lato;
-    font-size: 1.4rem;
-    font-weight: 600;
-`
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 10%;
+  text-align: center;
+  letter-spacing: 0.05rem;
+  color: ${props =>
+    props.color === "orange" ? "#ff9500" : "#4ca1ff"} !important;
+  font-family: Lato;
+  font-size: 1.4rem;
+  font-weight: 600;
+`;
 
 export const DashboardAvatar = styled.div`
-    height: 20vh;
-    width: 20vh;
-    // position: absolute;
-    margin-top: 2%;
-    background: #fff;
-    border-radius: 9999px;
-    margin-left: 5%;
-`
+  height: 20vh;
+  width: 21vh;
+  // position: absolute;
+  margin-top: 2%;
+  background: #fff;
+  border-radius: 9999px;
+  margin-left: 5%;
+  @media (max-width: 1000px) {
+    height: 20vh !important;
+    width: 20vh !important;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 6%;
+  }
+  @media (max-width: 1200px) {
+    height: 15vh;
+    width: 15vh;
+    padding-right: 1%;
+    margin-top: 6%;
+  }
+`;
 
 export const DashboardGreetings = styled.div`
-    width: 40%;
-    margin-left: 3%;
-    font-family: Lato;
-    align-items: center;
-    line-height: 40px;
-    font-size: 2.7rem;
-    color: #fff;
-    font-weight: 200 !important;
-    margin-top: 6%;
-
-`
+  width: 40%;
+  margin-left: 3%;
+  font-family: Lato;
+  align-items: center;
+  line-height: 40px;
+  font-size: 2.7rem;
+  color: #fff;
+  font-weight: 200 !important;
+  margin-top: 6%;
+  @media (max-width: 1000px) {
+    height: 25%;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 5%;
+    font-size: 2.7rem !important;
+  }
+  p {
+    @media (max-width: 1200px) {
+      font-size: 1rem;
+      width: 95% !important;
+    }
+  }
+  @media (max-width: 1200px) {
+  }
+`;
 
 export const DashboardButtons = styled.div`
   // background: #fff !important;
   width: 40%;
   height: 100%;
   // margin-top: 4%;
-`
+  @media (max-width: 1000px) {
+    height: 20%;
+    margin: 0 auto;
+    text-align: center;
+    width: 100%;
+  }
+  @media (max-width: 1200px) {
+    margin-top: 6%;
+  }
+`;
 
 export const DashboardButton = styled.button`
   height: 7vh;
@@ -173,5 +243,10 @@ export const DashboardButton = styled.button`
   border: none;
   color: #4ca1ff;
   font-size: 1.2rem;
-
-`
+  @media (max-width: 1000px) {
+    margin-left: 0 !important;
+    height: 7vh;
+    width: 40vw;
+    margin-top: 4% !important;
+  }
+`;
