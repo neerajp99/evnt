@@ -56,19 +56,21 @@ export const DashboardBottomBox = styled.div`
 
   &:nth-child(6) {
     background: #faf6ac;
+    margin-bottom: 10%;
   }
+
 
   @media (max-width: 768px) {
     width: 100%;
     flex-wrap: wrap;
-    height: 25% !important;
+    height: 23% !important;
     max-height: 30% !important;
   }
 
   @media (max-width: 1000px) {
     width: 100%;
     flex-wrap: wrap;
-    height: 25%;
+    height: 23%;
     max-height: 55%;
   }
 `;
@@ -214,8 +216,6 @@ export const DashboardGreetings = styled.div`
       width: 95% !important;
     }
   }
-  @media (max-width: 1200px) {
-  }
 `;
 
 export const DashboardButtons = styled.div`
@@ -248,5 +248,10 @@ export const DashboardButton = styled.button`
     height: 7vh;
     width: 40vw;
     margin-top: 4% !important;
+  }
+  @media(max-width: 736px){
+    margin-top: 10vh !important;
+    width: 50vw !important;
+
   }
 `;
