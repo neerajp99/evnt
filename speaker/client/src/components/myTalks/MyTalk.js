@@ -41,7 +41,6 @@ class MyTalk extends Component {
   }
   render() {
     const { talks, loading } = this.state;
-    console.log(loading)
 
     const content = Object.keys(talks).map((key, index) => (
       <React.Fragment key={key}>
