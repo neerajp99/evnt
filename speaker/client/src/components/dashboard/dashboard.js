@@ -15,23 +15,52 @@ import {
   DashboardAvatar,
   DashboardGreetings,
   DashboardButtons,
-  DashboardButton
+    DashboardButton
 } from "./styles/Dashboard";
 import { Container, InnerContainer } from "../../styles/Commons";
 import icon1 from "../../util/img/icon1.svg";
 import icon2 from "../../util/img/icon2.svg";
 import icon3 from "../../util/img/icon3.svg";
 import { getDashboard } from "../../actions/dashboardActions.js";
+import Spin from "../../util/Spinner";
 
 class Dashboard extends Component {
+  state = {
+    dashboard: null,
+    profile: null,
+    loading: true,
+    talkDetails: null,
+    talksSelected: 0
+
+  }
+
   componentDidMount() {
     this.props.getDashboard();
   }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.dashboard.profile !== prevState.profile && nextProps.dashboard.talkDetails !== prevState.talkDetails) {
+      if (nextProps.dashboard.profile !== null && nextProps.dashboard.talkDetails !== null) {
+        return {
+          dashboard: nextProps.dashboard,
+          profile: true,
+          talkDetails: nextProps.dashboard.talkDetails.length ,
+          loading: false
+        };
+      }
+    }
+    return null;
+  }
+
   render() {
+    const {loading, profile, talkDetails, talksSelected, dashboard} = this.state
     return (
       <Container>
         <Side />
         <InnerContainer>
+        {dashboard === null || loading ? (
+          <Spin />
+        ) : (
           <DashboardContainer>
             <DashboardTop>
               <DashboardAvatar />
@@ -95,20 +124,21 @@ class Dashboard extends Component {
               </DashboardBottomBox>
 
               <DashboardBottomBox>
-                <DashboardCount color={"orange"}>2</DashboardCount>
+                <DashboardCount color={"orange"}>{talksSelected}</DashboardCount>
                 <DashboardText color={"orange"}>Talks Selected</DashboardText>
               </DashboardBottomBox>
 
               <DashboardBottomBox>
-                <DashboardCount color="weird">NO</DashboardCount>
+                <DashboardCount color="weird">{profile === null ? "NO" : "YES"}</DashboardCount>
                 <DashboardText color={"weird"}>Profile Created</DashboardText>
               </DashboardBottomBox>
               <DashboardBottomBox>
-                <DashboardCount color="orange">2</DashboardCount>
+                <DashboardCount color="orange">{talkDetails}</DashboardCount>
                 <DashboardText color="orange">Talks Submitted</DashboardText>
               </DashboardBottomBox>
             </DashboardBottom>
           </DashboardContainer>
+        )}
         </InnerContainer>
       </Container>
     );
@@ -123,3 +153,4 @@ export default connect(
   mapStateToProps,
   { getDashboard }
 )(withRouter(Dashboard));
+
