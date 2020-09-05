@@ -45,6 +45,9 @@ export const DashboardBottomBox = styled.div`
   border-radius: 10px;
   margin-top: 4%;
   height: 46%;
+  transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+  -moz-transition: 0.3s all ease-in-out;
 
   &:nth-child(4) {
     background: #faf6ac;
@@ -59,7 +62,6 @@ export const DashboardBottomBox = styled.div`
     margin-bottom: 10%;
   }
 
-
   @media (max-width: 768px) {
     width: 100%;
     flex-wrap: wrap;
@@ -72,6 +74,13 @@ export const DashboardBottomBox = styled.div`
     flex-wrap: wrap;
     height: 23%;
     max-height: 55%;
+  }
+
+  &:hover{
+    transform: translateY(-2.3px);
+    transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
   }
 `;
 
@@ -243,6 +252,9 @@ export const DashboardButton = styled.button`
   border: none;
   color: #4ca1ff;
   font-size: 1.2rem;
+  transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+  -moz-transition: 0.3s all ease-in-out;
   @media (max-width: 1000px) {
     margin-left: 0 !important;
     height: 7vh;
@@ -252,6 +264,11 @@ export const DashboardButton = styled.button`
   @media(max-width: 736px){
     margin-top: 10vh !important;
     width: 50vw !important;
-
+  }
+  &:hover{
+    transform: translateY(-2.3px);
+    transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
   }
 `;
