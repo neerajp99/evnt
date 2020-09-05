@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const TalkHeading = styled.h1`
   font-size: calc(1.1em + 1.3vw);
   position: relative;
-  top: -12%;
+  top: -14%;
   text-align: left;
   font-family: Lato;
   font-weight: 400;
@@ -13,12 +13,13 @@ export const TalkHeading = styled.h1`
   }
   @media (max-width: 768px) {
     top: -8vh !important;
+    font-size: 2rem;
   }
 `;
 
 export const TalkContainer = styled.div`
   /* height: 80vh; */
-  min-height: 100%;
+  ${'' /* min-height: 100%; */}
   height: auto;
   width: 90%;
   margin: 0 auto;
@@ -163,8 +164,16 @@ export const TalkSubmitButton = styled.div`
   }
 `;
 export const NullInfo = styled.h3`
-  font-family: "Lato";
-  font-size: 20px;
-  font-weight: 400;
-  color: #4e4e5a;
+    font-family: "Lato";
+    font-size: 25px;
+    font-weight: 400;
+    color: #ffffff;
+    background: #4ca1ff;
+    height: 50%;
+    border-radius: 14px;
+    padding: 20px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 `;
