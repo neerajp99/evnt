@@ -23,6 +23,7 @@ import icon2 from "../../util/img/icon2.svg";
 import icon3 from "../../util/img/icon3.svg";
 import { getDashboard } from "../../actions/dashboardActions.js";
 import Spin from "../../util/Spinner";
+import isEmpty from "../../validation/isEmpty"
 
 class Dashboard extends Component {
   state = {
@@ -43,7 +44,7 @@ class Dashboard extends Component {
       if (nextProps.dashboard.profile !== null && nextProps.dashboard.talkDetails !== null) {
         return {
           dashboard: nextProps.dashboard,
-          profile: true,
+          profile: nextProps.dashboard.profile,
           talkDetails: nextProps.dashboard.talkDetails.length ,
           loading: false
         };
@@ -54,6 +55,7 @@ class Dashboard extends Component {
 
   render() {
     const {loading, profile, talkDetails, talksSelected, dashboard} = this.state
+    console.log('Profile', profile)
     return (
       <Container>
         <Side />
@@ -129,7 +131,7 @@ class Dashboard extends Component {
               </DashboardBottomBox>
 
               <DashboardBottomBox>
-                <DashboardCount color="weird">{profile === null ? "NO" : "YES"}</DashboardCount>
+                <DashboardCount color="weird">{profile === null || isEmpty(profile) ? "NO" : "YES"}</DashboardCount>
                 <DashboardText color={"weird"}>Profile Created</DashboardText>
               </DashboardBottomBox>
               <DashboardBottomBox>
