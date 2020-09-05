@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {useState, useEffect} from "react";
 import { Link, withRouter } from "react-router-dom";
 import Side from "../sidebar/Sidebar";
 import { Container, InnerContainer } from "../../styles/Commons";
@@ -11,36 +11,34 @@ import {
   TalkTags,
   TalkTag,
   NullInfo
-} from "./styles/MyTalk.js";
+} from "./styles/MyTalk.js"; 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getMyTalks } from "../../actions/myTalkActions";
 import isEmpty from "../../validation/isEmpty";
 import Spin from "../../util/Spinner";
+import TalkModal from "./MyTalkModal"
 
-class MyTalk extends Component {
-  state = {
-    talks: [],
-    loading: true
-  };
-  componentDidMount() {
-    this.props.getMyTalks();
-  }
+function MyTalk(props) {
+  const { getMyTalks } = props;
+  useEffect(
+    () => {
+      getMyTalks();
+    },
+    [getMyTalks]
+  );
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.myTalks.myTalks !== prevState.talks) {
-      if (nextProps.myTalks.myTalks !== null) {
-        console.log("NEXT", nextProps);
-        return {
-          talks: nextProps.myTalks.myTalks,
-          loading: false
-        };
+  const [talks, setTalks] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    if (props.myTalks.myTalks !== null || !isEmpty(props.myTalks.myTalks)) {
+      if (props.myTalks.myTalks) {
+        setTalks(props.myTalks.myTalks)
+        setLoading(false)
       }
     }
-    return null;
-  }
-  render() {
-    const { talks, loading } = this.state;
+  }, [props.myTalks])
 
     const content = Object.keys(talks).map((key, index) => (
       <React.Fragment key={key}>
@@ -75,7 +73,6 @@ class MyTalk extends Component {
       </Container>
     );
   }
-}
 
 MyTalk.propTypes = {
   auth: PropTypes.object.isRequired,
