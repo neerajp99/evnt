@@ -10,7 +10,7 @@ import {
   TalkDescription,
   TalkTags,
   TalkTag,
-  NullInfo
+  NullInfo,
 } from "./styles/MyTalk.js"; 
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -34,6 +34,7 @@ function MyTalk(props) {
   useEffect(() => {
     if (props.myTalks.myTalks !== null || !isEmpty(props.myTalks.myTalks)) {
       if (props.myTalks.myTalks) {
+        console.log(props.myTalks.myTalks)
         setTalks(props.myTalks.myTalks)
         setLoading(false)
       }
@@ -52,6 +53,9 @@ function MyTalk(props) {
               </TalkTag>
             ))}
           </TalkTags>
+          
+          <TalkModal/>
+          
         </TalkContainer>
       </React.Fragment>
     ));
