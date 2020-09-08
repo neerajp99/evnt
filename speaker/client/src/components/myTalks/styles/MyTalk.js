@@ -23,12 +23,12 @@ export const MyTalkHeading = styled.h1`
 `;
 
 export const TalkContainer = styled.div`
-  min-height: 30vh;
+  min-height: 35%;
   height: auto;
   width: 90%;
   background: #fff;
   border-radius: 14px;
-  /* border-top: 5px solid #4ca1ff; */
+  ${'' /* border-left: 12px solid #4ca1ff;  */}
   margin-top: 3%;
   padding: 10px;
   margin-bottom: 3%;
@@ -58,7 +58,8 @@ export const TalkHeading = styled.div`
   margin: 0 auto;
   margin-top: 2%;
   @media (max-width: 768px) {
-    font-size: 17px;
+    margin-top: 4%;
+    font-size: 18px;
   }
 `;
 
@@ -101,3 +102,27 @@ export const NullInfo = styled.h3`
   font-weight: 400;
   color: #4e4e5a;
 `;
+
+export const TalkUpdateButton = styled.div`
+    margin-top: 5%;
+    position: relative;
+    background: #4ca1ff;
+    font-weight: 500;
+    padding: 5px;
+    border: none;
+    width: 14%;
+    height: 3.7vh;
+    margin-bottom: 4%;
+    margin-left: 3%;
+    text-align: center;
+    line-height: 3.7vh;
+    color: #fff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    @media(max-width: 768px){
+      width: 92%;
+      margin-top: 10%;
+      border-radius: 5px;
+}
+    }
+`

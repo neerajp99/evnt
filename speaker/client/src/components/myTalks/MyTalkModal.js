@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
+import {TalkUpdateButton} from "./styles/MyTalk"
 import { useSpring, animated } from "react-spring/web.cjs";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,6 +11,7 @@ import {
   faStream,
   faHeart
 } from "@fortawesome/free-solid-svg-icons";
+import UpdateTalk from "./UpdateTalkModal"
 
 // Trim the talk title to a specific length
 const getString = string => {
@@ -89,7 +91,7 @@ function TalkModal(props) {
   };
   return (
           <div>
-            <button onClick={handleOpen}>OPEN</button>
+            <TalkUpdateButton onClick={handleOpen}>EDIT TALK</TalkUpdateButton>
 
             <Modal
               aria-labelledby="spring-modal-title"
@@ -112,6 +114,8 @@ function TalkModal(props) {
                     className="close_icon"
                     onClick={handleClose}
                   />
+          <UpdateTalk />
+
                 </div>
               </Fade>
             </Modal>
