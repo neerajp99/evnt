@@ -20,6 +20,7 @@ import PropTypes from "prop-types";
 import Select from "react-select";
 import { getMyTalks } from "../../actions/myTalkActions";
 import Spin from "../../util/Spinner";
+import isEmpty from "../../validation/isEmpty"
 
 const audienceOptions = [
   { value: "Beginner", label: "Beginner" },
@@ -75,9 +76,15 @@ class Talk extends Component {
         [actionMeta.name]: newValue
       });
     } else {
-      this.setState({
-        [actionMeta.name]: newValue.value
-      });
+      if (isEmpty(newValue)) {
+        this.setState({
+          [actionMeta.name]: ""
+        })
+      } else {
+        this.setState({
+          [actionMeta.name]: newValue.value
+        });
+      }
     }
     // console.log(`action: ${actionMeta.name}`);
     // console.groupEnd();
