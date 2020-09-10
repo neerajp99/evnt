@@ -60,7 +60,6 @@ function Cfp(props) {
       if (props.cfpDetails.cfpDetails !== null) {
         if (props.cfpDetails.cfpDetails) {
           const { cfpDetails } = props.cfpDetails;
-          console.log(cfpDetails[0]);
           setCfpDetails(cfpDetails[0]);
           setCfpDescription(cfpDetails[0].cfpDescription);
           setEventBeginDate(cfpDetails[0].eventBeginDate.slice(0, 10));
