@@ -1,6 +1,7 @@
-import { GET_MY_TALKS, GET_ERRORS, LOADING_TALKS } from "./types";
+import { GET_MY_TALKS, GET_ERRORS, LOADING_TALKS, CURRENT_TALK, LOADING_CURRENT_TALK } from "./types";
 import axios from "axios";
 
+// Get all talks
 export const getMyTalks = () => dispatch => {
   dispatch(setTalksLoading());
   axios
@@ -25,3 +26,29 @@ export const setTalksLoading = () => {
     type: LOADING_TALKS
   };
 };
+
+// Get Current talk
+export const getCurrentTalk = (talkID) => dispatch => {
+  dispatch(setCurrentTalkLoading())
+  axios
+    .get(`/api/talk/getTalk/${talkID}`)
+    .then(talk => {
+      dispatch({
+        type: CURRENT_TALK,
+        payload: talk.data.talk
+      })
+    })
+    .catch(error => {
+      dispatch({
+        type: CURRENT_TALK,
+        payload: {}
+      })
+    })
+}
+
+// Loading the current talk 
+export const setCurrentTalkLoading = () => {
+  return {
+    type: LOADING_CURRENT_TALK
+  }
+}
