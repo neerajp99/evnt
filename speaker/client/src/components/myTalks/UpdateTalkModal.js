@@ -18,8 +18,9 @@ import { connect } from "react-redux";
 import { createTalk } from "../../actions/talkActions.js";
 import PropTypes from "prop-types";
 import Select from "react-select";
-import { getMyTalks } from "../../actions/myTalkActions";
+import { getCurrentTalk } from "../../actions/myTalkActions";
 import Spin from "../../util/Spinner";
+import isEmpty from "../../validation/isEmpty";
 
 const audienceOptions = [
   { value: "Beginner", label: "Beginner" },
@@ -39,7 +40,7 @@ class UpdateTalk extends Component {
   state = {
     title: "",
     elevatorPitch: "",
-    talkDuration: "",
+    talkDuration: "45 minutes",
     audienceLevel: "",
     description: "",
     additionalDetails: "",
@@ -47,20 +48,30 @@ class UpdateTalk extends Component {
     wordCount: 0,
     tags: null,
     loading: true,
-    talksLength: null
+    talksLength: null,
+    currentTalk: null
   };
+  
 
   componentDidMount() {
-    this.props.getMyTalks();
+    this.props.getCurrentTalk(this.props.talkID);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.myTalks.myTalks !== prevState.talks) {
-      if (nextProps.myTalks.myTalks !== null) {
-        let talksLength = nextProps.myTalks.myTalks.length;
+    if (nextProps.myTalks.currentTalk !== prevState.currentTalk) {
+      if (nextProps.myTalks.currentTalk !== null) {
+        const {currentTalk} = nextProps.myTalks
         return {
-          talksLength,
-          loading: false
+          loading: false,
+          currentTalk: currentTalk,
+          title: currentTalk.title,
+          elevatorPitch: currentTalk.elevatorPitch,
+          talkDuration: currentTalk.talkDuration,
+          audienceLevel: currentTalk.audienceLevel,
+          description: currentTalk.description,
+          additionalDetails: currentTalk.additionalDetails,
+          outcome: currentTalk.outcome,
+          tags: currentTalk.tags,
         };
       }
     }
@@ -75,9 +86,15 @@ class UpdateTalk extends Component {
         [actionMeta.name]: newValue
       });
     } else {
-      this.setState({
-        [actionMeta.name]: newValue.value
-      });
+      if (isEmpty(newValue)) {
+        this.setState({
+          [actionMeta.name]: ""
+        })
+      } else {
+        this.setState({
+          [actionMeta.name]: newValue.value
+        });
+      }
     }
     // console.log(`action: ${actionMeta.name}`);
     // console.groupEnd();
@@ -132,6 +149,7 @@ class UpdateTalk extends Component {
     };
     this.props.createTalk(newTalk, this.props.history);
   };
+
   render() {
     const {
       title,
@@ -142,21 +160,18 @@ class UpdateTalk extends Component {
       additionalDetails,
       outcome,
       wordCount,
-      talksLength,
+      currentTalk,
       loading
     } = this.state;
 
     return (
       <Container>
         <InnerContainer style={{'background': '#fff'}}>
-          {talksLength === null || loading ? (
+          {currentTalk === null || loading ? (
             <Spin />
           ) : (
             <TalkContainer>
              <TalkHeading>Modify Talk</TalkHeading>
-              {talksLength > 2 ? (
-                <NullInfo>You have already submitted 3 talks!</NullInfo>
-              ) : (
                 <form noValidate>
                 <br />
                   <FormGroup>
@@ -196,6 +211,7 @@ class UpdateTalk extends Component {
                       options={audienceOptions}
                       id="dropdownSelect"
                       name="audienceLevel"
+                      
                     />
                     <Label htmlFor="label">Talk Duration</Label>
                     <CreatableSelect
@@ -238,7 +254,6 @@ class UpdateTalk extends Component {
                     </TalkSubmitButton>
                   </FormGroup>
                 </form>
-              )}
             </TalkContainer>
           )}
         </InnerContainer>
@@ -256,10 +271,10 @@ UpdateTalk.propTypes = {
   auth: PropTypes.object.isRequired,
   createTalk: PropTypes.func.isRequired,
   myTalks: PropTypes.object.isRequired,
-  getMyTalks: PropTypes.func.isRequired
+  getCurrentTalk: PropTypes.func.isRequired
 };
 
 export default connect(
   mapStateToProps,
-  { createTalk, getMyTalks }
+  { createTalk, getCurrentTalk }
 )(withRouter(UpdateTalk));

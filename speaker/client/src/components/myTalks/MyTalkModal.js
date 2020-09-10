@@ -89,6 +89,7 @@ function TalkModal(props) {
   const onChange = event => {
     setComment(event.target.value);
   };
+
   return (
           <div>
             <TalkUpdateButton onClick={handleOpen}>EDIT TALK</TalkUpdateButton>
@@ -114,7 +115,7 @@ function TalkModal(props) {
                     className="close_icon"
                     onClick={handleClose}
                   />
-          <UpdateTalk />
+          <UpdateTalk talkID = { props.talkdId } />
 
                 </div>
               </Fade>

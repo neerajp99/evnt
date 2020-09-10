@@ -30,11 +30,18 @@ function MyTalk(props) {
 
   const [talks, setTalks] = useState([])
   const [loading, setLoading] = useState(true)
+  const [myTalksId, setMyTalksId] = useState(null)
 
   useEffect(() => {
     if (props.myTalks.myTalks !== null || !isEmpty(props.myTalks.myTalks)) {
       if (props.myTalks.myTalks) {
-        console.log(props.myTalks.myTalks)
+        // console.log(props.myTalks.myTalks)
+        let talksID = []
+        props.myTalks.myTalks.forEach(talk => {
+          // console.log('TALK', talk._id)
+          talksID.push(talk._id)
+        })
+        setMyTalksId(talksID)
         setTalks(props.myTalks.myTalks)
         setLoading(false)
       }
@@ -53,9 +60,7 @@ function MyTalk(props) {
               </TalkTag>
             ))}
           </TalkTags>
-          
-          <TalkModal/>
-          
+          <TalkModal talkdId = {myTalksId[key]}/>
         </TalkContainer>
       </React.Fragment>
     ));
