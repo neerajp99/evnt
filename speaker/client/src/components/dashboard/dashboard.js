@@ -32,7 +32,6 @@ class Dashboard extends Component {
     loading: true,
     talkDetails: null,
     talksSelected: 0
-
   }
 
   componentDidMount() {
@@ -55,7 +54,6 @@ class Dashboard extends Component {
 
   render() {
     const {loading, profile, talkDetails, talksSelected, dashboard} = this.state
-    console.log('Profile', profile)
     return (
       <Container>
         <Side />
