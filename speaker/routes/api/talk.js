@@ -163,3 +163,26 @@ router.post(
   }
 )
 module.exports = router;
+
+
+// @route GET /api/talk
+// @description Get talk from talk id 
+// @access PRIVATE
+
+router.get("/getTalk/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
+  Talk.findOne({
+    _id: req.params.id
+  })
+  .then(talk => {
+    if (!talk) {
+      errors.noIdTalk = "There is no talk available for this talk id anymore."
+      return res.status(404).json(errors)
+    }
+    else{
+      res.json({talk})
+    }
+  })
+  .catch(error => {
+    res.status(404).json(error)
+  })
+})
