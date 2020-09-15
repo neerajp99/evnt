@@ -15,3 +15,18 @@ export const createTalk = (talkData, history) => dispatch => {
       });
     });
 };
+
+// Update the current talk
+export const updateCurrentTalk = (data, id,  history) => dispatch => {
+  axios 
+    .post(`/api/talk/update/${id}`, data)
+    .then(response => {
+      history.push("/dashboard")
+    })
+    .catch(error => {
+      dispatch({
+        type: GET_ERRORS,
+        payload: error.response.data
+      })
+    })
+}
