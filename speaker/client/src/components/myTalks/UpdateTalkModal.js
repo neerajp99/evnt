@@ -15,10 +15,10 @@ import CreatableSelect from "react-select/creatable";
 import TalkInputField from "../talk/TalkInputField";
 import TalkAreaField from "../talk/TalkAreaField";
 import { connect } from "react-redux";
-import { createTalk } from "../../actions/talkActions.js";
 import PropTypes from "prop-types";
 import Select from "react-select";
-import { getCurrentTalk } from "../../actions/myTalkActions";
+import { updateCurrentTalk } from "../../actions/talkActions";
+import { getCurrentTalk } from "../../actions/myTalkActions"
 import Spin from "../../util/Spinner";
 import isEmpty from "../../validation/isEmpty";
 
@@ -40,7 +40,7 @@ class UpdateTalk extends Component {
   state = {
     title: "",
     elevatorPitch: "",
-    talkDuration: "45 minutes",
+    talkDuration: "",
     audienceLevel: "",
     description: "",
     additionalDetails: "",
@@ -49,7 +49,8 @@ class UpdateTalk extends Component {
     tags: null,
     loading: true,
     talksLength: null,
-    currentTalk: null
+    currentTalk: null,
+    talkID: null
   };
   
 
@@ -61,7 +62,6 @@ class UpdateTalk extends Component {
     if (nextProps.myTalks.currentTalk !== prevState.currentTalk) {
       if (nextProps.myTalks.currentTalk !== null) {
         const {currentTalk} = nextProps.myTalks
-        console.log(currentTalk)
         return {
           loading: false,
           currentTalk: currentTalk,
@@ -73,6 +73,7 @@ class UpdateTalk extends Component {
           additionalDetails: currentTalk.additionalDetails,
           outcome: currentTalk.outcome,
           tags: currentTalk.talkTags,
+          talkID: currentTalk._id
         };
       }
     }
@@ -148,7 +149,7 @@ class UpdateTalk extends Component {
       outcome: this.state.outcome,
       talkTags: this.state.tags
     };
-    this.props.createTalk(newTalk, this.props.history);
+    this.props.updateCurrentTalk(newTalk, this.state.talkID, this.props.history);
   };
 
   render() {
@@ -167,7 +168,9 @@ class UpdateTalk extends Component {
     } = this.state;
 
     const talkTag = !isEmpty(tags) ? tags :  []
-
+    const audience = !isEmpty(audienceLevel) ?  { value: audienceLevel, label: audienceLevel } : []
+    const talkDur = !isEmpty(talkDuration) ? [{ value: talkDuration, label: talkDuration }] : []
+    
     return (
       <Container>
         <InnerContainer style={{'background': '#fff'}}>
@@ -208,23 +211,24 @@ class UpdateTalk extends Component {
                       type="text"
                     />
                     <Label htmlFor="label">Audience Level</Label>
-                    <CreatableSelect
+                    <Select
                       isClearable
                       onChange={this.handleChange}
                       onInputChange={this.handleInputChange}
                       options={audienceOptions}
                       id="dropdownSelect"
                       name="audienceLevel"
-                      
+                      defaultValue={audience}
                     />
                     <Label htmlFor="label">Talk Duration</Label>
-                    <CreatableSelect
+                    <Select
                       isClearable
                       onChange={this.handleChange}
                       onInputChange={this.handleInputChange}
                       options={durationOptions}
                       id="dropdownSelect"
                       name="talkDuration"
+                      defaultValue={talkDur}
                     />
                     <Label htmlFor="label">Talk Tags</Label>
                     <Select
@@ -236,7 +240,7 @@ class UpdateTalk extends Component {
                       id="dropdownSelect"
                       onChange={this.handleChange}
                       onInputChange={this.handleInputChange}
-                      defaultValue={talkTag}
+                      defaultValue={tags}
                     />
                     <TalkAreaField
                       placeholder="Enter any additional detail here"
@@ -255,7 +259,7 @@ class UpdateTalk extends Component {
                       type="text"
                     />
                     <TalkSubmitButton onClick={this.onSubmitForm}>
-                      Submit Talk
+                      Update Talk
                     </TalkSubmitButton>
                   </FormGroup>
                 </form>
@@ -274,12 +278,12 @@ const mapStateToProps = state => ({
 
 UpdateTalk.propTypes = {
   auth: PropTypes.object.isRequired,
-  createTalk: PropTypes.func.isRequired,
   myTalks: PropTypes.object.isRequired,
+  updateCurrentTalk: PropTypes.func.isRequired,
   getCurrentTalk: PropTypes.func.isRequired
 };
 
 export default connect(
   mapStateToProps,
-  { createTalk, getCurrentTalk }
+  { getCurrentTalk, updateCurrentTalk }
 )(withRouter(UpdateTalk));
