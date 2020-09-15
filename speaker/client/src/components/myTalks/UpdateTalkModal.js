@@ -61,6 +61,7 @@ class UpdateTalk extends Component {
     if (nextProps.myTalks.currentTalk !== prevState.currentTalk) {
       if (nextProps.myTalks.currentTalk !== null) {
         const {currentTalk} = nextProps.myTalks
+        console.log(currentTalk)
         return {
           loading: false,
           currentTalk: currentTalk,
@@ -71,7 +72,7 @@ class UpdateTalk extends Component {
           description: currentTalk.description,
           additionalDetails: currentTalk.additionalDetails,
           outcome: currentTalk.outcome,
-          tags: currentTalk.tags,
+          tags: currentTalk.talkTags,
         };
       }
     }
@@ -161,8 +162,11 @@ class UpdateTalk extends Component {
       outcome,
       wordCount,
       currentTalk,
-      loading
+      loading,
+      tags
     } = this.state;
+
+    const talkTag = !isEmpty(tags) ? tags :  []
 
     return (
       <Container>
@@ -232,6 +236,7 @@ class UpdateTalk extends Component {
                       id="dropdownSelect"
                       onChange={this.handleChange}
                       onInputChange={this.handleInputChange}
+                      defaultValue={talkTag}
                     />
                     <TalkAreaField
                       placeholder="Enter any additional detail here"
