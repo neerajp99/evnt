@@ -128,45 +128,68 @@ console.log(newTalk)
   }
 )
 
-// @route POST /api/talk/
+// @route POST /api/talk/update/:id
 // @description Update talk
 // @access PRIVATE
 
-router.post(
-  "/update/:id",
-  passport.authenticate("jwt", {session : false}),
-  (req,res) => {
-    Talk.findByIdAndUpdate(
-      {
-        _id : req.params.id
-      },
-      {
-        "title" : req.body.title,
-         "elevatorPitch" : req.body.elevatorPitch,
-         "talkDuration" : req.body.talkDuration,
-         "audienceLevel" : req.body.audienceLevel,
-         "description" : req.body.description,
-         "additionalDetails" : req.body.additionalDetails,
-         "outcome" : req.body.outcome,
-         "shortlisted" : req.body.shortlisted,
-      }, {
-        new : true,
-        runValidators : true
-      }
-    )
-    .then((talk) => {
-      res.status(200).json(talk);
-    })
-    .catch((err) => {
-      res.status(404).json(err);
-    })
-  }
-)
-module.exports = router;
+router.post('/update/:id', passport.authenticate("jwt", { session: false }), (req, res) => {
+  Talk.findOne({
+    _id: req.params.id
+  }).then(talk => {
+    const newTalk = {}
+    if (req.body.talk) {
+      newTalk.title = req.body.talk
+    }
+    if (req.body.elevatorPitch) {
+      newTalk.elevatorPitch = req.body.elevatorPitch
+    }
+    if (req.body.talkDuration) {
+      newTalk.talkDuration = req.body.talkDuration
+    }
+    if (req.body.audienceLevel) {
+      newTalk.audienceLevel = req.body.audienceLevel
+    }
+    if (req.body.description) {
+      newTalk.description = req.body.description
+    }
+    if (req.body.additionalDetails) {
+      newTalk.additionalDetails = req.body.additionalDetails
+    }
+    if (req.body.outcome) {
+      newTalk.outcome = req.body.outcome
+    }
+    if (req.body.shortlisted) {
+      newTalk.shortlisted = req.body.shortlisted
+    }
+    if (req.body.talkTags) {
+      newTalk.talkTags = req.body.talkTags
+    }
+    console.log('NEW TALK', newTalk)
+    if (talk) {
+      Talk.findOneAndUpdate(
+        {
+          _id: req.params.id
+        },
+        {
+          $set: newTalk
+        },
+        {
+          new: true
+        }
+      ).then(updatedTalk => {
+        console.log('UPDATED', updatedTalk)
+        res.status(200).json(updatedTalk)
+      }).catch(err => {
+        res.json(err)
+      })
+    }
+  }).catch(error => {
+    res.json(error)
+  })
+})
 
-
-// @route GET /api/talk
-// @description Get talk from talk id 
+// @route POST /api/talk/getTalk/:id
+// @description Fetch talks using talk id
 // @access PRIVATE
 
 router.get("/getTalk/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
@@ -186,3 +209,5 @@ router.get("/getTalk/:id", passport.authenticate("jwt", { session: false }), (re
     res.status(404).json(error)
   })
 })
+
+module.exports = router;
