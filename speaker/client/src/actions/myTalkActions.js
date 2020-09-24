@@ -1,5 +1,7 @@
 import { GET_MY_TALKS, GET_ERRORS, LOADING_TALKS, CURRENT_TALK, LOADING_CURRENT_TALK } from "./types";
 import axios from "axios";
+import Swal from "sweetalert2";
+
 
 // Get all talks
 export const getMyTalks = () => dispatch => {
@@ -51,4 +53,25 @@ export const setCurrentTalkLoading = () => {
   return {
     type: LOADING_CURRENT_TALK
   }
+}
+
+
+// Delete talk 
+export const deleteCurrentTalk = (talkID, history) => dispatch => {
+  axios
+  .delete(`/api/talk/deleteTalk/${talkID}`)
+  .then(res => {
+    Swal.fire(
+          'Deleted!',
+          'Your talk has been deleted permanently.',
+          'success'
+    )
+    history.push("/dashboard");
+  })
+  .catch(error => {
+    dispatch({
+      type: GET_ERRORS,
+      payload: error.response.data
+    })
+  })
 }
