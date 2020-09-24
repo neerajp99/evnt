@@ -18,9 +18,11 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Select from "react-select";
 import { updateCurrentTalk } from "../../actions/talkActions";
-import { getCurrentTalk } from "../../actions/myTalkActions"
-import Spin from "../../util/Spinner";
+import { getCurrentTalk, deleteCurrentTalk } from "../../actions/myTalkActions"
+import MyTalkSpin from "./MyTalkSpin";
 import isEmpty from "../../validation/isEmpty";
+import Swal from "sweetalert2";
+
 
 const audienceOptions = [
   { value: "Beginner", label: "Beginner" },
@@ -152,6 +154,23 @@ class UpdateTalk extends Component {
     this.props.updateCurrentTalk(newTalk, this.state.talkID, this.props.history);
   };
 
+  // Delete Talk
+  onDeleteTalk = event => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.props.deleteCurrentTalk(this.state.talkID, this.props.history)
+      }
+    })
+  }
+
   render() {
     const {
       title,
@@ -175,7 +194,7 @@ class UpdateTalk extends Component {
       <Container>
         <InnerContainer style={{'background': '#fff'}}>
           {currentTalk === null || loading ? (
-            <Spin />
+            <MyTalkSpin />
           ) : (
             <TalkContainer>
              <TalkHeading>Modify Talk</TalkHeading>
@@ -261,6 +280,10 @@ class UpdateTalk extends Component {
                     <TalkSubmitButton onClick={this.onSubmitForm}>
                       Update Talk
                     </TalkSubmitButton>
+
+                    <TalkSubmitButton style={{"background": "#e74c3c", "marginTop": "-7px !important"}} onClick={this.onDeleteTalk}>
+                      Delete
+                    </TalkSubmitButton>
                   </FormGroup>
                 </form>
             </TalkContainer>
@@ -280,10 +303,11 @@ UpdateTalk.propTypes = {
   auth: PropTypes.object.isRequired,
   myTalks: PropTypes.object.isRequired,
   updateCurrentTalk: PropTypes.func.isRequired,
-  getCurrentTalk: PropTypes.func.isRequired
+  getCurrentTalk: PropTypes.func.isRequired,
+  deleteCurrentTalk: PropTypes.func.isRequired
 };
 
 export default connect(
   mapStateToProps,
-  { getCurrentTalk, updateCurrentTalk }
+  { getCurrentTalk, updateCurrentTalk, deleteCurrentTalk }
 )(withRouter(UpdateTalk));
