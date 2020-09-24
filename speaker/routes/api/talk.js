@@ -115,8 +115,6 @@ router.post(
     if(req.body.talkTags) {
         newTalk.talkTags = req.body.talkTags
 }
-console.log(newTalk)
-
     new Talk(newTalk)
     .save()
     .then((talk) => {
@@ -164,7 +162,6 @@ router.post('/update/:id', passport.authenticate("jwt", { session: false }), (re
     if (req.body.talkTags) {
       newTalk.talkTags = req.body.talkTags
     }
-    console.log('NEW TALK', newTalk)
     if (talk) {
       Talk.findOneAndUpdate(
         {
@@ -209,5 +206,23 @@ router.get("/getTalk/:id", passport.authenticate("jwt", { session: false }), (re
     res.status(404).json(error)
   })
 })
+
+
+// @route DELETE /api/talk/deleteTalk/:id
+// @description Delete talk using talk ID
+
+router.delete("/deleteTalk/:id", passport.authenticate("jwt", { session: false }), (req, res) => {
+  Talk.deleteOne({_id: req.params.id}, error => {
+    if (!error) {
+      Talk.findOne({_id: req.params.id})
+        .then(talk => {
+          res.json(talk)
+        })
+    } else {
+      return res.status(400).json(error)
+    }
+  })
+} )
+
 
 module.exports = router;
