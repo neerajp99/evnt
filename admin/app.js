@@ -44,7 +44,7 @@ app.use(passport.initialize());
 //Passport Config strategy eg: Local strategy, google stragtegy, JWT strategy etc
 require("./config/passport")(passport);
 
-const port = process.env.PORT || 4005;
+const port = process.env.PORT || 4004;
 const server = app.listen(port, () => {
   console.log(`Listening at port ${port}`);
 });
