@@ -28,12 +28,12 @@
     "sweetalert2": "^9.15.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3002 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:4004",
+  "proxy": "http://localhost:4005",
   "eslintConfig": {
     "extends": "react-app"
   },
