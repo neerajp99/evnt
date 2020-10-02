@@ -66,11 +66,12 @@ export const DashboardListIcon = styled.div`
   flex-grow: 1;
   min-width: 20%;
   max-width: 20%;
+  text-align: left !important;
 `;
 
 export const DashboardListContent = styled.div`
   flex-grow: 4;
-  text-align: left;
+  text-align: left !important;
   /* color: #3d3d3d; */
 `;
 
