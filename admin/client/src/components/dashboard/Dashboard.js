@@ -21,7 +21,7 @@ import { Container, InnerContainer } from "../../styles/Commons";
 import icon1 from "../../utils/img/icon1.svg";
 import icon2 from "../../utils/img/icon2.svg";
 import icon3 from "../../utils/img/icon3.svg";
-// import { getDashboard } from "../../actions/dashboardActions.js";
+import { fetchTalks } from "../../actions/dashboardActions"
 import Spin from "../../utils/Spinner";
 import isEmpty from "../../validation/isEmpty"
 
@@ -34,9 +34,9 @@ class Dashboard extends Component {
     talksSelected: 0
   }
 
-  // componentDidMount() {
-  //   this.props.getDashboard();
-  // }
+  componentDidMount() {
+    this.props.fetchTalks();
+  }
 
   // static getDerivedStateFromProps(nextProps, prevState) {
   //   if (nextProps.dashboard.profile !== prevState.profile && nextProps.dashboard.talkDetails !== prevState.talkDetails) {
@@ -145,13 +145,12 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard
 
-// const mapStateToProps = state => ({
-//   dashboard: state.dashboard
-// });
+const mapStateToProps = state => ({
+  dashboard: state.dashboard
+});
 
-// export default connect(
-//   mapStateToProps,
-//   { getDashboard }
-// )(withRouter(Dashboard));
+export default connect(
+  mapStateToProps,
+  { fetchTalks }
+)(withRouter(Dashboard));
