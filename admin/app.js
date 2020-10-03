@@ -6,6 +6,7 @@ const avatar = require("./routes/api/avatar");
 const events = require("./routes/api/events");
 const ownerUsers = require("./routes/api/ownerUsers");
 const ownerProfile = require("./routes/api/ownerProfile");
+const dashboard = require("./routes/api/dashboard")
 
 // Initialze app
 const app = express();
@@ -37,6 +38,7 @@ app.use("/api/avatar", avatar);
 app.use("/api/events", events);
 app.use("/api/ownerUsers", ownerUsers);
 app.use("/api/ownerProfile", ownerProfile);
+app.use("/api/dashboard", dashboard)
 
 //Adding passport middleware
 app.use(passport.initialize());
