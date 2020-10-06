@@ -26,7 +26,8 @@ import {
   EventDateDiv,
   SocialHeading,
   EventSubmitButton,
-  TravelAssistanceDiv
+  TravelAssistanceDiv,
+  AddCollaboratorButton2
 } from "./styles/EventForm";
 import "date-fns";
 import DateFnsUtils from "@date-io/date-fns";
@@ -43,6 +44,9 @@ import { createEvent, getEvent } from "../../actions/eventActions";
 import PropTypes from "prop-types";
 import isEmpty from "../../validation/isEmpty";
 import Spin from "../../utils/Spinner";
+import {
+  faPaperPlane
+} from "@fortawesome/free-solid-svg-icons";
 // import PlacesAutocomplete from "react-places-autocomplete";
 const colors = require("nice-color-palettes");
 
@@ -637,9 +641,10 @@ class Event extends Component {
               </EventForm>
               <EventCollaborators>
                 <CollaboratorsContainer>
-                  <EventCollaboratorsHeading>
+                <EventCollaboratorsHeading>
                     Add/Manage Team Members
                   </EventCollaboratorsHeading>
+                  
                   <CollaboratorLabel>Current Members</CollaboratorLabel>
                   <CollaboratorsTag>
                     {tags}
@@ -652,6 +657,10 @@ class Event extends Component {
                   <AddCollaboratorButton onClick={this.onClickCollaboratorAdd}>
                     Add MORE
                   </AddCollaboratorButton>
+                  <AddCollaboratorButton2 onClick={this.onClickCollaboratorAdd}>
+                    SEND INVITE
+                    <FontAwesomeIcon icon={faPaperPlane} aria-hidden="true" className="send_invite_icon"/>
+                  </AddCollaboratorButton2>
                 </CollaboratorsContainer>
                 <EventSubmitButton onClick={this.onSubmitForm}>
                   {this.state.title !== "" ? "UPDATE EVENT" : "CREATE EVENT"}

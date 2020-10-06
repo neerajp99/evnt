@@ -76,7 +76,7 @@ export const TextArea = styled.textarea`
 
 export const EventCollaboratorsHeading = styled.h2`
   position: relative;
-  top: -5vh;
+  ${'' /* top: -5vh; */}
   text-align: center;
   font-family: Lato;
   font-weight: 500;
@@ -97,7 +97,7 @@ export const CollaboratorsTag = styled.div`
   /* background: red; */
   margin: 0 auto;
   position: relative;
-  top: -3vh;
+  ${'' /* top: -3vh; */}
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
@@ -161,7 +161,7 @@ export const CollaboratorLabel = styled.h4`
   color: #384e5e;
   text-transform: uppercase;
   position: relative;
-  top: -3vh;
+  ${'' /* top: -3vh; */}
   left: 8%;
   text-align: left;
   margin-top: 3vh;
@@ -176,21 +176,39 @@ export const AddCollaborators = styled.div`
 `;
 
 export const AddCollaboratorButton = styled.button`
-  height: 50px;
-  width: 83%;
-  background: #bee3f8;
-  margin: 0 auto;
-  border-radius: 6px;
-  margin-top: 5%;
-  text-align: center;
-  line-height: 50px;
-  text-transform: uppercase;
-  font-family: Lato;
-  color: #3182d0;
-  font-weight: 700;
-  border: none;
-  font-size: 1rem;
+    height: 50px;
+    width: 83%;
+    background: transparent;
+    margin: 0 auto;
+    border-radius: 6px;
+    margin-top: 5%;
+    text-align: center;
+    line-height: 45px;
+    text-transform: uppercase;
+    font-family: Lato;
+    color: #4ca1ff;
+    font-weight: 700;
+    border: none;
+    font-size: 1rem;
+    border: 2px solid;
 `;
+
+export const AddCollaboratorButton2 = styled.button`
+    height: 50px;
+    width: 83%;
+    background: #4ca1ff;
+    margin: 0 auto;
+    border-radius: 6px;
+    margin-top: 5%;
+    text-align: center;
+    line-height: 50px;
+    text-transform: uppercase;
+    font-family: Lato;
+    color: #ffffff;
+    font-weight: 700;
+    border: none;
+    font-size: 1rem;
+`
 
 export const CfpHeading = styled.h5`
   text-align: center;

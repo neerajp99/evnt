@@ -28,10 +28,12 @@ import isEmpty from "../../validation/isEmpty";
 class Dashboard extends Component {
   state = {
     dashboard: null,
-    profile: null,
     loading: true,
-    talkDetails: null,
-    talksSelected: 0
+    talksSubmitted: 0,
+    talksSelected: 0,
+    attendees: 0,
+    allTalks: null,
+    dashboardLoading: true
   };
 
   componentDidMount() {
@@ -52,19 +54,35 @@ class Dashboard extends Component {
   //   return null;
   // }
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {allTalks} = nextProps.dashboard
+    if (allTalks !== prevState.allTalks){
+      if (!isEmpty(allTalks)) {
+        const count = allTalks.length
+        return {
+          dashboard: nextProps.dashboard,
+          allTalks: allTalks,
+          talksSubmitted: count, 
+          dashboardLoading: false 
+        }
+      }
+    }
+  }
+
   render() {
     const {
-      loading,
-      profile,
-      talkDetails,
       talksSelected,
-      dashboard
+      talksSubmitted,
+      attendees,
+      dashboard,
+      talksCount,
+      dashboardLoading
     } = this.state;
     return (
       <Container>
         <Side />
         <InnerContainer>
-          {dashboard != null || !loading ? (
+          {dashboard === null || dashboardLoading ? (
             <Spin />
           ) : (
             <DashboardContainer>
@@ -131,20 +149,20 @@ class Dashboard extends Component {
 
                 <DashboardBottomBox>
                   <DashboardCount color={"orange"}>
-                    {talksSelected}
+                      {talksSubmitted}
                   </DashboardCount>
-                  <DashboardText color={"orange"}>Talks Selected</DashboardText>
+                  <DashboardText color={"orange"}>Talks Submitted</DashboardText>
                 </DashboardBottomBox>
 
                 <DashboardBottomBox>
                   <DashboardCount color="weird">
-                    {profile === null || isEmpty(profile) ? "NO" : "YES"}
+                    {attendees}
                   </DashboardCount>
-                  <DashboardText color={"weird"}>Profile Created</DashboardText>
+                  <DashboardText color={"weird"}>Attendees</DashboardText>
                 </DashboardBottomBox>
                 <DashboardBottomBox>
-                  <DashboardCount color="orange">{talkDetails}</DashboardCount>
-                  <DashboardText color="orange">Talks Submitted</DashboardText>
+                  <DashboardCount color="orange">{talksSelected}</DashboardCount>
+                  <DashboardText color="orange">Talks Selected</DashboardText>
                 </DashboardBottomBox>
               </DashboardBottom>
             </DashboardContainer>
