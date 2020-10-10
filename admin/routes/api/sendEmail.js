@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer')
 
 // Create transporter method 
-const sendEmail = (post, callback = () => {
+sendEmail = (post, callback = () => {}) => {
     let transporter = nodemailer.createTransport({
         host: "smtp.sendgrid.net",
         port: 587,
@@ -26,7 +26,9 @@ const sendEmail = (post, callback = () => {
         } else {
             console.log('Email Sent with message ID: ', info.messageId)
         }
+        
+        return callback(error, info);
     })
-})
+}
 
 module.exports = sendEmail
