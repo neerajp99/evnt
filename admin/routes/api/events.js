@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Event = require("../../models/Event");
 const passport = require("passport");
+const sendEmail = require("./sendEmail");
 
 // @route GET /api/events
 // @description Get event made by user
@@ -204,4 +205,21 @@ router.post(
       });
   }
 );
+
+
+// @route POST /api/event/sendEmail
+// @description Send invites to join team as an admin
+// @access PRIVATE
+
+router.post("/sendEmail", (req, res) => {
+  let updateMessages = []
+  const { collaborator } = req.body;
+  for (let i = 0 ; i <  collaborator.length ; i++) {
+    sendEmail({"from": "neerajp1999@gmail.com", "to": collaborator[i].value, "message": "Hello world", "event": "LALALA", "link": 'helloworld'}, (error, info) => {
+      updateMessages.append(info)
+    })
+  }
+  return res.status(200).json(updateMessages)
+});
+
 module.exports = router;
