@@ -10,6 +10,7 @@ import {
 import Side from "../sidebar/Sidebar";
 import EventInputField from "./EventInputField";
 import EventTextArea from "./EventTextArea";
+import axios from 'axios';
 import {
   FormGroup,
   EventCollaboratorsHeading,
@@ -657,7 +658,18 @@ class Event extends Component {
                   <AddCollaboratorButton onClick={this.onClickCollaboratorAdd}>
                     Add MORE
                   </AddCollaboratorButton>
-                  <AddCollaboratorButton2 onClick={this.onClickCollaboratorAdd}>
+                  <AddCollaboratorButton2 onClick={() => {
+                    axios
+                      .post("/api/events/sendEmail", {"collaborator": collaborator})
+                      .then(data => {
+                        if (data) {
+                          console.log('DAAATAA', data)
+                        }
+                      })
+                      .catch(error => {
+                        console.log(error)
+                      })
+                  }}>
                     SEND INVITE
                     <FontAwesomeIcon icon={faPaperPlane} aria-hidden="true" className="send_invite_icon"/>
                   </AddCollaboratorButton2>

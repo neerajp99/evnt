@@ -183,7 +183,7 @@ export const AddCollaboratorButton = styled.button`
     border-radius: 6px;
     margin-top: 5%;
     text-align: center;
-    line-height: 45px;
+    line-height: 40px;
     text-transform: uppercase;
     font-family: Lato;
     color: #4ca1ff;
@@ -191,6 +191,18 @@ export const AddCollaboratorButton = styled.button`
     border: none;
     font-size: 1rem;
     border: 2px solid;
+    transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    cursor: pointer;
+    &:hover {
+      transition: 0.3s all ease-in-out;
+      -webkit-transition: 0.3s all ease-in-out;
+      -moz-transition: 0.3s all ease-in-out;
+      ${'' /* transform: translateY(-4px); */}
+      color: #fff;
+      background: #4ca1ff;
+    }
 `;
 
 export const AddCollaboratorButton2 = styled.button`
@@ -208,6 +220,16 @@ export const AddCollaboratorButton2 = styled.button`
     font-weight: 700;
     border: none;
     font-size: 1rem;
+    transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    cursor: pointer;
+    &:hover {
+      transition: 0.3s all ease-in-out;
+      -webkit-transition: 0.3s all ease-in-out;
+      -moz-transition: 0.3s all ease-in-out;
+      transform: translateY(-3px);
+    }
 `
 
 export const CfpHeading = styled.h5`
