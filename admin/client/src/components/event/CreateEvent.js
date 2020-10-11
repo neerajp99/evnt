@@ -49,6 +49,7 @@ import {
   faPaperPlane
 } from "@fortawesome/free-solid-svg-icons";
 // import PlacesAutocomplete from "react-places-autocomplete";
+import Swal from "sweetalert2";
 const colors = require("nice-color-palettes");
 
 class Event extends Component {
@@ -663,7 +664,15 @@ class Event extends Component {
                       .post("/api/events/sendEmail", {"collaborator": collaborator})
                       .then(data => {
                         if (data) {
-                          console.log('DAAATAA', data)
+                          this.setState({
+                            collaborator: [{ value: null }]
+                          })
+                          Swal.fire(
+                            'Sent!',
+                            'Email(s) has been delivered to collaborators.',
+                            'success'
+                          )
+                          
                         }
                       })
                       .catch(error => {
