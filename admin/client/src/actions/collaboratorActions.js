@@ -18,3 +18,5 @@ export const addCollaborators = (content) => dispatch => {
         })
     }
 }
+
+// Fetch all collaborators 
