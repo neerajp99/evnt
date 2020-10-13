@@ -219,7 +219,8 @@ router.post("/sendEmail", (req, res) => {
       "from": "neerajp1999@gmail.com", 
       "to": collaborator[i].value, 
       "message": "conference", 
-      "event": "PyCon Universe", "link": collaborator[i].link}, 
+      "event": "PyCon Universe", "link": collaborator[i].link,
+    }, 
       (error, info) => {
       updateMessages.append(info)
     })
