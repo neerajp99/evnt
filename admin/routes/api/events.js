@@ -215,7 +215,12 @@ router.post("/sendEmail", (req, res) => {
   let updateMessages = []
   const { collaborator } = req.body;
   for (let i = 0 ; i <  collaborator.length ; i++) {
-    sendEmail({"from": "neerajp1999@gmail.com", "to": collaborator[i].value, "message": "Hello world", "event": "LALALA", "link": 'helloworld'}, (error, info) => {
+    sendEmail({
+      "from": "neerajp1999@gmail.com", 
+      "to": collaborator[i].value, 
+      "message": "conference", 
+      "event": "PyCon Universe", "link": collaborator[i].link}, 
+      (error, info) => {
       updateMessages.append(info)
     })
   }
