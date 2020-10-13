@@ -666,14 +666,16 @@ class Event extends Component {
                     Object.keys(collaborator).map(key => {
                       const generatedString = shortid.generate();
                       const updatedAt = new Date().getTime();
-                      const link_string = `localhost:3000/register/${generatedString}${updatedAt.toString()}`;
+                      const link_string = `https://localhost:3000/register`;
                       collaborator[key]['link'] = link_string;
                     })
+
+                    this.props.addCollaborators(collaborator)
+                    
                     axios
                       .post("/api/events/sendEmail", {"collaborator": collaborator})
                       .then(data => {
                         if (data) {
-                          this.props.addCollaborators(collaborator)
                           this.setState({
                             collaborator: [{ value: null }]
                           })

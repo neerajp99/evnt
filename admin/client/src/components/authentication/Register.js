@@ -76,8 +76,7 @@ class Register extends Component {
             <H1>Sign Up for an Account</H1>
             <P>
               {" "}
-              Let's get you all setup for the so you can start submitting your
-              talk for the conference.
+              Let's get you all setup so you can start collaborating, review talks, and more.
             </P>
             <FormGroup>
               <form noValidate onSubmit={this.onSubmit}>
