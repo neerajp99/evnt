@@ -50,7 +50,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 // import PlacesAutocomplete from "react-places-autocomplete";
 import Swal from "sweetalert2";
+import { addCollaborators } from "../../actions/collaboratorActions";
+import shortid from 'short-id';
 const colors = require("nice-color-palettes");
+
 
 class Event extends Component {
   state = {
@@ -660,10 +663,17 @@ class Event extends Component {
                     Add MORE
                   </AddCollaboratorButton>
                   <AddCollaboratorButton2 onClick={() => {
+                    Object.keys(collaborator).map(key => {
+                      const generatedString = shortid.generate();
+                      const updatedAt = new Date().getTime();
+                      const link_string = `localhost:3000/register/${generatedString}${updatedAt.toString()}`;
+                      collaborator[key]['link'] = link_string;
+                    })
                     axios
                       .post("/api/events/sendEmail", {"collaborator": collaborator})
                       .then(data => {
                         if (data) {
+                          this.props.addCollaborators(collaborator)
                           this.setState({
                             collaborator: [{ value: null }]
                           })
@@ -699,7 +709,8 @@ Event.propTypes = {
   auth: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired,
   createEvent: PropTypes.func.isRequired,
-  getEvent: PropTypes.func.isRequired
+  getEvent: PropTypes.func.isRequired,
+  addCollaborators: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -710,5 +721,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { createEvent, getEvent }
+  { createEvent, getEvent, addCollaborators }
 )(withRouter(Event));
