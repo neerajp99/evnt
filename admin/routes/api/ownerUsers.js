@@ -10,46 +10,48 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 // Bring in connection keys
 const keys = require("../../config/keys");
+// Bring in Collaborators
+const Collaborator = require("../../models/Collaborator");
 
 // @route GET /api/ownerUsers/register
 // @description Register Owners of events
 // @access Public
 
-router.post("/register", (req, res) => {
-  OwnerUser.findOne({
-    email: req.body.email
-  }).then(owner => {
-    if (owner) {
-      res.status(400).json("Owner already exists!");
-    } else {
-      const newOwner = new OwnerUser({
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password
-      });
+// router.post("/register", (req, res) => {
+//   OwnerUser.findOne({
+//     email: req.body.email
+//   }).then(owner => {
+//     if (owner) {
+//       res.status(400).json("Owner already exists!");
+//     } else {
+//       const newOwner = new OwnerUser({
+//         name: req.body.name,
+//         email: req.body.email,
+//         password: req.body.password
+//       });
 
-      // Hash the password before storing into the database
-      bcrypt.genSalt(10, (error, salt) => {
-        bcrypt.hash(newOwner.password, salt, (error, hash) => {
-          if (error) {
-            throw error;
-          } else {
-            newOwner.password = hash;
-            newOwner
-              .save()
-              .then(savedOwner => {
-                res.json(savedOwner);
-                console.log("New Owner has been registered successfully!");
-              })
-              .catch(error => {
-                console.log(error);
-              });
-          }
-        });
-      });
-    }
-})
-});
+//       // Hash the password before storing into the database
+//       bcrypt.genSalt(10, (error, salt) => {
+//         bcrypt.hash(newOwner.password, salt, (error, hash) => {
+//           if (error) {
+//             throw error;
+//           } else {
+//             newOwner.password = hash;
+//             newOwner
+//               .save()
+//               .then(savedOwner => {
+//                 res.json(savedOwner);
+//                 console.log("New Owner has been registered successfully!");
+//               })
+//               .catch(error => {
+//                 console.log(error);
+//               });
+//           }
+//         });
+//       });
+//     }
+// })
+// });
 
 // @route POST /api/ownerUsers/login
 // @description Login Owner -> Returs JSON Web Token
@@ -105,6 +107,58 @@ router.post("/login", (req, res) => {
     .catch(error => {
       return res.status(404).json(error);
     });
+});
+
+
+// @route GET /api/ownerUsers/register/
+// @description Register Collaborators
+// @access Public
+
+router.post("/register", (req, res) => {
+  console.log('hello world')
+  Collaborator.findOne({
+    email: req.body.email
+  }).then(collaborator => {
+    if (!collaborator) {
+
+      res.status(404).json('Incorrect email address used!')
+    } else {
+      // Check if the user has already registered
+      OwnerUser.findOne({
+        email: req.body.email
+      }).then(registeredUser => {
+        if (registeredUser) {
+          res.status(400).json('User already registered with this email address!')
+        } else {
+          const newCollaborator = new OwnerUser({
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password
+          })
+    
+          // Hash the password before adding it to the database 
+          bcrypt.genSalt(10, (error, salt) => {
+            bcrypt.hash(newCollaborator.password, salt, (error, hash) => {
+              if (error) {
+                throw error;
+              } else {
+                newCollaborator.password = hash;
+                newCollaborator
+                  .save()
+                  .then(savedCollaborator => {
+                    console.log("New Collaborator registered successfully!")
+                    res.json(savedCollaborator)
+                  })
+                  .catch(error => {
+                    console.log(error)
+                  })
+              }
+            })
+          })
+        }
+      })
+    }
+  })
 });
 
 module.exports = router;
