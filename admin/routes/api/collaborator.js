@@ -1,39 +1,40 @@
 const express = require('express')
 const router = express.Router()
 const passport = require('passport')
-import Collaborator from "../../models/Collaborator"
+const Collaborator = require("../../models/Collaborator")
 
 // @route /api/collaborator/add
 // @description Add a collaborator field to the collection with email and special link
 // @access PRIVATE 
 
 router.post('/add', passport.authenticate('jwt', { session: false }), (req, res) => {
-    const content = req.body.collaborator
-    // Loop over for N collaborators
-    for (let i = 0 ; i < content.length ; i++) {
+    const content = req.body  
         Collaborator.findOne({
-            email: content[i].email
+            email: content.email
         }).then(collab => {
             if (collab) {
                 res.status(400).json('Email address already exists')
             } else {
-                const email = content[i].email 
-                const link = content[i].link
+                const email = content.email 
+                const link = content.link
 
                 // Save it to the model 
-                const newCollaborator = {
+                const newCollaborator = new Collaborator({
                     email: email,
                     link: link
-                }
-
+                })
                 newCollaborator.save()
                     .then(savedCollaborator => {
-                        res.json(savedCollaborator)
                         console.log(`Collaborator with email address ${email} saved!`)
+                        res.json(savedCollaborator)
+                    })
+                    .catch(error => {
+                        res.json(error)
                     })
             }
         }).catch(error => {
             res.json(error)
         })
-    }
 })
+
+module.exports = router;
