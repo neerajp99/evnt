@@ -27,6 +27,14 @@ const ownerUserSchema = new Schema({
     required: true,
     default: 0
   },
+  verified: {
+    type: Boolean,
+    default: false
+  },
+  link: {
+    type: String,
+    default: null
+  },
   events: [
     {
       eventId: {
