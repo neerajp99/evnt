@@ -12,6 +12,10 @@ const passport = require("passport");
 const keys = require("../../config/keys");
 // Bring in Collaborators
 const Collaborator = require("../../models/Collaborator");
+// Bring in Confirm Email route 
+const confirmEmail = require("./confirmEmail");
+// Bring in short-id 
+const shortid = require('shortid');
 
 // @route GET /api/ownerUsers/register
 // @description Register Owners of events
@@ -115,12 +119,11 @@ router.post("/login", (req, res) => {
 // @access Public
 
 router.post("/register", (req, res) => {
-  console.log('hello world')
   Collaborator.findOne({
     email: req.body.email
   }).then(collaborator => {
+    // Check if the user with this email address is invited as a collaborator 
     if (!collaborator) {
-
       res.status(404).json('Incorrect email address used!')
     } else {
       // Check if the user has already registered
@@ -130,10 +133,16 @@ router.post("/register", (req, res) => {
         if (registeredUser) {
           res.status(400).json('User already registered with this email address!')
         } else {
+          const generatedString = shortid.generate();
+          const updatedAt = new Date().getTime();
+          const concatenate_link = generatedString + updatedAt ;
+          const link_string = concatenate_link;
+          // Create new owner user
           const newCollaborator = new OwnerUser({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password
+            password: req.body.password,
+            link: link_string
           })
     
           // Hash the password before adding it to the database 
@@ -146,8 +155,20 @@ router.post("/register", (req, res) => {
                 newCollaborator
                   .save()
                   .then(savedCollaborator => {
-                    console.log("New Collaborator registered successfully!")
+                    // console.log("New Collaborator registered successfully!", savedCollaborator)
                     res.json(savedCollaborator)
+
+                    // Send an email to confirm email 
+                    confirmEmail({
+                      "from": "neerajp1999@gmail.com", 
+                      "to": savedCollaborator.email, 
+                      "message": "conference", 
+                      "event": "PyCon Universe", 
+                      "link": `http://localhost:3000/check/${savedCollaborator.link}`,
+                    }, 
+                      (error, info) => {
+                      res.json('Confirmation email sent!', info)
+                    })
                   })
                   .catch(error => {
                     console.log(error)
