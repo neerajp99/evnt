@@ -21,6 +21,8 @@ import Speakers from "./components/speakers/Speakers";
 import Profile from "./components/profile/Profile";
 import Chat from "./components/chat/Chat";
 import { createBrowserHistory } from "history";
+import Confirm from "./components/authentication/Confirm"
+import EmailSent from "./components/authentication/EmailSent"
 
 export const appHistory = createBrowserHistory();
 
@@ -56,6 +58,8 @@ function App() {
         <div className="App">
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
+          <Route exact path="/confirm" component = {Confirm} />
+          <Route exact path="/emailSent" component = {EmailSent} />
           <Switch>
             <ProtectedRoute
               exact
