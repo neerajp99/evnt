@@ -186,3 +186,46 @@ export const GoogleText = styled.div`
   /* float: right; */
   padding-top: 1.5vh;
 `;
+
+export const SuccessBox = styled.div` 
+  height: 50vh;
+  background: #202b41;
+`;
+
+export const IconBox = styled.div`
+  
+`;
+
+export const ConfirmDiv = styled.div`
+
+`;
+
+export const ConfirmContainer = styled.div`
+
+`;
+
+export const SuccessFirst = styled.h2`
+  font-weight: 600 !important;
+  font-family: Lato !important;
+  color: #fff !important;
+  font-size: 1.5rem;
+  margin-top: 5%;
+`;
+
+export const SuccessSecond = styled.h3`
+  color: #a2a9b9;
+  font-family: Lato;
+  font-size: 1.1rem;
+  font-weight :400;
+`;
+
+export const SuccessButton = styled.button`
+  height: 6vh;
+    width: 20vw;
+    background: transparent;
+    border: 2px solid #fff;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 8%;
+`

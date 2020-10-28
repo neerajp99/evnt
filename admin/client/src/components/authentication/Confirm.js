@@ -20,14 +20,22 @@ class Confirm extends Component {
 
     render() {
         console.log(this.props)
-        const notify = () => toast("Wow so easy !");
+        const notify = () => toast.info('🦄 Confirmation email has been sent!', {
+            position: "top-center",
+            autoClose: 500000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            });;
         return (
             <ConfirmDiv>
                 <ConfirmContainer>
                 <button onClick={notify}>Notify !</button>
                 <ToastContainer
                     position="top-center"
-                    autoClose={5000}
+                    autoClose={500000}
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick
