@@ -187,22 +187,20 @@ export const GoogleText = styled.div`
   padding-top: 1.5vh;
 `;
 
-export const SuccessBox = styled.div` 
-  height: 50vh;
+export const SuccessBox = styled.div`
+  min-height: 50vh;
+  height: auto;
   background: #202b41;
+  @media (max-width: 1000px) {
+    padding-bottom: 5%;
+  }
 `;
 
-export const IconBox = styled.div`
-  
-`;
+export const IconBox = styled.div``;
 
-export const ConfirmDiv = styled.div`
+export const ConfirmDiv = styled.div``;
 
-`;
-
-export const ConfirmContainer = styled.div`
-
-`;
+export const ConfirmContainer = styled.div``;
 
 export const SuccessFirst = styled.h2`
   font-weight: 600 !important;
@@ -216,16 +214,27 @@ export const SuccessSecond = styled.h3`
   color: #a2a9b9;
   font-family: Lato;
   font-size: 1.1rem;
-  font-weight :400;
+  font-weight: 400;
 `;
 
 export const SuccessButton = styled.button`
-  height: 6vh;
-    width: 20vw;
-    background: transparent;
-    border: 2px solid #fff;
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
-    margin-top: 8%;
-`
+  height: 3rem;
+  width: 20vw;
+  background: transparent;
+  border: 2px solid #fff;
+  font-size: 20px;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 8%;
+  transition: 0.3s all ease-in-out;
+  -webkit-transition: 0.3s all ease-in-out;
+  -moz-transition: 0.3s all ease-in-out;
+  &:hover {
+    background: #fff;
+    transition: 0.3s all ease-in-out;
+    -webkit-transition: 0.3s all ease-in-out;
+    -moz-transition: 0.3s all ease-in-out;
+    color: #1d2537;
+    transform: translateY(-4px);
+  }
+`;
