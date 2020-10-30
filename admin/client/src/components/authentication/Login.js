@@ -22,6 +22,8 @@ import {
   GoogleText,
   TwitterImage
 } from "./styles/Forms";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 class Login extends Component {
   state = {
@@ -71,6 +73,17 @@ class Login extends Component {
     return (
       <Container>
         <Card>
+          <ToastContainer
+            position="top-center"
+            autoClose={10000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
           <InnerContainer>
             <H1>Log in to Your Account</H1>
             <P>

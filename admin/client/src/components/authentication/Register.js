@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { Link, withRouter, Redirect } from "react-router-dom";
 import styled from "styled-components";
 import InputField from "../commons/InputField";
 import { connect } from "react-redux";
@@ -76,7 +76,8 @@ class Register extends Component {
             <H1>Sign Up for an Account</H1>
             <P>
               {" "}
-              Let's get you all setup so you can start collaborating, review talks, and more.
+              Let's get you all setup so you can start collaborating, review
+              talks, and more.
             </P>
             <FormGroup>
               <form noValidate onSubmit={this.onSubmit}>
