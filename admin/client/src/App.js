@@ -58,8 +58,8 @@ function App() {
         <div className="App">
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
-          <Route exact path="/confirm" component = {Confirm} />
-          <Route exact path="/emailSent" component = {EmailSent} />
+          <Route exact path="/confirm/:link" component = {Confirm} />
+          <Route exact path="/emailSent/:link" component = {EmailSent} />
           <Switch>
             <ProtectedRoute
               exact
