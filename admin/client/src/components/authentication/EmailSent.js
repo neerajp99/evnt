@@ -9,63 +9,99 @@ import {
   ConfirmDiv,
   ConfirmContainer,
   SuccessFirst,
-  SuccessSecond ,
+  SuccessSecond,
   SuccessButton
 } from "./styles/Forms";
-import {
-    faCheckCircle
-} from "@fortawesome/free-solid-svg-icons";
-  
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import Spin from "../../utils/Spinner";
 class EmailSent extends Component {
+  state = {
+    loading: true
+  };
 
   componentDidMount() {
-    toast.info('Confirmation email has been sent!', {
-        position: "top-center",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        });
+    const paramsString = this.props.history.location.pathname.slice(11);
+    axios
+      .post("/api/check/checkLegitConfirm", { paramsString })
+      .then(data => {
+        if (data) {
+          this.setState({
+            loading: false
+          });
+          toast.info("Confirmation email has been sent!", {
+            position: "top-center",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined
+          });
+        } else {
+          return this.props.history.push("/login");
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        return this.props.history.push("/login");
+      });
   }
 
   render() {
+    const { loading } = this.state;
     return (
       <Container>
-        <Card>
-          <InnerContainer>
-          <ConfirmDiv>
-                <ConfirmContainer>
-                <ToastContainer
-                    position="top-center"
-                    autoClose={10000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                />
-                </ConfirmContainer>
-            </ConfirmDiv>
-          
-          <SuccessBox>
-            <IconBox>
-            <FontAwesomeIcon className="successIcon" icon={faCheckCircle} aria-hidden="true" />
-            </IconBox>
-            <SuccessFirst>Confirmation email has been sent successfully!</SuccessFirst>
-            <SuccessSecond>Kindly check your email for detailed instructions.</SuccessSecond>
-            <SuccessButton>Login</SuccessButton>
-          </SuccessBox>
-          </InnerContainer>
-        </Card>
-        <Card>Hello World</Card>
+        {loading ? (
+          <Spin />
+        ) : (
+          <React.Fragment>
+            <Card>
+              <InnerContainer>
+                <ConfirmDiv>
+                  <ConfirmContainer>
+                    <ToastContainer
+                      position="top-center"
+                      autoClose={10000}
+                      hideProgressBar={false}
+                      newestOnTop={false}
+                      closeOnClick
+                      rtl={false}
+                      pauseOnFocusLoss
+                      draggable
+                      pauseOnHover
+                    />
+                  </ConfirmContainer>
+                </ConfirmDiv>
+                <SuccessBox>
+                  <IconBox>
+                    <FontAwesomeIcon
+                      className="successIcon"
+                      icon={faPaperPlane}
+                      aria-hidden="true"
+                    />
+                  </IconBox>
+                  <SuccessFirst>
+                    Confirmation email has been sent successfully!
+                  </SuccessFirst>
+                  <SuccessSecond>
+                    Kindly check your email for detailed instructions.
+                  </SuccessSecond>
+                  <SuccessButton
+                    onClick={() => this.props.history.push(`/login`)}
+                  >
+                    Login
+                  </SuccessButton>
+                </SuccessBox>
+              </InnerContainer>
+            </Card>
+            <Card>Hello World</Card>
+          </React.Fragment>
+        )}
       </Container>
     );
   }
