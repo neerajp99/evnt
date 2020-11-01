@@ -70,10 +70,13 @@ router.post("/login", (req, res) => {
     email
   })
     .then(owner => {
+      console.log('MATCHED',owner)
       if (!owner) {
         return res.status(403).json("No user is registered with this email address!");
-      }
-      console.log(password, owner.password);
+      } else {
+        if(!owner.verified) {
+          return res.status(404).json("Kindly confirm your email address! Check your inbox for detailed instructions!")
+        } else {
       // If user exists, decrypt the password from the database and compare
       bcrypt
         .compare(password, owner.password)
@@ -107,6 +110,8 @@ router.post("/login", (req, res) => {
         .catch(error => {
           return res.status(400).json("Password does not match!");
         });
+      }
+      }
     })
     .catch(error => {
       return res.status(404).json(error);
@@ -164,7 +169,7 @@ router.post("/register", (req, res) => {
                       "to": savedCollaborator.email, 
                       "message": "conference", 
                       "event": "PyCon Universe", 
-                      "link": `http://localhost:3000/check/${savedCollaborator.link}`,
+                      "link": `http://localhost:3000/confirm/${savedCollaborator.link}`,
                     }, 
                       (error, info) => {
                       res.json('Confirmation email sent!', info)
