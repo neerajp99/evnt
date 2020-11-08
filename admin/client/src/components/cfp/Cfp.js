@@ -44,6 +44,7 @@ function Cfp() {
       const newTalksId = Array.from(column.talksId);
       newTalksId.splice(source.index, 1);
       newTalksId.splice(destination.index, 0, draggableId);
+      
 
       // Create the update column
       const newColumn = {
@@ -68,6 +69,7 @@ function Cfp() {
       }));
       return;
     }
+    
     // When the starting column is different than the destination column
     // Moving items from one column to the other column
     //
@@ -82,13 +84,14 @@ function Cfp() {
 
     // New array for the finished talks id's
     const finishedTalksIds = Array.from(finishColumn.talksId);
+
     finishedTalksIds.splice(destination.index, 0, draggableId);
     // New Finished column
     const newFinishedColumn = {
       ...finishColumn,
       talksId: finishedTalksIds
     };
-
+    
     // New state object
     setState(state => ({
       ...state,
