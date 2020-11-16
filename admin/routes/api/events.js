@@ -3,6 +3,7 @@ const router = express.Router();
 const Event = require("../../models/Event");
 const passport = require("passport");
 const sendEmail = require("./sendEmail");
+const Cfp = require('../../models/Cfp');
 
 // @route GET /api/events
 // @description Get event made by user
@@ -146,6 +147,14 @@ router.post(
           new Event(eventData)
             .save()
             .then(event => {
+              new Cfp()
+                .save()
+                .then(cfp => {
+                  return res.json(cfp)
+                })
+                .catch(error => {
+                  res.json(error)
+                })
               res.status(200).json(event);
             })
             .catch(err => {
