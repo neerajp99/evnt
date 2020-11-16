@@ -2,18 +2,30 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema 
 
 const CfpSchema = new Schema({
-    col1: [
+    all: [
         {
-
+            refID: {
+                type: String,
+                required: true 
+            }
         }
-
     ],
-    col2: [
-
+    shortlisted: [
+        {
+            refID: {
+                type: String,
+                required: true 
+            }
+        }
     ],
-    col3: [
-
+    final: [
+        {
+            refID: {
+                type: String,
+                required: true 
+            }
+        }
     ]
 })
 
-module.exports = Cfp = mongoose.models('cfpschema', CfpSchema)
+module.exports = Cfp = mongoose.model('cfpschema', CfpSchema)
