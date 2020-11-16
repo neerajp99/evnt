@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Talk = require('../../models/Talk');
 const passport = require('passport');
+const Cfp = require('../../models/Cfp');
 
 // @route GET /api/talk
 // @description Get current user's talk
@@ -118,6 +119,25 @@ router.post(
     new Talk(newTalk)
     .save()
     .then((talk) => {
+      // New Cfp instance with reference to the talk created
+      newCfp = {
+        refID: talk._id 
+      }
+      // Search for CFP, and append an instance of talk id
+      Cfp.find()
+        .then(cfp => {
+          cfp[0].all.unshift(newCfp)
+          cfp[0].save()
+            .then(updatedCfp => {
+              console.log(updatedCfp)
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        })
+        .catch(error => {
+          console.log(error)
+        })
       res.status(200).json(talk);
     })
     .catch((err) => {
