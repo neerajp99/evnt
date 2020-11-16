@@ -12,21 +12,29 @@ import {
 } from "./styles/Cfp";
 import CfpContainerElement from "./CfpContainerElement";
 import initialData from "./dummy_data";
+import { fetchCfp } from "../../actions/cfpActions";
 
 function Cfp() {
-  // Initial state as the inital data
+  // Initial state as the initial data
   const [state, setState] = useState(initialData);
+
+  useEffect(() => {
+    fetchCfp();
+  }, [])
 
   // onDragEnd function to reorder the three columns
   const onDragEnd = result => {
     const { destination, source, draggableId } = result;
+    console.log('ID', draggableId)
+    console.log('Source: ', source)
+    console.log('Destination', destination)
 
     // If there is no destination, we don't have to do anything
     if (!destination) {
       return;
     }
 
-    // If the conditions are true, drop it back to it's initial postitionif (
+    // If the conditions are true, drop it back to it's initial position
     if (
       destination.droppableId === source.droppableId &&
       destination.index === source.index

@@ -49,23 +49,23 @@ const initalData = {
     }
   },
   columns: {
-    "col1": {
-      id: "col1",
+    "all": {
+      id: "all",
       title: "All Talks",
       talksId: []
     },
-    "col2": {
-      id: "col2",
+    "shortlisted": {
+      id: "shortlisted",
       title: "Shortlisted",
       talksId: ["talk-1", "talk-2", "talk-3", "talk-4"]
     },
-    "col3": {
-      id: "col3",
+    "final": {
+      id: "final",
       title: "Finalised",
       talksId: ["talk-5"]
     }
   },
-  columnOrder: ["col1", "col2", "col3"]
+  columnOrder: ["all", "shortlisted", "final"]
 };
 
 export default initalData;
