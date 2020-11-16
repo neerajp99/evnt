@@ -8,7 +8,8 @@ const ownerUsers = require("./routes/api/ownerUsers");
 const ownerProfile = require("./routes/api/ownerProfile");
 const dashboard = require("./routes/api/dashboard");
 const collaborator = require("./routes/api/collaborator");
-const check = require('./routes/api/check')
+const check = require('./routes/api/check');
+const cfp = require('./routes/api/cfp');
 
 // Initialze app
 const app = express();
@@ -43,6 +44,7 @@ app.use("/api/ownerProfile", ownerProfile);
 app.use("/api/dashboard", dashboard);
 app.use("/api/collaborator", collaborator);
 app.use('/api/check', check);
+app.use('/api/cfp', cfp);
 
 //Adding passport middleware
 app.use(passport.initialize());
