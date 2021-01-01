@@ -119,14 +119,10 @@ router.post(
     new Talk(newTalk)
     .save()
     .then((talk) => {
-      // New Cfp instance with reference to the talk created
-      newCfp = {
-        refID: talk._id 
-      }
       // Search for CFP, and append an instance of talk id
       Cfp.find()
         .then(cfp => {
-          cfp[0].all.unshift(newCfp)
+          cfp[0].all.push(talk._id)
           cfp[0].save()
             .then(updatedCfp => {
               console.log(updatedCfp)
@@ -205,7 +201,7 @@ router.post('/update/:id', passport.authenticate("jwt", { session: false }), (re
   })
 })
 
-// @route POST /api/talk/getTalk/:id
+// @route GET /api/talk/getTalk/:id
 // @description Fetch talks using talk id
 // @access PRIVATE
 
