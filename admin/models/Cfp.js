@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const CfpSchema = new Schema({
     all: [],
     shortlisted: [],
-    final: []
+    final: [],
 })
 
 module.exports = Cfp = mongoose.model('cfpschema', CfpSchema)
