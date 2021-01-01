@@ -13,21 +13,93 @@ import {
 import CfpContainerElement from "./CfpContainerElement";
 import initialData from "./dummy_data";
 import { fetchCfp } from "../../actions/cfpActions";
+import { connect } from "react-redux";
 
-function Cfp() {
+function Cfp(props) {
   // Initial state as the initial data
   const [state, setState] = useState(initialData);
+  const [allTalks, setAllTalks] = useState([])
+  const [shortlistedTalks, setShortlistedTalks] = useState([])
+  const [selectedTalks, setSelectedTalks] = useState([])
+  const [cfpState, setCfpState] = useState(null)
+  const [eventID, setEventID] = useState(null)
 
-  useEffect(() => {
-    fetchCfp();
-  }, [])
+  const { fetchCfp, cfp } = props;
+
+  useEffect(
+    () => {
+      fetchCfp();
+    },
+    [fetchCfp]
+  );
+
+  // Check for state change 
+  if (typeof(cfp) !== 'undefined') {
+    if (cfp !== cfpState && Object.keys(cfp.cfp).length > 0){ 
+      setCfpState(cfp);
+      setEventID(cfp.cfp[0]._id)
+      const cfpAll = cfp.cfp[0].all
+      const cfpShortlisted = cfp.cfp[0].shortlisted
+      const cfpFinal = cfp.cfp[0].final 
+      setAllTalks(cfpAll)
+      setShortlistedTalks(cfpShortlisted)
+      setSelectedTalks(cfpFinal)
+    }
+  }
+  
+  // Insert into a specific index in an array 
+  Array.prototype.insert = ( index, item ) => {
+    this.splice( index, 0, item );
+  };  
+
+  // Remove a value from a specific index in an array
+  Array.prototype.remove = (index) => {
+    this.splice(index, 1)
+  }
+
+  // Remove from the state at a specific index 
+  const removeFromState = (valueString, index) => {
+    if (valueString == "shortlisted") {
+      let temp = shortlistedTalks;
+      console.log('TEMP', temp)
+      temp = temp.remove(index)
+      setShortlistedTalks(temp)
+    }
+    if (valueString == "all") {
+      let temp = allTalks;
+      temp = temp.remove(index)
+      setAllTalks(temp)
+    }
+    if (valueString == "final") {
+      let temp = selectedTalks;
+      temp = temp.remove(index)
+      setSelectedTalks(temp)
+    }
+  }
+
+  // Insert into a specific index of the state
+  const insertIntoState = (valueString, index, value) => {
+    if (valueString == "shortlisted") {
+      let temp = shortlistedTalks;
+      console.log('TEMP', temp)
+      temp = temp.insert(index, value)
+      setShortlistedTalks(temp)
+    }
+    if (valueString == "all") {
+      let temp = allTalks;
+      temp = temp.insert(index, value)
+      setAllTalks(temp)
+    }
+    if (valueString == "shortlisted") {
+      let temp = selectedTalks;
+      temp = temp.insert(index, value)
+      setSelectedTalks(temp)
+    }
+  }
 
   // onDragEnd function to reorder the three columns
   const onDragEnd = result => {
     const { destination, source, draggableId } = result;
-    console.log('ID', draggableId)
-    console.log('Source: ', source)
-    console.log('Destination', destination)
 
     // If there is no destination, we don't have to do anything
     if (!destination) {
@@ -99,7 +171,26 @@ function Cfp() {
       ...finishColumn,
       talksId: finishedTalksIds
     };
+
+    console.log('ID', draggableId)
+    console.log('Source: ', source)
+    console.log('Destination', destination)
+
+    // Remove item from source list at a specified index
+    const sourceVal = removeFromState(source.droppableId, source.index)
+    // Insert item to the destination list at a specified index 
+    const destinationVal = insertIntoState(destination.droppableId, destination.index, draggableId)
+
+    // Updated object
+    const updatedTalks = {
+      all: allTalks,
+      shortlisted: shortlistedTalks,
+      final: selectedTalks,
+      eventID: eventID
+    }
     
+
+
     // New state object
     setState(state => ({
       ...state,
@@ -132,7 +223,6 @@ function Cfp() {
               {state.columnOrder.map(columnId => {
                 const column = state.columns[columnId];
                 const talks = column.talksId.map(talkId => state.talks[talkId]);
-                console.log(state);
                 return (
                   <CfpContainerElement
                     heading={column.title}
@@ -149,4 +239,12 @@ function Cfp() {
     </Container>
   );
 }
-export default Cfp;
+
+const mapStateToProps = state => ({
+  cfp: state.cfp
+});
+
+export default connect(
+  mapStateToProps,
+  { fetchCfp }
+)(Cfp);
