@@ -10,7 +10,7 @@ export default function(state = initialState, action) {
         case FETCH_CFP:
             return {
                 ...state,
-                cfp: action.payload,
+                cfp: action.payload.data,
                 loading: false 
             }
 
