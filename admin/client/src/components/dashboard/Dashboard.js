@@ -56,7 +56,7 @@ class Dashboard extends Component {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     const {allTalks} = nextProps.dashboard
-    if (allTalks !== prevState.allTalks){
+    if (allTalks !== prevState.allTalks || typeof(allTalks) == "object"){
       if (!isEmpty(allTalks)) {
         const count = allTalks.length
         return {
@@ -64,6 +64,12 @@ class Dashboard extends Component {
           allTalks: allTalks,
           talksSubmitted: count, 
           dashboardLoading: false 
+        }
+      } else {
+        return {
+          dashboardLoading: false,
+          allTalks: 0,
+          dashboard: {}
         }
       }
     }
