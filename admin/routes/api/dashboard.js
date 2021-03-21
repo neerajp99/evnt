@@ -13,6 +13,7 @@ router.get(
   (req, res) => {
     Talk.find()
       .then(talks => {
+        console.log(talks)
         res.status(200).json(talks);
       })
       .catch(error => {
