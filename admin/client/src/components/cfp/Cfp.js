@@ -15,6 +15,16 @@ import initialData from "./dummy_data";
 import { fetchCfp } from "../../actions/cfpActions";
 import { connect } from "react-redux";
 
+// Insert into a specific index in an array 
+Array.prototype.insert = function ( index, item ) {
+  this.splice( index, 0, item );
+};  
+
+// Remove a value from a specific index in an array
+Array.prototype.remove = function ( index ) {
+  this.splice(index, 1)
+}
+
 function Cfp(props) {
   // Initial state as the initial data
   const [state, setState] = useState(initialData);
@@ -45,16 +55,6 @@ function Cfp(props) {
       setShortlistedTalks(cfpShortlisted)
       setSelectedTalks(cfpFinal)
     }
-  }
-  
-  // Insert into a specific index in an array 
-  Array.prototype.insert = ( index, item ) => {
-    this.splice( index, 0, item );
-  };  
-
-  // Remove a value from a specific index in an array
-  Array.prototype.remove = (index) => {
-    this.splice(index, 1)
   }
 
   // Remove from the state at a specific index 
