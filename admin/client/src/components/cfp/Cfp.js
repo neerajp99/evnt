@@ -61,18 +61,17 @@ function Cfp(props) {
   const removeFromState = (valueString, index) => {
     if (valueString == "shortlisted") {
       let temp = shortlistedTalks;
-      console.log('TEMP', temp)
-      temp = temp.remove(index)
+      temp.remove(index)
       setShortlistedTalks(temp)
     }
     if (valueString == "all") {
       let temp = allTalks;
-      temp = temp.remove(index)
+      temp.remove(index)
       setAllTalks(temp)
     }
     if (valueString == "final") {
       let temp = selectedTalks;
-      temp = temp.remove(index)
+      temp.remove(index)
       setSelectedTalks(temp)
     }
   }
@@ -81,18 +80,17 @@ function Cfp(props) {
   const insertIntoState = (valueString, index, value) => {
     if (valueString == "shortlisted") {
       let temp = shortlistedTalks;
-      console.log('TEMP', temp)
-      temp = temp.insert(index, value)
+      temp.insert(index, value)
       setShortlistedTalks(temp)
     }
     if (valueString == "all") {
       let temp = allTalks;
-      temp = temp.insert(index, value)
+      temp.insert(index, value)
       setAllTalks(temp)
     }
     if (valueString == "shortlisted") {
       let temp = selectedTalks;
-      temp = temp.insert(index, value)
+      temp.insert(index, value)
       setSelectedTalks(temp)
     }
   }
@@ -223,7 +221,7 @@ function Cfp(props) {
               {state.columnOrder.map(columnId => {
                 const column = state.columns[columnId];
                 const talks = column.talksId.map(talkId => state.talks[talkId]);
-                return (
+                return ( 
                   <CfpContainerElement
                     heading={column.title}
                     talks={talks}
